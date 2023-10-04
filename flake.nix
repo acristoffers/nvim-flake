@@ -140,6 +140,7 @@
         ];
       in
       rec {
+        formatter = nixpkgs.legacyPackages.${system}.nixpkgs-fmt;
         packages.default = neovim;
         apps.default = {
           type = "app";
