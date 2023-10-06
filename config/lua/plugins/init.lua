@@ -36,15 +36,3 @@ require("dressing").setup({
 	timeout = 5000,
 	top_down = true,
 })
-
-vim.notify = require("notify")
----@diagnostic disable-next-line: duplicate-set-field
-vim.ui.select = function(...)
-	require("lazy").load({ plugins = { "dressing.nvim" } })
-	return vim.ui.select(...)
-end
----@diagnostic disable-next-line: duplicate-set-field
-vim.ui.input = function(...)
-	require("lazy").load({ plugins = { "dressing.nvim" } })
-	return vim.ui.input(...)
-end
