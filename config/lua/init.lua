@@ -1,20 +1,12 @@
+vim.g.plugins_loaded = false
+
 require("config.options")
 require("config.autocommands")
 require("config.keybindings")
 
-require("plugins")
 require("plugins.alpha")
-require("plugins.autopairs")
 require("plugins.bufferline")
-require("plugins.cmp")
-require("plugins.comments")
-require("plugins.gitsigns")
-require("plugins.indentline")
-require("plugins.lsp")
 require("plugins.lualine")
-require("plugins.luasnip")
-require("plugins.telescope")
-require("plugins.treesitter")
 require("plugins.whichkey")
 
 vim.cmd([[ colorscheme dracula ]])

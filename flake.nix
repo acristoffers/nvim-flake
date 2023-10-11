@@ -41,10 +41,22 @@
               '';
               packages.all = with pkgs.vimPlugins; {
                 start = [
-                  FixCursorHold-nvim
                   alpha-nvim
-                  bufdelete-nvim
                   bufferline-nvim
+                  dracula-nvim
+                  dressing-nvim
+                  harpoon
+                  lualine-lsp-progress
+                  lualine-nvim
+                  my-config
+                  telescope-media-files-nvim
+                  telescope-nvim
+                  telescope-ui-select-nvim
+                  which-key-nvim
+                ];
+                opt = [
+                  FixCursorHold-nvim
+                  bufdelete-nvim
                   cmp-buffer
                   cmp-cmdline
                   cmp-nvim-lsp
@@ -52,25 +64,19 @@
                   cmp-nvim-lua
                   cmp-path
                   cmp_luasnip
-                  dracula-nvim
-                  dressing-nvim
                   flutter-tools-nvim
                   formatter-nvim
                   friendly-snippets
                   gitsigns-nvim
-                  harpoon
                   hop-nvim
                   indent-blankline-nvim
                   julia-vim
                   lsp-colors-nvim
                   lsp-setup
                   lsp-status-nvim
-                  lualine-lsp-progress
-                  lualine-nvim
                   luasnip
                   marks-nvim
                   mini-nvim
-                  my-config
                   neoconf-nvim
                   neodev-nvim
                   nvim-autopairs
@@ -89,9 +95,6 @@
                   plenary-nvim
                   popup-nvim
                   rust-tools-nvim
-                  telescope-media-files-nvim
-                  telescope-nvim
-                  telescope-ui-select-nvim
                   undotree
                   vim-better-whitespace
                   vim-fish
@@ -105,9 +108,7 @@
                   vim-tridactyl
                   vimtex
                   virtual-types-nvim
-                  which-key-nvim
                 ];
-                opt = [ ];
               };
             };
           };
