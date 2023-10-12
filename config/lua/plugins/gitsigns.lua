@@ -1,3 +1,5 @@
+vim.cmd("packadd gitsigns.nvim")
+
 local gitsigns = require("gitsigns")
 
 gitsigns.setup({

@@ -1,8 +1,17 @@
+vim.cmd([[
+    packadd nvim-treesitter
+    packadd nvim-treesitter-context
+    packadd nvim-treesitter-textobjects
+    packadd nvim-ts-context-commentstring
+    packadd nvim-ts-rainbow2
+    packadd vim-matchup
+]])
+
 local opts = {
-	ensure_installed = {}, -- Or run :TSUpdate org
+	ensure_installed = {},
 	sync_install = false,
 	auto_install = false,
-	ignore_install = {}, -- List of parsers to ignore installing
+	ignore_install = {},
 	autopairs = {
 		enable = true,
 	},
@@ -20,6 +29,9 @@ local opts = {
 			scope_incremental = "grc",
 			node_decremental = "grm",
 		},
+	},
+	matchup = {
+		enable = true, -- mandatory, false will disable the whole extension
 	},
 	textobjects = {
 		select = {
@@ -107,6 +119,3 @@ require("treesitter-context").setup({
 		},
 	},
 })
-
-vim.cmd([[ set foldmethod=expr ]])
-vim.cmd([[ set foldexpr=nvim_treesitter#foldexpr() ]])

@@ -1,9 +1,16 @@
+vim.cmd([[
+    packadd cmp-nvim-lsp
+    packadd lsp-status.nvim
+    packadd nvim-lspconfig
+    packadd formatter.nvim
+    packadd vimplugin-lsp-setup
+    packadd virtual-types.nvim
+]])
+
 require("lspconfig.ui.windows").default_options.border = "rounded"
 
 local config = {
-	-- disable virtual text
 	virtual_text = false,
-	-- show signs
 	signs = true,
 	update_in_insert = true,
 	underline = true,
@@ -38,6 +45,7 @@ configs["matlab"] = {
 		},
 	},
 }
+
 local lspconfig = require("lspconfig")
 lspconfig.matlab.setup({})
 
@@ -119,12 +127,12 @@ require("lsp-setup").setup({
 
 require("formatter").setup({
 	filetype = {
-		lua = require("formatter.filetypes.lua").stylua,
-		nix = require("formatter.filetypes.nix").nixpkgs_fmt,
-		python = require("formatter.filetypes.python").black,
 		fish = require("formatter.filetypes.fish").fishindent,
 		html = require("formatter.filetypes.html").htmlbeautify,
 		json = require("formatter.filetypes.json").jq,
+		lua = require("formatter.filetypes.lua").stylua,
+		nix = require("formatter.filetypes.nix").nixpkgs_fmt,
+		python = require("formatter.filetypes.python").black,
 		sh = require("formatter.filetypes.sh").shfmt,
 		toml = require("formatter.filetypes.toml").taplo,
 		yaml = require("formatter.filetypes.yaml").yamlfmt,
@@ -140,18 +148,3 @@ lsp_status.config({
 	status_symbol = "",
 })
 lsp_status.register_progress()
-
-require("rust-tools").setup({
-	tools = {
-		runnables = {
-			use_telescope = true,
-		},
-		inlay_hints = {
-			auto = true,
-			show_parameter_hints = true,
-			parameter_hints_prefix = "",
-			other_hints_prefix = "",
-		},
-	},
-	server = require("lsp.settings.rust_analyzer"),
-})

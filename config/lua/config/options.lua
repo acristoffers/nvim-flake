@@ -41,7 +41,7 @@ for k, v in pairs(options) do
 	vim.opt[k] = v
 end
 
--- Changes CursorLine color to something different from the selection color --
+vim.cmd([[ colorscheme dracula ]])
 vim.cmd([[ highlight CursorLine guibg=#21222C ]])
 
 vim.cmd([[ set whichwrap+=<,>,[,],h,l ]])
@@ -60,6 +60,8 @@ vim.cmd([[ map gs <Plug>Sneak_; ]])
 vim.cmd([[ highlight Sneak guifg=black guibg=#00C7DF ctermfg=black ctermbg=cyan ]])
 vim.cmd([[ highlight SneakScope guifg=red guibg=yellow ctermfg=red ctermbg=yellow ]])
 vim.cmd([[ let g:sneak#prompt = '🔎  ' ]])
+
+vim.api.nvim_set_hl(0, "@variable.matlab", { link = "Identifier" })
 
 vim.api.nvim_create_user_command("Format", function()
 	vim.lsp.buf.format({ async = true })

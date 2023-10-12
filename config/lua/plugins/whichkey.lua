@@ -1,3 +1,10 @@
+vim.cmd([[
+    packadd hop.nvim
+    packadd which-key.nvim
+]])
+
+require("hop").setup({})
+
 local which_key = require("which-key")
 local setup = {
 	plugins = {
@@ -76,7 +83,6 @@ local opts = {
 
 local mappings = {
 	[";"] = { ":Alpha<cr>", "Dashboard" },
-	e = { ":NvimTreeToggle<cr>", "Open Nvim Tree" },
 	u = { ":UndotreeToggle<cr>", "Toggle Undo Tree" },
 	w = {
 		name = "+Windows",
@@ -300,63 +306,6 @@ local mappings = {
 	T = {
 		name = "+Treesitter",
 		i = { ":TSConfigInfo<cr>", "Info" },
-	},
-	d = {
-		name = "+Debug",
-		c = { ":lua require'dap'.continue()<cr>", "Continue" },
-		s = { ":lua require'dap'.step_over()<cr>", "Step Over" },
-		i = { ":lua require'dap'.step_into()<cr>", "Step Into" },
-		o = { ":lua require'dap'.step_out()<cr>", "Step Out" },
-		b = {
-			":lua require'dap'.toggle_breakpoint()<cr>",
-			"Toggle Breakpoint",
-		},
-		u = { ':lua require("dapui").toggle()<cr>', "Toggle UI" },
-		B = {
-			":lua require'dap'.set_breakpoint(vim.fn.input('Breakpoint condition: '))<cr>",
-			"Conditional Breakpoint",
-		},
-	},
-	h = {
-		name = "Harpoon",
-		a = {
-			require("harpoon.mark").add_file,
-			"Add file",
-		},
-		h = {
-			require("harpoon.ui").toggle_quick_menu,
-			"Toggle UI",
-		},
-		["1"] = {
-			function()
-				require("harpoon.ui").nav_file(1)
-			end,
-			"Go to file 1",
-		},
-		["2"] = {
-			function()
-				require("harpoon.ui").nav_file(2)
-			end,
-			"Go to file 2",
-		},
-		["3"] = {
-			function()
-				require("harpoon.ui").nav_file(3)
-			end,
-			"Go to file 3",
-		},
-		["4"] = {
-			function()
-				require("harpoon.ui").nav_file(4)
-			end,
-			"Go to file 4",
-		},
-		["5"] = {
-			function()
-				require("harpoon.ui").nav_file(5)
-			end,
-			"Go to file 5",
-		},
 	},
 }
 
