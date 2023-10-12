@@ -1,3 +1,15 @@
+vim.cmd([[
+    packadd luasnip
+    packadd nvim-cmp
+    packadd cmp-buffer
+    packadd cmp-cmdline
+    packadd cmp_luasnip
+    packadd cmp-nvim-lsp
+    packadd cmp-nvim-lsp-signature-help
+    packadd cmp-nvim-lua
+    packadd cmp-path
+]])
+
 local opts = function()
 	local cmp = require("cmp")
 	local luasnip = require("luasnip")

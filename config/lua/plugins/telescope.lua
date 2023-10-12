@@ -1,3 +1,14 @@
+vim.cmd([[
+    packadd dressing.nvim
+    packadd nvim-notify
+    packadd nvim-web-devicons
+    packadd plenary.nvim
+    packadd popup.nvim
+    packadd telescope-media-files.nvim
+    packadd telescope-ui-select.nvim
+    packadd telescope.nvim
+]])
+
 local telescope = require("telescope")
 
 telescope.load_extension("media_files")
@@ -5,6 +16,35 @@ telescope.load_extension("ui-select")
 telescope.load_extension("notify")
 
 local actions = require("telescope.actions")
+
+require("dressing").setup({
+	background_colour = "Normal",
+	fps = 30,
+	icons = {
+		DEBUG = "",
+		ERROR = "",
+		INFO = "",
+		TRACE = "✎",
+		WARN = "",
+	},
+	level = 2,
+	minimum_width = 50,
+	render = "default",
+	stages = "fade_in_slide_out",
+	timeout = 5000,
+	top_down = true,
+})
+
+require("notify").setup({
+	timeout = 3000,
+	max_height = function()
+		return math.floor(vim.o.lines * 0.75)
+	end,
+	max_width = function()
+		return math.floor(vim.o.columns * 0.75)
+	end,
+})
+vim.notify = require("notify")
 
 telescope.setup({
 	defaults = {
@@ -100,5 +140,3 @@ telescope.setup({
 		-- please take a look at the readme of the extension you want to configure
 	},
 })
-
-telescope.load_extension("harpoon")

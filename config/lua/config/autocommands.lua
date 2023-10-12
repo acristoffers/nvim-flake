@@ -1,25 +1,87 @@
+function Load()
+	require("plugins.other")
+	require("plugins.autopairs")
+	require("plugins.cmp")
+	require("plugins.comments")
+	require("plugins.gitsigns")
+	require("plugins.lsp")
+	require("plugins.luasnip")
+	require("plugins.treesitter")
+end
+
 local groups = {
-	general = {
+	initialization = {
 		{
-			event = { "BufNewFile", "BufRead" },
+			event = "UIEnter",
 			options = {
 				callback = function()
-					if not vim.g.plugins_loaded then
-						require("plugins")
-						require("plugins.autopairs")
-						require("plugins.cmp")
-						require("plugins.comments")
-						require("plugins.gitsigns")
-						require("plugins.indentline")
-						require("plugins.lsp")
-						require("plugins.luasnip")
-						require("plugins.telescope")
-						require("plugins.treesitter")
-						vim.g.plugins_loaded = true
-					end
+					require("plugins.telescope")
+					require("plugins.whichkey")
 				end,
 			},
 		},
+		{
+			event = { "BufRead" },
+			options = {
+				callback = Load,
+			},
+		},
+	},
+	by_filetype = {
+		{
+			event = "FileType",
+			options = {
+				pattern = { "flutter", "dart" },
+				callback = function()
+					vim.cmd("packadd flutter-tools.nvim")
+					require("flutter-tools").setup({})
+				end,
+			},
+		},
+		{
+			event = "FileType",
+			options = {
+				pattern = { "julia" },
+				callback = function()
+					vim.cmd("packadd julia-vim")
+				end,
+			},
+		},
+		{
+			event = "FileType",
+			options = {
+				pattern = { "rust" },
+				callback = function()
+					vim.cmd("packadd rust-tools.nvim")
+					require("rust-tools").setup({})
+				end,
+			},
+		},
+		{
+			event = "FileType",
+			options = {
+				pattern = { "fish" },
+				callback = function()
+					vim.cmd([[
+                        packadd vim-fish
+                        compiler fish
+                        setlocal textwidth=79
+                        setlocal foldmethod=expr
+                    ]])
+				end,
+			},
+		},
+		{
+			event = "FileType",
+			options = {
+				pattern = { "tex", "latex", "bib" },
+				callback = function()
+					vim.cmd("packadd vimtex")
+				end,
+			},
+		},
+	},
+	general = {
 		{
 			event = { "BufNewFile", "BufRead" },
 			options = {
@@ -72,36 +134,16 @@ local groups = {
 				command = "set nobuflisted",
 			},
 		},
-	},
-	git = {
 		{
 			event = "FileType",
 			options = {
-				pattern = { "gitcommit" },
-				command = "setlocal wrap",
-			},
-		},
-		{
-			event = "FileType",
-			options = {
-				pattern = { "gitcommit" },
-				command = "setlocal spell",
-			},
-		},
-	},
-	markdown = {
-		{
-			event = "FileType",
-			options = {
-				pattern = { "markdown" },
-				command = "setlocal wrap",
-			},
-		},
-		{
-			event = "FileType",
-			options = {
-				pattern = { "markdown" },
-				command = "setlocal spell",
+				pattern = { "gitcommit", "markdown" },
+				callback = function()
+					vim.cmd([[
+                        setlocal wrap
+                        setlocal spell
+                    ]])
+				end,
 			},
 		},
 	},

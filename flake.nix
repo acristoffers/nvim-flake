@@ -19,8 +19,8 @@
     flake-utils.lib.eachDefaultSystem (system:
       let
         pkgs = (import nixpkgs) { inherit system; };
-        my-config = pkgs.vimUtils.buildVimPlugin {
-          name = "my-config";
+        personal-config = pkgs.vimUtils.buildVimPlugin {
+          name = "personal-config";
           src = ./config;
         };
         lsp-setup = pkgs.vimUtils.buildVimPlugin {
@@ -44,19 +44,15 @@
                   alpha-nvim
                   bufferline-nvim
                   dracula-nvim
-                  dressing-nvim
-                  harpoon
+                  lsp-status-nvim
                   lualine-lsp-progress
                   lualine-nvim
-                  my-config
-                  telescope-media-files-nvim
-                  telescope-nvim
-                  telescope-ui-select-nvim
-                  which-key-nvim
+                  nvim-fzf
+                  personal-config
+                  plenary-nvim
+                  vim-tridactyl
                 ];
                 opt = [
-                  FixCursorHold-nvim
-                  bufdelete-nvim
                   cmp-buffer
                   cmp-cmdline
                   cmp-nvim-lsp
@@ -64,6 +60,7 @@
                   cmp-nvim-lua
                   cmp-path
                   cmp_luasnip
+                  dressing-nvim
                   flutter-tools-nvim
                   formatter-nvim
                   friendly-snippets
@@ -73,30 +70,25 @@
                   julia-vim
                   lsp-colors-nvim
                   lsp-setup
-                  lsp-status-nvim
                   luasnip
                   marks-nvim
                   mini-nvim
                   neoconf-nvim
-                  neodev-nvim
                   nvim-autopairs
                   nvim-cmp
-                  nvim-fzf
                   nvim-lspconfig
                   nvim-notify
-                  nvim-surround
                   nvim-treesitter-context
                   nvim-treesitter-textobjects
                   nvim-treesitter.withAllGrammars
                   nvim-ts-context-commentstring
                   nvim-ts-rainbow2
-                  nvim-web-devicons
                   orgmode
-                  plenary-nvim
-                  popup-nvim
                   rust-tools-nvim
+                  telescope-media-files-nvim
+                  telescope-nvim
+                  telescope-ui-select-nvim
                   undotree
-                  vim-better-whitespace
                   vim-fish
                   vim-illuminate
                   vim-indent-object
@@ -104,17 +96,18 @@
                   vim-matchup
                   vim-repeat
                   vim-sneak
-                  vim-textobj-user
-                  vim-tridactyl
                   vimtex
+                  which-key-nvim
                   virtual-types-nvim
                 ];
               };
             };
           };
         runtimeDependencies = with pkgs; [
+          bat
           clang-tools
           cmake-language-server
+          delta
           elmPackages.elm-language-server
           emmet-ls
           erlang-ls
@@ -135,6 +128,7 @@
           rnix-lsp
           rubyPackages.solargraph
           rust-analyzer
+          silver-searcher
           texlab
           vscode-langservers-extracted
           zls

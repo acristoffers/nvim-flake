@@ -1,3 +1,8 @@
+vim.cmd([[
+    packadd nvim-autopairs
+    packadd nvim-cmp
+]])
+
 local npairs = require("nvim-autopairs")
 
 npairs.setup({

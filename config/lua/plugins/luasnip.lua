@@ -1,16 +1,23 @@
+vim.cmd([[
+    packadd luasnip
+    packadd friendly-snippets
+]])
+
 require("luasnip.loaders.from_vscode").lazy_load()
-require("luasnip").setup({
+
+local luasnip = require("luasnip")
+
+luasnip.setup({
 	history = true,
 	delete_check_events = "TextChanged",
 })
 
-local snippets = require("luasnip")
-snippets.add_snippets("all", {
-	snippets.snippet("#!", {
+luasnip.add_snippets("all", {
+	luasnip.snippet("#!", {
 		-- Simple static text.
-		snippets.text_node("#!/usr/bin/env "),
+		luasnip.text_node("#!/usr/bin/env "),
 		-- function, first parameter is the function, second the Placeholders
 		-- whose text it gets as input.
-		snippets.insert_node(1),
+		luasnip.insert_node(1),
 	}),
 })
