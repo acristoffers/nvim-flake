@@ -3,6 +3,7 @@ vim.cmd([[
     packadd marks.nvim
     packadd neoconf.nvim
     packadd nvim-lspconfig
+    packadd nvim-surround
     packadd nvim-treesitter
     packadd orgmode
     packadd undotree
@@ -17,6 +18,7 @@ vim.cmd([[
 require("ibl").setup()
 require("neoconf").setup()
 require("marks").setup()
+require("nvim-surround").setup()
 require("orgmode").setup_ts_grammar()
 require("orgmode").setup({
 	org_agenda_files = { "~/.org/agenda.org" },
