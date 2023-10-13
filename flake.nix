@@ -78,6 +78,7 @@
                   nvim-cmp
                   nvim-lspconfig
                   nvim-notify
+                  nvim-surround
                   nvim-treesitter-context
                   nvim-treesitter-textobjects
                   nvim-treesitter.withAllGrammars
@@ -97,8 +98,8 @@
                   vim-repeat
                   vim-sneak
                   vimtex
-                  which-key-nvim
                   virtual-types-nvim
+                  which-key-nvim
                 ];
               };
             };
