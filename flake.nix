@@ -53,6 +53,7 @@
                   vim-tridactyl
                 ];
                 opt = [
+                  bufdelete-nvim
                   cmp-buffer
                   cmp-cmdline
                   cmp-nvim-lsp
