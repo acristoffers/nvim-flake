@@ -106,6 +106,7 @@
           };
         runtimeDependencies = with pkgs; [
           bat
+          black
           clang-tools
           cmake-language-server
           delta
