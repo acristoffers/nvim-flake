@@ -46,14 +46,39 @@ configs["matlab"] = {
 	},
 }
 
-local lspconfig = require("lspconfig")
-lspconfig.matlab.setup({})
-
 local lsp_status = require("lsp-status")
 local cmp_nvim = require("cmp_nvim_lsp")
 local default_capabilities = vim.lsp.protocol.make_client_capabilities()
 default_capabilities = cmp_nvim.default_capabilities(default_capabilities)
 default_capabilities = vim.tbl_extend("keep", default_capabilities, lsp_status.capabilities)
+
+local function on_attach(client, bufnr)
+	_ = bufnr
+	local illuminate_ok, illuminate = pcall(require, "illuminate")
+	local virtualtypes_ok, virtualtypes = pcall(require, "virtualtypes")
+	if illuminate_ok then
+		illuminate.on_attach(client)
+	end
+	lsp_status.on_attach(client)
+	if virtualtypes_ok and client.server_capabilities.code_lens then
+		virtualtypes.on_attach(client)
+	end
+	local moses_ok, Moses = pcall(require, "moses")
+	if moses_ok then
+		local noformat = { "tsserver", "lua_ls", "jsonls" }
+		if Moses.include(noformat, client.name) then
+			client.server_capabilities.document_formatting = false
+		else
+			require("lsp-setup.utils").format_on_save(client)
+		end
+	end
+end
+
+local lspconfig = require("lspconfig")
+lspconfig.matlab.setup({
+	on_attach = on_attach,
+	capabilities = default_capabilities,
+})
 
 require("lsp-setup").setup({
 	default_mappings = false,
@@ -70,27 +95,7 @@ require("lsp-setup").setup({
 		["]d"] = "lua vim.diagnostic.goto_next()",
 	},
 	-- Global on_attach
-	on_attach = function(client, bufnr)
-		_ = bufnr
-		local illuminate_ok, illuminate = pcall(require, "illuminate")
-		local virtualtypes_ok, virtualtypes = pcall(require, "virtualtypes")
-		if illuminate_ok then
-			illuminate.on_attach(client)
-		end
-		lsp_status.on_attach(client)
-		if virtualtypes_ok and client.server_capabilities.code_lens then
-			virtualtypes.on_attach(client)
-		end
-		local moses_ok, Moses = pcall(require, "moses")
-		if moses_ok then
-			local noformat = { "tsserver", "lua_ls", "jsonls" }
-			if Moses.include(noformat, client.name) then
-				client.server_capabilities.document_formatting = false
-			else
-				require("lsp-setup.utils").format_on_save(client)
-			end
-		end
-	end,
+	on_attach = on_attach,
 	-- Global capabilities
 	capabilities = default_capabilities,
 	-- Configuration of LSP servers
