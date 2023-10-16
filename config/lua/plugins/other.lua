@@ -1,4 +1,5 @@
 vim.cmd([[
+    packadd bufdelete.nvim
     packadd indent-blankline.nvim
     packadd marks.nvim
     packadd neoconf.nvim
