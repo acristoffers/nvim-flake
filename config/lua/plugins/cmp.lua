@@ -10,6 +10,31 @@ vim.cmd([[
     packadd cmp-path
 ]])
 
+require("cmp_nvim_lsp").setup()
+local cmp = require("cmp")
+cmp.register_source("buffer", require("cmp_buffer"))
+cmp.register_source("cmdline", require("cmp_cmdline").new())
+cmp.register_source("luasnip", require("cmp_luasnip").new())
+cmp.register_source("nvim_lsp_signature_help", require("cmp_nvim_lsp_signature_help").new())
+cmp.register_source("nvim_lua", require("cmp_nvim_lua").new())
+cmp.register_source("path", require("cmp_path").new())
+
+local cmp_luasnip = vim.api.nvim_create_augroup("cmp_luasnip", {})
+vim.api.nvim_create_autocmd("User", {
+	pattern = "LuasnipCleanup",
+	callback = function()
+		require("cmp_luasnip").clear_cache()
+	end,
+	group = cmp_luasnip,
+})
+vim.api.nvim_create_autocmd("User", {
+	pattern = "LuasnipSnippetsAdded",
+	callback = function()
+		require("cmp_luasnip").refresh()
+	end,
+	group = cmp_luasnip,
+})
+
 local opts = function()
 	local cmp = require("cmp")
 	local luasnip = require("luasnip")
@@ -114,6 +139,7 @@ local opts = function()
 			{ name = "nvim_lsp_signature_help" },
 			{ name = "luasnip" },
 			{ name = "orgmode" },
+			{ name = "cmdline" },
 			{ name = "path" },
 			{ name = "buffer" },
 		},
