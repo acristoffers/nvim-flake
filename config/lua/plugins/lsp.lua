@@ -1,5 +1,4 @@
 vim.cmd([[
-    packadd cmp-nvim-lsp
     packadd lsp-status.nvim
     packadd nvim-lspconfig
     packadd formatter.nvim

@@ -12,11 +12,13 @@ end
 local groups = {
 	initialization = {
 		{
-			event = "UIEnter",
+			event = "VimEnter",
 			options = {
 				callback = function()
-					require("plugins.telescope")
-					require("plugins.whichkey")
+					vim.defer_fn(function()
+						require("plugins.telescope")
+						require("plugins.whichkey")
+					end, 500)
 				end,
 			},
 		},
