@@ -23,15 +23,17 @@ local diff = {
 
 local mode = {
 	"mode",
+	icons_enabled = true,
+	icon = "",
 	fmt = function(str)
 		return "-- " .. str .. " --"
 	end,
 }
 
-local filetype = {
-	"filetype",
-	icons_enabled = false,
-	icon = nil,
+local encoding = {
+	"encoding",
+	icons_enabled = true,
+	icon = "",
 }
 
 local branch = {
@@ -40,33 +42,16 @@ local branch = {
 	icon = "",
 }
 
-local location = {
-	"location",
-	padding = 0,
-}
-
 -- cool function for progress
 local function progress()
 	local current_line = vim.fn.line(".")
 	local total_lines = vim.fn.line("$")
-	local chars = {
-		"__",
-		"▁▁",
-		"▂▂",
-		"▃▃",
-		"▄▄",
-		"▅▅",
-		"▆▆",
-		"▇▇",
-		"██",
-	}
-	local line_ratio = current_line / total_lines
-	local index = math.ceil(line_ratio * #chars)
-	return chars[index]
+	local line_ratio = 100 * current_line / total_lines
+	return "󱞇 " .. tostring(math.floor(line_ratio)) .. "%%"
 end
 
 local function spaces()
-	return "spaces: " .. vim.api.nvim_buf_get_option(0, "shiftwidth")
+	return "󱁐 " .. vim.api.nvim_buf_get_option(0, "shiftwidth")
 end
 
 local function lsp_status()
@@ -82,17 +67,17 @@ lualine.setup({
 	options = {
 		icons_enabled = true,
 		theme = "auto",
-		component_separators = { left = "", right = "" },
-		section_separators = { left = "", right = "" },
+		component_separators = { left = "", right = "" },
+		section_separators = { left = "", right = "" },
 		disabled_filetypes = { "dashboard", "NvimTree", "Outline" },
 		always_divide_middle = true,
 	},
 	sections = {
-		lualine_a = { branch, diagnostics },
-		lualine_b = { mode },
+		lualine_a = { mode },
+		lualine_b = { branch, diagnostics },
 		lualine_c = {},
-		lualine_x = { diff, spaces, "encoding", filetype },
-		lualine_y = { location },
+		lualine_x = {},
+		lualine_y = { diff, spaces, encoding, "filetype" },
 		lualine_z = { lsp_status, progress },
 	},
 	inactive_sections = {
