@@ -1,3 +1,5 @@
+vim.loader.enable()
+
 require("plugins.alpha")
 require("plugins.bufferline")
 require("plugins.lualine")
