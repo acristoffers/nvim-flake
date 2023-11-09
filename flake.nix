@@ -116,6 +116,7 @@
           erlang-ls
           fd
           fzf
+          git
           gopls
           kotlin-language-server
           lua-language-server
