@@ -1,5 +1,3 @@
-vim.cmd("packadd mini.nvim")
-
 require("mini.comment").setup({
 	hooks = {
 		pre = function()

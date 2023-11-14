@@ -42,18 +42,8 @@
               packages.all = with pkgs.vimPlugins; {
                 start = [
                   alpha-nvim
-                  bufferline-nvim
-                  dracula-nvim
-                  lsp-status-nvim
-                  lualine-lsp-progress
-                  lualine-nvim
-                  nvim-fzf
-                  personal-config
-                  plenary-nvim
-                  vim-tridactyl
-                ];
-                opt = [
                   bufdelete-nvim
+                  bufferline-nvim
                   cmp-buffer
                   cmp-cmdline
                   cmp-nvim-lsp
@@ -61,6 +51,7 @@
                   cmp-nvim-lua
                   cmp-path
                   cmp_luasnip
+                  dracula-nvim
                   dressing-nvim
                   flutter-tools-nvim
                   formatter-nvim
@@ -71,12 +62,16 @@
                   julia-vim
                   lsp-colors-nvim
                   lsp-setup
+                  lsp-status-nvim
+                  lualine-lsp-progress
+                  lualine-nvim
                   luasnip
                   marks-nvim
                   mini-nvim
                   neoconf-nvim
                   nvim-autopairs
                   nvim-cmp
+                  nvim-fzf
                   nvim-lspconfig
                   nvim-notify
                   nvim-surround
@@ -86,6 +81,8 @@
                   nvim-ts-context-commentstring
                   nvim-ts-rainbow2
                   orgmode
+                  personal-config
+                  plenary-nvim
                   rust-tools-nvim
                   telescope-media-files-nvim
                   telescope-nvim
@@ -98,6 +95,7 @@
                   vim-matchup
                   vim-repeat
                   vim-sneak
+                  vim-tridactyl
                   vimtex
                   virtual-types-nvim
                   which-key-nvim

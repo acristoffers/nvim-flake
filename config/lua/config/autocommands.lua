@@ -1,14 +1,3 @@
-function Load()
-	require("plugins.other")
-	require("plugins.autopairs")
-	require("plugins.cmp")
-	require("plugins.comments")
-	require("plugins.gitsigns")
-	require("plugins.lsp")
-	require("plugins.luasnip")
-	require("plugins.treesitter")
-end
-
 local groups = {
 	initialization = {
 		{
@@ -22,12 +11,6 @@ local groups = {
 				end,
 			},
 		},
-		{
-			event = { "BufRead" },
-			options = {
-				callback = Load,
-			},
-		},
 	},
 	by_filetype = {
 		{
@@ -35,17 +18,7 @@ local groups = {
 			options = {
 				pattern = { "flutter", "dart" },
 				callback = function()
-					vim.cmd("packadd flutter-tools.nvim")
 					require("flutter-tools").setup({})
-				end,
-			},
-		},
-		{
-			event = "FileType",
-			options = {
-				pattern = { "julia" },
-				callback = function()
-					vim.cmd("packadd julia-vim")
 				end,
 			},
 		},
@@ -54,7 +27,6 @@ local groups = {
 			options = {
 				pattern = { "rust" },
 				callback = function()
-					vim.cmd("packadd rust-tools.nvim")
 					require("rust-tools").setup({})
 				end,
 			},
@@ -65,20 +37,10 @@ local groups = {
 				pattern = { "fish" },
 				callback = function()
 					vim.cmd([[
-                        packadd vim-fish
                         compiler fish
                         setlocal textwidth=79
                         setlocal foldmethod=expr
                     ]])
-				end,
-			},
-		},
-		{
-			event = "FileType",
-			options = {
-				pattern = { "tex", "latex", "bib" },
-				callback = function()
-					vim.cmd("packadd vimtex")
 				end,
 			},
 		},

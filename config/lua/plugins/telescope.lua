@@ -1,14 +1,3 @@
-vim.cmd([[
-    packadd dressing.nvim
-    packadd nvim-notify
-    packadd nvim-web-devicons
-    packadd plenary.nvim
-    packadd popup.nvim
-    packadd telescope-media-files.nvim
-    packadd telescope-ui-select.nvim
-    packadd telescope.nvim
-]])
-
 local telescope = require("telescope")
 
 telescope.load_extension("media_files")

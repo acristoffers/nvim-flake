@@ -1,11 +1,3 @@
-vim.cmd([[
-    packadd lsp-status.nvim
-    packadd nvim-lspconfig
-    packadd formatter.nvim
-    packadd vimplugin-lsp-setup
-    packadd virtual-types.nvim
-]])
-
 require("lspconfig.ui.windows").default_options.border = "rounded"
 
 local config = {

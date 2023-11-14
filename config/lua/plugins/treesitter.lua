@@ -1,12 +1,3 @@
-vim.cmd([[
-    packadd nvim-treesitter
-    packadd nvim-treesitter-context
-    packadd nvim-treesitter-textobjects
-    packadd nvim-ts-context-commentstring
-    packadd nvim-ts-rainbow2
-    packadd vim-matchup
-]])
-
 local opts = {
 	ensure_installed = {},
 	sync_install = false,
