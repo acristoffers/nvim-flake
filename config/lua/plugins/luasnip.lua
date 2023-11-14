@@ -1,8 +1,3 @@
-vim.cmd([[
-    packadd luasnip
-    packadd friendly-snippets
-]])
-
 require("luasnip.loaders.from_vscode").lazy_load()
 
 local luasnip = require("luasnip")

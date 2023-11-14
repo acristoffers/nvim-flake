@@ -1,8 +1,3 @@
-vim.cmd([[
-    packadd hop.nvim
-    packadd which-key.nvim
-]])
-
 require("hop").setup({})
 
 local which_key = require("which-key")

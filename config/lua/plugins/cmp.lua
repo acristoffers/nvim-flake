@@ -1,15 +1,3 @@
-vim.cmd([[
-    packadd luasnip
-    packadd nvim-cmp
-    packadd cmp-buffer
-    packadd cmp-cmdline
-    packadd cmp_luasnip
-    packadd cmp-nvim-lsp
-    packadd cmp-nvim-lsp-signature-help
-    packadd cmp-nvim-lua
-    packadd cmp-path
-]])
-
 require("cmp_nvim_lsp").setup()
 local cmp = require("cmp")
 cmp.register_source("buffer", require("cmp_buffer"))
