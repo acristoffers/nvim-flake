@@ -1,6 +1,15 @@
 local groups = {
 	initialization = {
 		{
+			event = "BurRead,BufNewFile",
+			options = {
+				pattern = "*.zon",
+				callback = function()
+					vim.cmd([[set filetype=zig]])
+				end,
+			},
+		},
+		{
 			event = "VimEnter",
 			options = {
 				callback = function()
