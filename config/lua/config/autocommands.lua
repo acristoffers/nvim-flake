@@ -1,7 +1,7 @@
 local groups = {
 	initialization = {
 		{
-			event = "BurRead,BufNewFile",
+			event = { "BufRead", "BufNewFile" },
 			options = {
 				pattern = "*.zon",
 				callback = function()
