@@ -24,7 +24,6 @@ vim.api.nvim_create_autocmd("User", {
 })
 
 local opts = function()
-	local cmp = require("cmp")
 	local luasnip = require("luasnip")
 
 	local check_backspace = function()
@@ -110,7 +109,6 @@ local opts = function()
 			format = function(entry, vim_item)
 				-- Kind icons
 				vim_item.kind = string.format("%s", kind_icons[vim_item.kind])
-				-- vim_item.kind = string.format('%s %s', kind_icons[vim_item.kind], vim_item.kind) -- This concatonates the icons with the name of the item kind
 				vim_item.menu = ({
 					nvim_lsp = "[LSP]",
 					nvim_lua = "[NVIM_LUA]",
