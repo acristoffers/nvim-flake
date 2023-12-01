@@ -1,7 +1,6 @@
 require("cmp_nvim_lsp").setup()
 local cmp = require("cmp")
 cmp.register_source("buffer", require("cmp_buffer"))
-cmp.register_source("cmdline", require("cmp_cmdline").new())
 cmp.register_source("luasnip", require("cmp_luasnip").new())
 cmp.register_source("nvim_lsp_signature_help", require("cmp_nvim_lsp_signature_help").new())
 cmp.register_source("nvim_lua", require("cmp_nvim_lua").new())
@@ -111,24 +110,26 @@ local opts = function()
 				vim_item.kind = string.format("%s", kind_icons[vim_item.kind])
 				vim_item.menu = ({
 					nvim_lsp = "[LSP]",
+					nvim_lsp_signature_help = "[LSP-SIG]",
 					nvim_lua = "[NVIM_LUA]",
 					luasnip = "[Snippet]",
+					orgmode = "[ORG]",
 					buffer = "[Buffer]",
 					path = "[Path]",
 				})[entry.source.name]
 				return vim_item
 			end,
 		},
-		sources = {
+		sources = cmp.config.sources({
 			{ name = "nvim_lsp" },
-			{ name = "nvim_lua" },
 			{ name = "nvim_lsp_signature_help" },
+			{ name = "nvim_lua" },
 			{ name = "luasnip" },
 			{ name = "orgmode" },
-			{ name = "cmdline" },
 			{ name = "path" },
-			{ name = "buffer" },
-		},
+		}, {
+			{ name = "buffer", keyword_length = 4 },
+		}),
 		confirm_opts = {
 			behavior = cmp.ConfirmBehavior.Replace,
 			select = false,
