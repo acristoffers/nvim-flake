@@ -25,6 +25,8 @@ else
             require("plugins.treesitter")
             require("plugins.telescope")
             require("plugins.whichkey")
+
+            vim.cmd([[ bufdo LspStart ]])
         end)
     end)
 end
