@@ -8,9 +8,9 @@ else
     require("config.autocommands")
     require("config.keybindings")
     require("config.options")
+    require("plugins.alpha")
 
     vim.schedule(function()
-        require("plugins.alpha")
         require("plugins.bufferline")
         require("plugins.lualine")
 
