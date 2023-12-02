@@ -26,7 +26,7 @@ else
             require("plugins.telescope")
             require("plugins.whichkey")
 
-            vim.cmd([[ bufdo LspStart ]])
+            vim.cmd([[ silent bufdo! LspStart ]])
         end)
     end)
 end
