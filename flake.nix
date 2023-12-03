@@ -126,6 +126,7 @@
           nodePackages_latest.vim-language-server
           nodePackages_latest.vls
           ocamlPackages.ocaml-lsp
+          ocamlPackages.ocamlformat
           ripgrep
           rnix-lsp
           rubyPackages.solargraph
