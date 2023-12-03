@@ -109,6 +109,7 @@
           clang-tools
           cmake-language-server
           delta
+          dune_3
           elmPackages.elm-language-server
           emmet-ls
           erlang-ls
