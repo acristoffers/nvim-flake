@@ -9,6 +9,7 @@ else
     require("config.keybindings")
     require("config.options")
     require("plugins.alpha")
+    require("plugins.rainbow")
 
     vim.schedule(function()
         require("plugins.bufferline")
