@@ -79,10 +79,10 @@
                   nvim-treesitter-textobjects
                   nvim-treesitter.withAllGrammars
                   nvim-ts-context-commentstring
-                  nvim-ts-rainbow2
                   orgmode
                   personal-config
                   plenary-nvim
+                  rainbow-delimiters-nvim
                   rust-tools-nvim
                   telescope-media-files-nvim
                   telescope-nvim

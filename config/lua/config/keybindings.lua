@@ -88,38 +88,38 @@ keymap('o', 'ig', ':normal ViG$<cr>', { silent = true, noremap = false })
 
 -- Text Object for Identifier (o in Doom Emacs) --
 keymap(
-  'v',
-  'ao',
-  ':lua SelectIdentifier()<cr>',
-  { silent = true, noremap = true }
+    'v',
+    'ao',
+    ':lua SelectIdentifier()<cr>',
+    { silent = true, noremap = true }
 )
 keymap(
-  'v',
-  'io',
-  ':lua SelectIdentifier()<cr>',
-  { silent = true, noremap = true }
+    'v',
+    'io',
+    ':lua SelectIdentifier()<cr>',
+    { silent = true, noremap = true }
 )
 keymap(
-  'o',
-  'ao',
-  ':lua SelectIdentifier()<cr>',
-  { silent = true, noremap = true }
+    'o',
+    'ao',
+    ':lua SelectIdentifier()<cr>',
+    { silent = true, noremap = true }
 )
 keymap(
-  'o',
-  'io',
-  ':lua SelectIdentifier()<cr>',
-  { silent = true, noremap = true }
+    'o',
+    'io',
+    ':lua SelectIdentifier()<cr>',
+    { silent = true, noremap = true }
 )
 
 -- Harpoon navigation --
 local function HarpoonWrapper(n)
-  local harpoon_ok, _ = pcall(require, 'harpoon.ui')
-  if harpoon_ok then
-    return ':lua require(\'harpoon.ui\').nav_file(' .. tostring(n) .. ')<cr>'
-  else
-    return ':lua print("Harpoon is not installed")'
-  end
+    local harpoon_ok, _ = pcall(require, 'harpoon.ui')
+    if harpoon_ok then
+        return ':lua require(\'harpoon.ui\').nav_file(' .. tostring(n) .. ')<cr>'
+    else
+        return ':lua print("Harpoon is not installed")'
+    end
 end
 
 keymap('n', '<leader>1', HarpoonWrapper(1), { silent = true, noremap = false })
@@ -140,31 +140,31 @@ keymap('n', '[d', ':lua vim.diagnostic.goto_prev()<cr>', opts)
 keymap('n', ']d', ':lua vim.diagnostic.goto_next()<cr>', opts)
 
 function SelectIdentifier()
-  local line = vim.api.nvim_win_get_cursor(0)[1] - 1
-  local len = string.len(vim.api.nvim_get_current_line())
-  local s = vim.api.nvim_win_get_cursor(0)[2]
-  local e = vim.api.nvim_win_get_cursor(0)[2] + 1
-  local regex = vim.regex '^[a-zA-Z0-9_-]\\+$'
+    local line = vim.api.nvim_win_get_cursor(0)[1] - 1
+    local len = string.len(vim.api.nvim_get_current_line())
+    local s = vim.api.nvim_win_get_cursor(0)[2]
+    local e = vim.api.nvim_win_get_cursor(0)[2] + 1
+    local regex = vim.regex '^[a-zA-Z0-9_-]\\+$'
 
-  while regex:match_line(0, line, s, e) do
-    s = s - 1
-    if s < 0 then
-      break
+    while regex:match_line(0, line, s, e) do
+        s = s - 1
+        if s < 0 then
+            break
+        end
     end
-  end
-  s = s + 1
+    s = s + 1
 
-  while regex:match_line(0, line, s, e) do
-    e = e + 1
-    if e > len then
-      break
+    while regex:match_line(0, line, s, e) do
+        e = e + 1
+        if e > len then
+            break
+        end
     end
-  end
-  e = e - 3
+    e = e - 3
 
-  vim.api.nvim_buf_set_mark(0, '<', line + 1, s, {})
-  vim.api.nvim_buf_set_mark(0, '>', line + 1, e, {})
-  vim.cmd [[ normal! gv ]]
+    vim.api.nvim_buf_set_mark(0, '<', line + 1, s, {})
+    vim.api.nvim_buf_set_mark(0, '>', line + 1, e, {})
+    vim.cmd [[ normal! gv ]]
 end
 
 vim.cmd [[
@@ -176,5 +176,5 @@ endfunction
 
 ---@diagnostic disable-next-line: unused-local
 function _G.PasteMotion(type)
-  vim.cmd [[ normal gpp ]]
+    vim.cmd [[ normal gpp ]]
 end
