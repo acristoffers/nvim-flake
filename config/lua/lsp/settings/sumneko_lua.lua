@@ -1,5 +1,5 @@
 return {
-    cmd = { vim.fn.expand("~/.nix-profile/bin/lua-language-server"), "server" },
+    cmd = { "lua-language-server", "server" },
     settings = {
         Lua = {
             runtime = {
