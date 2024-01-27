@@ -120,7 +120,7 @@
           kotlin-language-server
           lua-language-server
           marksman
-          matlab-lsp
+          matlab-lsp.packages.${system}.default
           nodePackages_latest.bash-language-server
           nodePackages_latest.eslint
           nodePackages_latest.pyright
@@ -136,7 +136,7 @@
           silver-searcher
           texlab
           vscode-langservers-extracted
-          zls
+          zls.packages.${system}.default
         ];
       in
       rec {
