@@ -1,8 +1,8 @@
 return {
-    settings = {
-        dart = {
-            completeFunctionCalls = true,
-            showTodos = true,
-        },
+  settings = {
+    dart = {
+      completeFunctionCalls = true,
+      showTodos = true,
     },
+  },
 }
