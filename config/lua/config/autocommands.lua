@@ -1,6 +1,14 @@
 local groups = {
   initialization = {
     {
+      event = "BufEnter",
+      options = {
+        callback = function()
+          vim.cmd([[silent LspStart]])
+        end,
+      },
+    },
+    {
       event = { "BufRead", "BufNewFile" },
       options = {
         pattern = "*.zon",
