@@ -62,20 +62,20 @@ local groups = {
         command = "set filetype=matlab",
       },
     },
-    {
-      event = "FileType",
-      options = {
-        pattern = { "nix" },
-        command = "set commentstring=#\\ %s",
-      },
-    },
-    {
-      event = "FileType",
-      options = {
-        pattern = { "matlab" },
-        command = "set commentstring=\\%\\ %s",
-      },
-    },
+    -- {
+    --   event = "FileType",
+    --   options = {
+    --     pattern = { "nix" },
+    --     command = "set commentstring=#\\ %s",
+    --   },
+    -- },
+    -- {
+    --   event = "FileType",
+    --   options = {
+    --     pattern = { "matlab" },
+    --     command = "set commentstring=\\%\\ %s",
+    --   },
+    -- },
     {
       event = "FileType",
       options = {

@@ -51,6 +51,7 @@
                   cmp-nvim-lua
                   cmp-path
                   cmp_luasnip
+                  comment-nvim
                   dracula-nvim
                   dressing-nvim
                   flutter-tools-nvim
