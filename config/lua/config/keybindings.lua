@@ -30,6 +30,12 @@ keymap('n', '<C-Right>', ':vertical resize +2<cr>', opts)
 keymap('n', 'gt', ':bn<cr>', opts)
 keymap('n', 'gT', ':bp<cr>', opts)
 
+-- Snipe last
+keymap('n', '<A-g>', '$F', opts)
+
+-- Snipe first
+keymap('n', '<A-f>', '0f', opts)
+
 -- Insert --
 -- Press jk fast to enter
 keymap('i', 'jk', '<ESC>', opts)
@@ -112,23 +118,7 @@ keymap(
   { silent = true, noremap = true }
 )
 
--- Harpoon navigation --
-local function HarpoonWrapper(n)
-  local harpoon_ok, _ = pcall(require, 'harpoon.ui')
-  if harpoon_ok then
-    return ':lua require(\'harpoon.ui\').nav_file(' .. tostring(n) .. ')<cr>'
-  else
-    return ':lua print("Harpoon is not installed")'
-  end
-end
-
-keymap('n', '<leader>1', HarpoonWrapper(1), { silent = true, noremap = false })
-keymap('n', '<leader>2', HarpoonWrapper(2), { silent = true, noremap = false })
-keymap('n', '<leader>3', HarpoonWrapper(3), { silent = true, noremap = false })
-keymap('n', '<leader>4', HarpoonWrapper(4), { silent = true, noremap = false })
-keymap('n', '<leader>5', HarpoonWrapper(5), { silent = true, noremap = false })
-
--- LSP having trouble defining those --
+-- LSP is having trouble defining those --
 local telescope = ':lua require"telescope.builtin"'
 keymap('n', 'gd', telescope .. '.lsp_definitions()<cr>', opts)
 keymap('n', 'gi', telescope .. '.lsp_implementations()<cr>', opts)
@@ -176,5 +166,5 @@ endfunction
 
 ---@diagnostic disable-next-line: unused-local
 function _G.PasteMotion(type)
-  vim.cmd [[ normal gpp ]]
+  vim.cmd [[ normal gpP ]]
 end
