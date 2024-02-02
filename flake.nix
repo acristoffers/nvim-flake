@@ -115,6 +115,7 @@
           emmet-ls
           erlang-ls
           fd
+          flutter
           fzf
           git
           gopls
