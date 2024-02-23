@@ -119,6 +119,7 @@
           fzf
           git
           gopls
+          html-tidy
           kotlin-language-server
           lua-language-server
           marksman
