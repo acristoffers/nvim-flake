@@ -1,5 +1,7 @@
 vim.loader.enable()
 
+vim.fn.setenv("IN_NIX_SHELL", 1)
+
 if not vim.go.loadplugins then
   vim.cmd([[se nu rnu]])
   vim.cmd([[se tabstop=8]])

@@ -144,13 +144,15 @@ end
 require("formatter").setup({
   filetype = {
     fish = require("formatter.filetypes.fish").fishindent,
-    html = require("formatter.filetypes.html").htmlbeautify,
+    html = require("formatter.filetypes.html").tidy,
     json = require("formatter.filetypes.json").jq,
     lua = stylua(),
     nix = require("formatter.filetypes.nix").nixpkgs_fmt,
     python = require("formatter.filetypes.python").black,
     sh = require("formatter.filetypes.sh").shfmt,
     toml = require("formatter.filetypes.toml").taplo,
+    xhtml = require("formatter.filetypes.xhtml").tidy,
+    xml = require("formatter.filetypes.xml").tidy,
     yaml = require("formatter.filetypes.yaml").yamlfmt,
   },
 })
