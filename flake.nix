@@ -1,17 +1,17 @@
 {
   inputs = {
-    nixpkgs.url = github:NixOS/nixpkgs/nixpkgs-unstable;
-    flake-utils.url = github:numtide/flake-utils;
+    nixpkgs.url = "github:NixOS/nixpkgs/nixpkgs-unstable";
+    flake-utils.url = "github:numtide/flake-utils";
 
-    zls.url = github:acristoffers/zls;
+    zls.url = "github:acristoffers/zls";
     zls.inputs.nixpkgs.follows = "nixpkgs";
     zls.inputs.flake-utils.follows = "flake-utils";
 
-    matlab-lsp.url = github:acristoffers/matlab-lsp;
+    matlab-lsp.url = "github:acristoffers/matlab-lsp";
     matlab-lsp.inputs.nixpkgs.follows = "nixpkgs";
     matlab-lsp.inputs.flake-utils.follows = "flake-utils";
 
-    lsp-setup-git.url = github:junnplus/lsp-setup.nvim;
+    lsp-setup-git.url = "github:junnplus/lsp-setup.nvim";
     lsp-setup-git.flake = false;
   };
 
@@ -124,6 +124,7 @@
           lua-language-server
           marksman
           matlab-lsp.packages.${system}.default
+          nil
           nodePackages_latest.bash-language-server
           nodePackages_latest.eslint
           nodePackages_latest.pyright
@@ -133,7 +134,6 @@
           ocamlPackages.ocaml-lsp
           ocamlPackages.ocamlformat
           ripgrep
-          rnix-lsp
           rubyPackages.solargraph
           rust-analyzer
           silver-searcher
