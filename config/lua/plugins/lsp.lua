@@ -110,7 +110,7 @@ require("lsp-setup").setup({
     marksman = {},
     ocamllsp = {},
     pyright = require("lsp.settings.pyright"),
-    rnix = {},
+    nil_ls = {},
     rust_analyzer = require("lsp.settings.rust_analyzer"),
     solargraph = {},
     texlab = {},
