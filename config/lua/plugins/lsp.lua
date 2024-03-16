@@ -141,18 +141,35 @@ local function stylua()
   }
 end
 
+local function tidy()
+  return {
+    exe = "tidy",
+    args = {
+      "-quiet",
+      "-xml",
+      "--indent auto",
+      "--indent-spaces 2",
+      "--vertical-space yes",
+      "--tidy-mark no",
+      "--wrap 120",
+    },
+    stdin = true,
+    try_node_exe = true,
+  }
+end
+
 require("formatter").setup({
   filetype = {
     fish = require("formatter.filetypes.fish").fishindent,
-    html = require("formatter.filetypes.html").tidy,
+    html = tidy,
     json = require("formatter.filetypes.json").jq,
-    lua = stylua(),
+    lua = stylua,
     nix = require("formatter.filetypes.nix").nixpkgs_fmt,
     python = require("formatter.filetypes.python").black,
     sh = require("formatter.filetypes.sh").shfmt,
     toml = require("formatter.filetypes.toml").taplo,
-    xhtml = require("formatter.filetypes.xhtml").tidy,
-    xml = require("formatter.filetypes.xml").tidy,
+    xhtml = tidy,
+    xml = tidy,
     yaml = require("formatter.filetypes.yaml").yamlfmt,
   },
 })
