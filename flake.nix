@@ -149,6 +149,9 @@
           type = "app";
           program = "${packages.default}/bin/nvim";
         };
+        devShell = pkgs.mkShell {
+          packages = [ neovim ] ++ runtimeDependencies;
+        };
       }
     );
 }
