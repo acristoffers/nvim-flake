@@ -137,6 +137,7 @@
           rubyPackages.solargraph
           rust-analyzer
           silver-searcher
+          stylua
           texlab
           vscode-langservers-extracted
           zls.packages.${system}.default
