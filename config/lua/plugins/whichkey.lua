@@ -1,5 +1,127 @@
 require("hop").setup({})
 
+--------------------------------------------------------------------------------
+--                                                                            --
+--                      Better LSP Code Actions/Quickfix                      --
+--                                                                            --
+--------------------------------------------------------------------------------
+
+local function quickfix()
+  vim.lsp.buf.code_action({
+    filter = function(a) return a.isPreferred end,
+    apply = true
+  })
+end
+
+local action_state = require('telescope.actions.state')
+local actions = require('telescope.actions')
+local conf = require('telescope.config').values
+local finders = require('telescope.finders')
+local pickers = require('telescope.pickers')
+
+local function transform_diagnostics(nvim_diagnostics)
+  local lsp_diagnostics = {}
+  for _, d in ipairs(nvim_diagnostics) do
+    table.insert(lsp_diagnostics, {
+      range = {
+        start = { line = d.lnum, character = d.col },
+        ['end'] = { line = d.end_lnum, character = d.end_col },
+      },
+      message = d.message,
+      severity = d.severity,
+      code = d.code,
+      source = d.source,
+    })
+  end
+  return lsp_diagnostics
+end
+
+local function apply_action_in_document(selected_action)
+  local diagnostics = transform_diagnostics(vim.diagnostic.get(0))
+  local params = {
+    textDocument = vim.lsp.util.make_text_document_params(),
+    context = { diagnostics = diagnostics },
+  }
+
+  for _, diagnostic in ipairs(diagnostics) do
+    params.range = diagnostic.range
+    local results = vim.lsp.buf_request_sync(0, 'textDocument/codeAction', params)
+    print(vim.inspect(results))
+    for client_id, result in pairs(results) do
+      if result.result then
+        for _, action in ipairs(result.result) do
+          if action.title == selected_action.title then
+            if action.edit or type(action.command) == "table" then
+              if action.edit then
+                local offset_encoding = vim.lsp.get_client_by_id(client_id).offset_encoding
+                vim.lsp.util.apply_workspace_edit(action.edit, offset_encoding)
+                return apply_action_in_document(selected_action)
+              end
+              if action.command then
+                vim.lsp.buf.execute_command(action.command)
+                return apply_action_in_document(selected_action)
+              end
+            end
+          end
+        end
+      end
+    end
+  end
+end
+
+function GetCodeActionsAndApplyGlobally()
+  local diagnostics = transform_diagnostics(vim.diagnostic.get(0))
+  local params = {
+    textDocument = vim.lsp.util.make_text_document_params(),
+    range = vim.lsp.util.make_range_params().range,
+    context = { diagnostics = diagnostics },
+  }
+
+  vim.lsp.buf_request_all(0, 'textDocument/codeAction', params, function(results)
+    local flat_results = {}
+    for _, result in pairs(results) do
+      if result.result then
+        for _, action in ipairs(result.result) do
+          table.insert(flat_results, action)
+        end
+      end
+    end
+
+    if #flat_results > 0 then
+      pickers.new({}, {
+        prompt_title = 'Code Actions',
+        finder = finders.new_table({
+          results = flat_results,
+          entry_maker = function(entry)
+            return {
+              value = entry,
+              display = entry.title or "Unnamed action",
+              ordinal = entry.title or "",
+            }
+          end,
+        }),
+        sorter = conf.generic_sorter({}),
+        attach_mappings = function(prompt_bufnr, _)
+          actions.select_default:replace(function()
+            local selection = action_state.get_selected_entry()
+            actions.close(prompt_bufnr)
+            apply_action_in_document(selection.value)
+          end)
+          return true
+        end,
+      }):find()
+    else
+      print("No code actions available")
+    end
+  end)
+end
+
+--------------------------------------------------------------------------------
+--                                                                            --
+--                           Whichkey Configuration                           --
+--                                                                            --
+--------------------------------------------------------------------------------
+
 local which_key = require("which-key")
 local setup = {
   plugins = {
@@ -106,6 +228,7 @@ local mappings = {
   },
   c = {
     name = "+Code",
+    A = { GetCodeActionsAndApplyGlobally, "Code Action (Apply in buffer)" },
     a = { ":lua vim.lsp.buf.code_action()<cr>", "Code Action" },
     d = {
       ":Telescope diagnostics bufnr=0 theme=get_ivy<cr>",
@@ -124,7 +247,7 @@ local mappings = {
       "Prev Diagnostic",
     },
     l = { vim.lsp.codelens.run, "CodeLens Action" },
-    q = { vim.diagnostic.setloclist, "Quickfix" },
+    q = { quickfix, "Quickfix" },
     r = { vim.lsp.buf.rename, "Rename" },
     s = { ":Telescope lsp_document_symbols<cr>", "Document Symbols" },
     S = {
