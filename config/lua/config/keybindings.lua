@@ -129,6 +129,22 @@ keymap('n', '<C-k>', ':lua vim.lsp.buf.signature_help()<cr>', opts)
 keymap('n', '[d', ':lua vim.diagnostic.goto_prev()<cr>', opts)
 keymap('n', ']d', ':lua vim.diagnostic.goto_next()<cr>', opts)
 
+-- Center selection
+keymap('v', 'zZ', ':lua CenterSelection()<cr>', opts)
+
+function CenterSelection()
+  local startPos = vim.fn.getpos("'<")
+  local endPos = vim.fn.getpos("'>")
+  local startLine = startPos[2]
+  local endLine = endPos[2]
+  local middleLine = math.floor((startLine + endLine) / 2)
+  vim.api.nvim_win_set_cursor(0, { middleLine, 0 })
+  vim.cmd('normal zz')
+  vim.fn.setpos("'<", startPos)
+  vim.fn.setpos("'>", endPos)
+  vim.cmd('normal! gv')
+end
+
 function SelectIdentifier()
   local line = vim.api.nvim_win_get_cursor(0)[1] - 1
   local len = string.len(vim.api.nvim_get_current_line())
