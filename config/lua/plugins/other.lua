@@ -1,7 +1,8 @@
 require("ibl").setup()
-require("neoconf").setup()
 require("marks").setup()
+require("neoconf").setup()
 require("nvim-surround").setup()
+require('textcase').setup()
 require("orgmode").setup_ts_grammar()
 require("orgmode").setup({
   org_agenda_files = { "~/.org/agenda.org" },
