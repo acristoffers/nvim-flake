@@ -88,6 +88,7 @@
                   telescope-media-files-nvim
                   telescope-nvim
                   telescope-ui-select-nvim
+                  text-case-nvim
                   undotree
                   vim-fish
                   vim-illuminate
