@@ -28,6 +28,7 @@ else
       require("plugins.treesitter")
       require("plugins.telescope")
       require("plugins.whichkey")
+      require("config.xmlattr")
 
       vim.cmd([[silent LspStart]])
     end)
