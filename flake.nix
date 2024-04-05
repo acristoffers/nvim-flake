@@ -27,84 +27,81 @@
           name = "lsp-setup";
           src = lsp-setup-git;
         };
-        neovim = pkgs.neovim.override
-          {
-            viAlias = true;
-            vimAlias = true;
-            withNodeJs = true;
-            withPython3 = true;
-            withRuby = true;
-            extraMakeWrapperArgs = "--prefix PATH : ${pkgs.lib.makeBinPath runtimeDependencies}";
-            configure = {
-              customRC = ''
-                lua require("init")
-              '';
-              packages.all = with pkgs.vimPlugins; {
-                start = [
-                  alpha-nvim
-                  bufdelete-nvim
-                  bufferline-nvim
-                  cmp-buffer
-                  cmp-cmdline
-                  cmp-nvim-lsp
-                  cmp-nvim-lsp-signature-help
-                  cmp-nvim-lua
-                  cmp-path
-                  cmp_luasnip
-                  comment-nvim
-                  dracula-nvim
-                  dressing-nvim
-                  flutter-tools-nvim
-                  formatter-nvim
-                  friendly-snippets
-                  gitsigns-nvim
-                  hop-nvim
-                  indent-blankline-nvim
-                  julia-vim
-                  lsp-colors-nvim
-                  lsp-setup
-                  lsp-status-nvim
-                  lualine-lsp-progress
-                  lualine-nvim
-                  luasnip
-                  marks-nvim
-                  mini-nvim
-                  neoconf-nvim
-                  nvim-autopairs
-                  nvim-cmp
-                  nvim-fzf
-                  nvim-lspconfig
-                  nvim-notify
-                  nvim-surround
-                  nvim-treesitter-context
-                  nvim-treesitter-textobjects
-                  nvim-treesitter.withAllGrammars
-                  nvim-ts-context-commentstring
-                  orgmode
-                  personal-config
-                  plenary-nvim
-                  rainbow-delimiters-nvim
-                  rust-tools-nvim
-                  telescope-media-files-nvim
-                  telescope-nvim
-                  telescope-ui-select-nvim
-                  text-case-nvim
-                  undotree
-                  vim-fish
-                  vim-illuminate
-                  vim-indent-object
-                  vim-lion
-                  vim-matchup
-                  vim-repeat
-                  vim-sneak
-                  vim-tridactyl
-                  vimtex
-                  virtual-types-nvim
-                  which-key-nvim
-                ];
-              };
+        neovim = pkgs.neovim.override {
+          viAlias = true;
+          vimAlias = true;
+          withNodeJs = true;
+          withPython3 = true;
+          withRuby = true;
+          extraMakeWrapperArgs = "--prefix PATH : ${pkgs.lib.makeBinPath runtimeDependencies}";
+          configure = {
+            customRC = ''lua require("init")'';
+            packages.all = with pkgs.vimPlugins; {
+              start = [
+                alpha-nvim
+                bufdelete-nvim
+                bufferline-nvim
+                cmp-buffer
+                cmp-cmdline
+                cmp-nvim-lsp
+                cmp-nvim-lsp-signature-help
+                cmp-nvim-lua
+                cmp-path
+                cmp_luasnip
+                comment-nvim
+                dracula-nvim
+                dressing-nvim
+                flutter-tools-nvim
+                formatter-nvim
+                friendly-snippets
+                gitsigns-nvim
+                hop-nvim
+                indent-blankline-nvim
+                julia-vim
+                lsp-colors-nvim
+                lsp-setup
+                lsp-status-nvim
+                lualine-lsp-progress
+                lualine-nvim
+                luasnip
+                marks-nvim
+                mini-nvim
+                neoconf-nvim
+                nvim-autopairs
+                nvim-cmp
+                nvim-fzf
+                nvim-lspconfig
+                nvim-notify
+                nvim-surround
+                nvim-treesitter-context
+                nvim-treesitter-textobjects
+                nvim-treesitter.withAllGrammars
+                nvim-ts-context-commentstring
+                orgmode
+                personal-config
+                plenary-nvim
+                rainbow-delimiters-nvim
+                rust-tools-nvim
+                telescope-media-files-nvim
+                telescope-nvim
+                telescope-ui-select-nvim
+                text-case-nvim
+                undotree
+                vim-fish
+                vim-illuminate
+                vim-indent-object
+                vim-lion
+                vim-matchup
+                vim-repeat
+                vim-sneak
+                vim-tridactyl
+                vimtex
+                virtual-types-nvim
+                which-key-nvim
+              ];
             };
           };
+        };
         runtimeDependencies = with pkgs; [
           bat
           black
@@ -145,7 +142,7 @@
         ];
       in
       rec {
-        formatter = nixpkgs.legacyPackages.${system}.nixpkgs-fmt;
+        formatter = pkgs.nixpkgs-fmt;
         packages.default = neovim;
         apps.default = {
           type = "app";
