@@ -65,10 +65,6 @@ vim.cmd([[ let g:sneak#prompt = '🔎  ' ]])
 
 vim.api.nvim_set_hl(0, "@variable.matlab", { link = "Identifier" })
 
--- I don't remember why, but it is bad for containers
--- vim.env.PYTHONPATH = nil
--- vim.env.PIP_PREFIX = nil
-
 vim.g.mapleader = " "
 vim.g.lion_squeeze_spaces = 1
 if vim.loop.os_uname().sysname == "Darwin" then
