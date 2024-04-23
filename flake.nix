@@ -33,7 +33,7 @@
           withNodeJs = true;
           withPython3 = true;
           withRuby = true;
-          extraMakeWrapperArgs = "--prefix PATH : ${pkgs.lib.makeBinPath runtimeDependencies}";
+          extraMakeWrapperArgs = "--prefix PATH : ${pkgs.lib.makeBinPath runtimeDependencies} --prefix PYTHONPATH : ''";
           configure = {
             customRC = ''lua require("init")'';
             packages.all = with pkgs.vimPlugins; {
