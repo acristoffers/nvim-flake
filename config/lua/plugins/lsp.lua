@@ -126,11 +126,9 @@ local function stylua()
   return {
     exe = "stylua",
     args = {
-      "--search-parent-directories",
-      "--indent-type", "None",
-      "--line-endings", "Unix",
-      "--line-endings", "AutoPreferDouble",
       "--indent-type", "Spaces",
+      "--line-endings", "Unix",
+      "--search-parent-directories",
       "--sort-requires",
       "--stdin-filepath",
       futil.escape_path(futil.get_current_buffer_file_path()),
