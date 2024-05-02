@@ -93,7 +93,7 @@ require("lsp-setup").setup({
   servers = {
     -- Install LSP servers automatically
     -- LSP server configuration please see: https://github.com/neovim/nvim-lspconfig/blob/master/doc/server_configurations.md
-    bashls = {},
+    bashls = require("lsp.settings.bashls"),
     clangd = require("lsp.settings.clangd"),
     cmake = {},
     cssls = require("lsp.settings.cssls"),
