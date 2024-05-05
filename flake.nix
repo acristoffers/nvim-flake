@@ -122,6 +122,7 @@
           lua-language-server
           marksman
           matlab-lsp.packages.${system}.default
+          mdformat
           nil
           nodePackages_latest.bash-language-server
           nodePackages_latest.eslint
