@@ -20,8 +20,8 @@ vim.diagnostic.config(config)
 vim.lsp.handlers["textDocument/hover"] = vim.lsp.with(vim.lsp.handlers.hover, { border = "rounded" })
 vim.lsp.handlers["textDocument/signatureHelp"] = vim.lsp.with(vim.lsp.handlers.signature_help, { border = "rounded" })
 
-local util = require("lspconfig.util")
 local configs = require("lspconfig.configs")
+local util = require("lspconfig.util")
 configs["matlab"] = {
   default_config = {
     cmd = { "matlab-lsp" },
@@ -37,8 +37,8 @@ configs["matlab"] = {
   },
 }
 
-local lsp_status = require("lsp-status")
 local cmp_nvim = require("cmp_nvim_lsp")
+local lsp_status = require("lsp-status")
 local default_capabilities = vim.lsp.protocol.make_client_capabilities()
 default_capabilities = cmp_nvim.default_capabilities(default_capabilities)
 default_capabilities = vim.tbl_extend("keep", default_capabilities, lsp_status.capabilities)
@@ -122,7 +122,7 @@ require("lsp-setup").setup({
 })
 
 local function stylua()
-  local futil = require "formatter.util"
+  local futil = require("formatter.util")
   return {
     exe = "stylua",
     args = {
@@ -149,10 +149,22 @@ local function tidy()
       "--indent-spaces 2",
       "--vertical-space yes",
       "--tidy-mark no",
-      "--wrap 120",
+      "--wrap 100",
     },
     stdin = true,
     try_node_exe = true,
+  }
+end
+
+local function mdformat()
+  return {
+    exe = "mdformat",
+    args = {
+      "--wrap", "100",
+      "--end-of-line", "lf",
+      "--number",
+    },
+    stdin = false,
   }
 end
 
@@ -162,6 +174,7 @@ require("formatter").setup({
     html = tidy,
     json = require("formatter.filetypes.json").jq,
     lua = stylua,
+    markdown = mdformat,
     nix = require("formatter.filetypes.nix").nixpkgs_fmt,
     python = require("formatter.filetypes.python").black,
     sh = require("formatter.filetypes.sh").shfmt,
