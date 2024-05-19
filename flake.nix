@@ -54,6 +54,7 @@
                 flutter-tools-nvim
                 formatter-nvim
                 friendly-snippets
+                git-blame-nvim
                 gitsigns-nvim
                 hop-nvim
                 indent-blankline-nvim
