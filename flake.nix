@@ -55,6 +55,7 @@
                 formatter-nvim
                 friendly-snippets
                 git-blame-nvim
+                git-conflict-nvim
                 gitsigns-nvim
                 hop-nvim
                 indent-blankline-nvim
