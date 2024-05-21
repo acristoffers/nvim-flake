@@ -31,7 +31,11 @@ else
       require("plugins.git-conflict")
       require("config.xmlattr")
 
-      vim.cmd([[silent LspStart]])
+      vim.cmd([[
+            silent LspStart
+            hi link @type.builtin.cpp @type.cpp
+            hi link @type.builtin.c @type.c
+      ]])
     end)
   end)
 end
