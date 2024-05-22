@@ -18,7 +18,7 @@
   outputs = { self, flake-utils, nixpkgs, lsp-setup-git, zls, matlab-lsp }:
     flake-utils.lib.eachDefaultSystem (system:
       let
-        pkgs = (import nixpkgs) { inherit system; };
+        pkgs = import nixpkgs { inherit system; };
         personal-config = pkgs.vimUtils.buildVimPlugin {
           name = "personal-config";
           src = ./config;
@@ -77,8 +77,8 @@
                 nvim-surround
                 nvim-treesitter-context
                 nvim-treesitter-textobjects
-                nvim-treesitter.withAllGrammars
                 nvim-ts-context-commentstring
+                nvim-treesitter.withAllGrammars
                 orgmode
                 personal-config
                 plenary-nvim
@@ -138,8 +138,10 @@
           rubyPackages.solargraph
           rust-analyzer
           silver-searcher
+          stdenv.cc
           stylua
           texlab
+          tree-sitter
           vscode-langservers-extracted
           zls.packages.${system}.default
         ];
