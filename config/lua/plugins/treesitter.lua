@@ -1,4 +1,7 @@
+vim.opt.runtimepath:append(vim.fn.expand("~/.local/share/nvim/tree-sitter/parsers"))
+
 local opts = {
+  parser_install_dir = vim.fn.expand("~/.local/share/nvim/tree-sitter/parsers"),
   ensure_installed = {},
   sync_install = false,
   auto_install = false,
@@ -110,3 +113,15 @@ require("treesitter-context").setup({
     },
   },
 })
+
+local parser_config = require("nvim-treesitter.parsers").get_parser_configs()
+parser_config.wbproto = {
+  install_info = {
+    url = "https://github.com/acristoffers/tree-sitter-wbproto",
+    files = { "src/parser.c", "src/scanner.c" },
+    branch = "main",
+    generate_requires_npm = false,
+    requires_generate_from_grammar = false,
+  },
+  filetype = "wbproto",
+}
