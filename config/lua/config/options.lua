@@ -76,6 +76,7 @@ end
 vim.g.Tex_FoldedSections = ""
 vim.g.Tex_FoldedEnvironments = ""
 vim.g.Tex_FoldedMisc = ""
+vim.g.gitblame_virtual_text_column = 102
 
 function SetTab(num)
   vim.opt.shiftwidth = num
