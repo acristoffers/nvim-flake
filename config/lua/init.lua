@@ -33,6 +33,7 @@ else
 
       vim.cmd([[
             silent LspStart
+            bufdo e %
             hi link @type.builtin.cpp @type.cpp
             hi link @type.builtin.c @type.c
       ]])
