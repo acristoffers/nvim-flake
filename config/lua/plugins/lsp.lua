@@ -168,6 +168,20 @@ local function mdformat()
   }
 end
 
+local function black()
+  local futil = require("formatter.util")
+  return {
+    exe = "black",
+    args = {
+      "-q",
+      "-l", "100",
+      "--stdin-filename", futil.escape_path(futil.get_current_buffer_file_name()),
+      "-"
+    },
+    stdin = true,
+  }
+end
+
 require("formatter").setup({
   filetype = {
     fish = require("formatter.filetypes.fish").fishindent,
@@ -176,7 +190,7 @@ require("formatter").setup({
     lua = stylua,
     markdown = mdformat,
     nix = require("formatter.filetypes.nix").nixpkgs_fmt,
-    python = require("formatter.filetypes.python").black,
+    python = black,
     sh = require("formatter.filetypes.sh").shfmt,
     toml = require("formatter.filetypes.toml").taplo,
     xhtml = tidy,
