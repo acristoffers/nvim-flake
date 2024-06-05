@@ -3,6 +3,7 @@ local telescope = require("telescope")
 telescope.load_extension("media_files")
 telescope.load_extension("ui-select")
 telescope.load_extension("notify")
+telescope.load_extension("projects")
 
 local actions = require("telescope.actions")
 

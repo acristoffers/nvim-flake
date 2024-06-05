@@ -75,13 +75,15 @@
                 nvim-lspconfig
                 nvim-notify
                 nvim-surround
+                nvim-tree-lua
                 nvim-treesitter-context
                 nvim-treesitter-textobjects
-                nvim-ts-context-commentstring
                 nvim-treesitter.withAllGrammars
+                nvim-ts-context-commentstring
                 orgmode
                 personal-config
                 plenary-nvim
+                project-nvim
                 rainbow-delimiters-nvim
                 rust-tools-nvim
                 telescope-media-files-nvim

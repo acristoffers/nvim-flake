@@ -26,6 +26,7 @@ else
       require("plugins.lsp")
       require("plugins.luasnip")
       require("plugins.treesitter")
+      require("plugins.project")
       require("plugins.telescope")
       require("plugins.whichkey")
       require("plugins.git-conflict")

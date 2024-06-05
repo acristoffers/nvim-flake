@@ -8,16 +8,18 @@ require("hop").setup({})
 
 local function quickfix()
   vim.lsp.buf.code_action({
-    filter = function(a) return a.isPreferred end,
-    apply = true
+    filter = function(a)
+      return a.isPreferred
+    end,
+    apply = true,
   })
 end
 
-local action_state = require('telescope.actions.state')
-local actions = require('telescope.actions')
-local conf = require('telescope.config').values
-local finders = require('telescope.finders')
-local pickers = require('telescope.pickers')
+local action_state = require("telescope.actions.state")
+local actions = require("telescope.actions")
+local conf = require("telescope.config").values
+local finders = require("telescope.finders")
+local pickers = require("telescope.pickers")
 
 local function transform_diagnostics(nvim_diagnostics)
   local lsp_diagnostics = {}
@@ -25,7 +27,7 @@ local function transform_diagnostics(nvim_diagnostics)
     table.insert(lsp_diagnostics, {
       range = {
         start = { line = d.lnum, character = d.col },
-        ['end'] = { line = d.end_lnum, character = d.end_col },
+        ["end"] = { line = d.end_lnum, character = d.end_col },
       },
       message = d.message,
       severity = d.severity,
@@ -45,7 +47,7 @@ local function apply_action_in_document(selected_action)
 
   for _, diagnostic in ipairs(diagnostics) do
     params.range = diagnostic.range
-    local results = vim.lsp.buf_request_sync(0, 'textDocument/codeAction', params)
+    local results = vim.lsp.buf_request_sync(0, "textDocument/codeAction", params)
     print(vim.inspect(results))
     for client_id, result in pairs(results) do
       if result.result then
@@ -77,7 +79,7 @@ function GetCodeActionsAndApplyGlobally()
     context = { diagnostics = diagnostics },
   }
 
-  vim.lsp.buf_request_all(0, 'textDocument/codeAction', params, function(results)
+  vim.lsp.buf_request_all(0, "textDocument/codeAction", params, function(results)
     local flat_results = {}
     for _, result in pairs(results) do
       if result.result then
@@ -88,28 +90,30 @@ function GetCodeActionsAndApplyGlobally()
     end
 
     if #flat_results > 0 then
-      pickers.new({}, {
-        prompt_title = 'Code Actions',
-        finder = finders.new_table({
-          results = flat_results,
-          entry_maker = function(entry)
-            return {
-              value = entry,
-              display = entry.title or "Unnamed action",
-              ordinal = entry.title or "",
-            }
-          end,
-        }),
-        sorter = conf.generic_sorter({}),
-        attach_mappings = function(prompt_bufnr, _)
-          actions.select_default:replace(function()
-            local selection = action_state.get_selected_entry()
-            actions.close(prompt_bufnr)
-            apply_action_in_document(selection.value)
-          end)
-          return true
-        end,
-      }):find()
+      pickers
+          .new({}, {
+            prompt_title = "Code Actions",
+            finder = finders.new_table({
+              results = flat_results,
+              entry_maker = function(entry)
+                return {
+                  value = entry,
+                  display = entry.title or "Unnamed action",
+                  ordinal = entry.title or "",
+                }
+              end,
+            }),
+            sorter = conf.generic_sorter({}),
+            attach_mappings = function(prompt_bufnr, _)
+              actions.select_default:replace(function()
+                local selection = action_state.get_selected_entry()
+                actions.close(prompt_bufnr)
+                apply_action_in_document(selection.value)
+              end)
+              return true
+            end,
+          })
+          :find()
     else
       print("No code actions available")
     end
@@ -125,22 +129,22 @@ end
 local which_key = require("which-key")
 local setup = {
   plugins = {
-    marks = true,       -- shows a list of your marks on ' and `
-    registers = true,   -- shows your registers on " in NORMAL or <C-r> in INSERT mode
+    marks = true,             -- shows a list of your marks on ' and `
+    registers = true,         -- shows your registers on " in NORMAL or <C-r> in INSERT mode
     spelling = {
-      enabled = true,   -- enabling this will show WhichKey when pressing z= to select spelling suggestions
-      suggestions = 20, -- how many suggestions should be shown in the list?
+      enabled = true,         -- enabling this will show WhichKey when pressing z= to select spelling suggestions
+      suggestions = 20,       -- how many suggestions should be shown in the list?
     },
     -- the presets plugin, adds help for a bunch of default keybindings in Neovim
     -- No actual key bindings are created
     presets = {
-      operators = true,    -- adds help for operators like d, y, ... and registers them for motion / text object completion
-      motions = true,      -- adds help for motions
-      text_objects = true, -- help for text objects triggered after entering an operator
-      windows = true,      -- default bindings on <c-w>
-      nav = true,          -- misc bindings to work with windows
-      z = true,            -- bindings for folds, spelling and others prefixed with z
-      g = true,            -- bindings for prefixed with g
+      operators = true,          -- adds help for operators like d, y, ... and registers them for motion / text object completion
+      motions = true,            -- adds help for motions
+      text_objects = true,       -- help for text objects triggered after entering an operator
+      windows = true,            -- default bindings on <c-w>
+      nav = true,                -- misc bindings to work with windows
+      z = true,                  -- bindings for folds, spelling and others prefixed with z
+      g = true,                  -- bindings for prefixed with g
     },
   },
   -- add operators that will trigger motion and text object completion
@@ -159,26 +163,26 @@ local setup = {
     group = "+", -- symbol prepended to a group
   },
   popup_mappings = {
-    scroll_down = "<c-d>", -- binding to scroll down inside the popup
-    scroll_up = "<c-u>",   -- binding to scroll up inside the popup
+    scroll_down = "<c-d>",     -- binding to scroll down inside the popup
+    scroll_up = "<c-u>",       -- binding to scroll up inside the popup
   },
   window = {
-    border = "rounded",       -- none, single, double, shadow
-    position = "bottom",      -- bottom, top
-    margin = { 1, 0, 1, 0 },  -- extra window margin [top, right, bottom, left]
-    padding = { 2, 2, 2, 2 }, -- extra window padding [top, right, bottom, left]
+    border = "rounded",           -- none, single, double, shadow
+    position = "bottom",          -- bottom, top
+    margin = { 1, 0, 1, 0 },      -- extra window margin [top, right, bottom, left]
+    padding = { 2, 2, 2, 2 },     -- extra window padding [top, right, bottom, left]
     winblend = 0,
   },
   layout = {
-    height = { min = 4, max = 25 },                                    -- min and max height of the columns
-    width = { min = 20, max = 50 },                                    -- min and max width of the columns
-    spacing = 3,                                                       -- spacing between columns
-    align = "left",                                                    -- align columns left, center or right
+    height = { min = 4, max = 25 },                                      -- min and max height of the columns
+    width = { min = 20, max = 50 },                                      -- min and max width of the columns
+    spacing = 3,                                                         -- spacing between columns
+    align = "left",                                                      -- align columns left, center or right
   },
-  ignore_missing = true,                                               -- enable this to hide mappings for which you didn't specify a label
-  hidden = { "<silent>", "<cmd>", "<cr>", "call", "lua", "^:", "^ " }, -- hide mapping boilerplate
-  show_help = true,                                                    -- show help message on the command line when the popup is visible
-  triggers = "auto",                                                   -- automatically setup triggers
+  ignore_missing = true,                                                 -- enable this to hide mappings for which you didn't specify a label
+  hidden = { "<silent>", "<cmd>", "<cr>", "call", "lua", "^:", "^ " },   -- hide mapping boilerplate
+  show_help = true,                                                      -- show help message on the command line when the popup is visible
+  triggers = "auto",                                                     -- automatically setup triggers
   -- triggers = {"<leader>"} -- or specify a list manually
   triggers_blacklist = {
     -- list of mode / prefixes that should never be hooked by WhichKey
@@ -190,12 +194,12 @@ local setup = {
 }
 
 local opts = {
-  mode = "n",     -- NORMAL mode
+  mode = "n",       -- NORMAL mode
   prefix = "<leader>",
-  buffer = nil,   -- Global mappings. Specify a buffer number for buffer local mappings
-  silent = true,  -- use `silent` when creating keymaps
-  noremap = true, -- use `noremap` when creating keymaps
-  nowait = true,  -- use `nowait` when creating keymaps
+  buffer = nil,     -- Global mappings. Specify a buffer number for buffer local mappings
+  silent = true,    -- use `silent` when creating keymaps
+  noremap = true,   -- use `noremap` when creating keymaps
+  nowait = true,    -- use `nowait` when creating keymaps
 }
 
 local mappings = {
@@ -307,6 +311,10 @@ local mappings = {
       "Reload current buffer",
     },
   },
+  e = {
+    ":NvimTreeToggle<CR>",
+    "Toggle File Tree",
+  },
   -- " Available Debug Adapters:
   -- "   https://microsoft.github.io/debug-adapter-protocol/implementors/adapters/
   -- " Adapter configuration and installation instructions:
@@ -369,6 +377,15 @@ local mappings = {
     e = { ":Telescope quickfix<cr>", "Telescope Quickfix" },
     o = { vim.diagnostic.open_float, "Open Float" },
   },
+  p = {
+    name = "+Projects",
+    o = {
+      function()
+        require("telescope").extensions.projects.projects({})
+      end,
+      "Open Project",
+    },
+  },
   s = {
     name = "+Search",
     b = { ":Telescope git_branches<cr>", "Checkout branch" },
@@ -423,12 +440,13 @@ local mappings = {
   },
   T = {
     name = "+Treesitter",
-    i = { ":TSConfigInfo<cr>", "Info" },
+    i = { ":Inspect<cr>", "Inspect" },
+    t = { ":InspectTree<cr>", "Inspect Tree" },
   },
   h = {
     name = "Help",
-    k = { ':Telescope keymaps<cr>', "Keymaps" },
-  }
+    k = { ":Telescope keymaps<cr>", "Keymaps" },
+  },
 }
 
 which_key.setup(setup)
@@ -438,20 +456,20 @@ local hop_ok, hop = pcall(require, "hop")
 if hop_ok then
   local directions = require("hop.hint").HintDirection
   local gopts_n = {
-    mode = "n",     -- Normal mode
+    mode = "n",         -- Normal mode
     prefix = "g",
-    buffer = nil,   -- Global mappings. Specify a buffer number for buffer local mappings
-    silent = true,  -- use `silent` when creating keymaps
-    noremap = true, -- use `noremap` when creating keymaps
-    nowait = true,  -- use `nowait` when creating keymaps
+    buffer = nil,       -- Global mappings. Specify a buffer number for buffer local mappings
+    silent = true,      -- use `silent` when creating keymaps
+    noremap = true,     -- use `noremap` when creating keymaps
+    nowait = true,      -- use `nowait` when creating keymaps
   }
   local gopts_v = {
-    mode = "v",     -- Visual mode
+    mode = "v",         -- Visual mode
     prefix = "g",
-    buffer = nil,   -- Global mappings. Specify a buffer number for buffer local mappings
-    silent = true,  -- use `silent` when creating keymaps
-    noremap = true, -- use `noremap` when creating keymaps
-    nowait = true,  -- use `nowait` when creating keymaps
+    buffer = nil,       -- Global mappings. Specify a buffer number for buffer local mappings
+    silent = true,      -- use `silent` when creating keymaps
+    noremap = true,     -- use `noremap` when creating keymaps
+    nowait = true,      -- use `nowait` when creating keymaps
   }
   local gmappings = {
     ["s"] = {
