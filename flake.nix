@@ -142,6 +142,7 @@
           silver-searcher
           stdenv.cc
           stylua
+          taplo
           texlab
           tree-sitter
           vscode-langservers-extracted
