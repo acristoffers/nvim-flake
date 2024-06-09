@@ -182,6 +182,13 @@ local function black()
   }
 end
 
+local function wbproto_beautifier()
+  return {
+    exe = "wbproto-beautifier",
+    stdin = true,
+  }
+end
+
 require("formatter").setup({
   filetype = {
     fish = require("formatter.filetypes.fish").fishindent,
@@ -194,6 +201,7 @@ require("formatter").setup({
     python = black,
     sh = require("formatter.filetypes.sh").shfmt,
     toml = require("formatter.filetypes.toml").taplo,
+    wbproto = wbproto_beautifier,
     xhtml = tidy,
     xml = tidy,
     yaml = require("formatter.filetypes.yaml").yamlfmt,
