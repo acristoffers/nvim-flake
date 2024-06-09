@@ -146,13 +146,34 @@
         "type": "github"
       }
     },
+    "naersk_2": {
+      "inputs": {
+        "nixpkgs": [
+          "wbproto-beautifier",
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1717067539,
+        "narHash": "sha256-oIs5EF+6VpHJRvvpVWuqCYJMMVW/6h59aYUv9lABLtY=",
+        "owner": "nix-community",
+        "repo": "naersk",
+        "rev": "fa19d8c135e776dc97f4dcca08656a0eeb28d5c0",
+        "type": "github"
+      },
+      "original": {
+        "owner": "nix-community",
+        "repo": "naersk",
+        "type": "github"
+      }
+    },
     "nixpkgs": {
       "locked": {
-        "lastModified": 1717399147,
-        "narHash": "sha256-eCWaE/q1VItpFAxxLVt171MdtDcjEnwi6QB/yuF73JU=",
+        "lastModified": 1717774105,
+        "narHash": "sha256-HV97wqUQv9wvptiHCb3Y0/YH0lJ60uZ8FYfEOIzYEqI=",
         "owner": "NixOS",
         "repo": "nixpkgs",
-        "rev": "4a4ecb0ab415c9fccfb005567a215e6a9564cdf5",
+        "rev": "d226935fd75012939397c83f6c385e4d6d832288",
         "type": "github"
       },
       "original": {
@@ -168,6 +189,7 @@
         "lsp-setup-git": "lsp-setup-git",
         "matlab-lsp": "matlab-lsp",
         "nixpkgs": "nixpkgs",
+        "wbproto-beautifier": "wbproto-beautifier",
         "zls": "zls"
       }
     },
@@ -198,6 +220,30 @@
       "original": {
         "owner": "nix-systems",
         "repo": "default",
+        "type": "github"
+      }
+    },
+    "wbproto-beautifier": {
+      "inputs": {
+        "flake-utils": [
+          "flake-utils"
+        ],
+        "naersk": "naersk_2",
+        "nixpkgs": [
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1717919961,
+        "narHash": "sha256-N76HFitTfNyjQEgEyvt6Jbv5Pl6Bme4Tgu6QXUGCFtA=",
+        "owner": "acristoffers",
+        "repo": "wbproto-beautifier",
+        "rev": "8f7958c28a1b5519a77e06b8fed6021de817d5cd",
+        "type": "github"
+      },
+      "original": {
+        "owner": "acristoffers",
+        "repo": "wbproto-beautifier",
         "type": "github"
       }
     },
