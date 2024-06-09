@@ -186,6 +186,7 @@ require("formatter").setup({
   filetype = {
     fish = require("formatter.filetypes.fish").fishindent,
     html = tidy,
+    javascript = require("formatter.filetypes.javascript").clangformat,
     json = require("formatter.filetypes.json").jq,
     lua = stylua,
     markdown = mdformat,
