@@ -11,11 +11,15 @@
     matlab-lsp.inputs.nixpkgs.follows = "nixpkgs";
     matlab-lsp.inputs.flake-utils.follows = "flake-utils";
 
+    wbproto-beautifier.url = "github:acristoffers/wbproto-beautifier";
+    wbproto-beautifier.inputs.nixpkgs.follows = "nixpkgs";
+    wbproto-beautifier.inputs.flake-utils.follows = "flake-utils";
+
     lsp-setup-git.url = "github:junnplus/lsp-setup.nvim";
     lsp-setup-git.flake = false;
   };
 
-  outputs = { self, flake-utils, nixpkgs, lsp-setup-git, zls, matlab-lsp }:
+  outputs = { self, flake-utils, nixpkgs, lsp-setup-git, zls, matlab-lsp, wbproto-beautifier }:
     flake-utils.lib.eachDefaultSystem (system:
       let
         pkgs = import nixpkgs { inherit system; };
@@ -130,12 +134,12 @@
           nil
           nodePackages_latest.bash-language-server
           nodePackages_latest.eslint
-          nodePackages_latest.pyright
           nodePackages_latest.typescript-language-server
           nodePackages_latest.vim-language-server
           nodePackages_latest.vls
           ocamlPackages.ocaml-lsp
           ocamlPackages.ocamlformat
+          pyright
           ripgrep
           rubyPackages.solargraph
           rust-analyzer
@@ -146,6 +150,7 @@
           texlab
           tree-sitter
           vscode-langservers-extracted
+          wbproto-beautifier.packages.${system}.default
           zls.packages.${system}.default
         ];
       in
