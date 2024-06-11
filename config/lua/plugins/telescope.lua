@@ -40,7 +40,7 @@ telescope.setup({
   defaults = {
     prompt_prefix = " ",
     selection_caret = " ",
-    path_display = { "smart" },
+    path_display = { "filename_first" },
 
     mappings = {
       i = {
