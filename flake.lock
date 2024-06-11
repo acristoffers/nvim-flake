@@ -169,11 +169,11 @@
     },
     "nixpkgs": {
       "locked": {
-        "lastModified": 1717868076,
-        "narHash": "sha256-c83Y9t815Wa34khrux81j8K8ET94ESmCuwORSKm2bQY=",
+        "lastModified": 1717893485,
+        "narHash": "sha256-WMU6ZRZrBgEUDIF0siu2aIyVAXcxfElSwzZtS/mSpN4=",
         "owner": "NixOS",
         "repo": "nixpkgs",
-        "rev": "cd18e2ae9ab8e2a0a8d715b60c91b54c0ac35ff9",
+        "rev": "3bcedce9f4de37570242faf16e1e143583407eab",
         "type": "github"
       },
       "original": {
@@ -234,11 +234,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1717964799,
-        "narHash": "sha256-Hs/pPG3ywPsOoHeVZ0Nt9NlcanrQmYoyiOlqsJk1JOg=",
+        "lastModified": 1718005740,
+        "narHash": "sha256-CDmKtLKCM52aVlAzNSO70KKI4bwUUDMu92ThpxH2kbE=",
         "owner": "acristoffers",
         "repo": "wbproto-beautifier",
-        "rev": "6d753f621104beeb976c6d7ee8865914d89be051",
+        "rev": "07d89ed3f23b57b0176e649551ab699cc9ebd0d8",
         "type": "github"
       },
       "original": {
