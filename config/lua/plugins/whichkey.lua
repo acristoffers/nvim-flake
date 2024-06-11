@@ -269,6 +269,10 @@ local mappings = {
       ":lua require'telescope.builtin'.find_files()<cr>",
       "Find File",
     },
+    g = {
+      ":lua require'telescope.builtin'.git_files()<cr>",
+      "Find Git File",
+    },
     p = { ":e ~/.config/nvim/init.lua <cr>", "Open Config File" },
     h = { ":wshada!<cr>", "Save shada (fixes overpersistent marks)" },
     w = { ":%s/ \\+$//g<cr>", "Remove trailling spaces" },
