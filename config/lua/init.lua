@@ -37,6 +37,7 @@ else
             silent bufdo e %
             silent hi link @type.builtin.cpp @type.cpp
             silent hi link @type.builtin.c @type.c
+            silent hi link @punctuation.special.cmake NONE
       ]])
     end)
   end)
