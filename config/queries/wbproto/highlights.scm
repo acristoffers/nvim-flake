@@ -1,5 +1,6 @@
 ; Includes
 
+(extern "IMPORTABLE" @include)
 (extern "EXTERNPROTO" @include)
 
 ; Keywords
@@ -7,6 +8,7 @@
 [
   "DEF"
   "EXTERNPROTO"
+  "IMPORTABLE"
   "IS"
   "PROTO"
   "USE"
@@ -27,7 +29,7 @@
 
 ; Types
 
-(class . (identifier) @type)
+(node . (identifier) @type)
 
 ((identifier) @type
   (#lua-match? @type "^[A-Z][a-zA-Z0-9_]+$"))
@@ -35,8 +37,6 @@
 ; Functions
 
 ; Punctuation
-
-"," @punctuation.delimiter
 
 [ "[" "]" "{" "}" ] @punctuation.bracket
 
