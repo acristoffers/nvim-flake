@@ -117,6 +117,7 @@ require("lsp-setup").setup({
     tsserver = {},
     vimls = {},
     vuels = {},
+    yamlls = {},
     zls = {},
   },
 })
