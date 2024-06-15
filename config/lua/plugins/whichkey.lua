@@ -383,7 +383,7 @@ local mappings = {
   },
   p = {
     name = "+Projects",
-    o = {
+    p = {
       function()
         require("telescope").extensions.projects.projects({})
       end,
