@@ -151,6 +151,7 @@
           tree-sitter
           vscode-langservers-extracted
           wbproto-beautifier.packages.${system}.default
+          yaml-language-server
           zls.packages.${system}.default
         ];
       in
