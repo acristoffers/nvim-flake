@@ -192,6 +192,8 @@ end
 
 require("formatter").setup({
   filetype = {
+    c = require("formatter.filetypes.c").clangformat,
+    cpp = require("formatter.filetypes.cpp").clangformat,
     fish = require("formatter.filetypes.fish").fishindent,
     html = tidy,
     javascript = require("formatter.filetypes.javascript").clangformat,
