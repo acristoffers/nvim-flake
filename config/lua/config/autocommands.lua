@@ -22,7 +22,10 @@ local groups = {
       options = {
         pattern = { "*.proto", "*.wbt" },
         callback = function()
-          vim.cmd([[set filetype=wbproto]])
+          vim.cmd([[
+            set filetype=wbproto
+            set cms=#%s
+          ]])
         end,
       },
     },
