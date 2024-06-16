@@ -263,8 +263,8 @@ local mappings = {
   f = {
     name = "+File",
     n = { ":ene!<cr>", "New file" },
-    s = { ":w<cr>", "Save File" },
-    a = { ":wa<cr>", "Save All" },
+    s = { ":silent w<cr>", "Save File" },
+    a = { ":silent wa<cr>", "Save All" },
     o = {
       ":lua require'telescope.builtin'.find_files()<cr>",
       "Find File",
