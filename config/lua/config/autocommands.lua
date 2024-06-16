@@ -20,7 +20,7 @@ local groups = {
     {
       event = { "BufRead", "BufNewFile" },
       options = {
-        pattern = "*.proto",
+        pattern = { "*.proto", "*.wbt" },
         callback = function()
           vim.cmd([[set filetype=wbproto]])
         end,

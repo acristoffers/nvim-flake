@@ -234,11 +234,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1718527194,
-        "narHash": "sha256-dReP1PknPnCp53q14ZFUedJ/NNqghtJYjoHRbQJK3Is=",
+        "lastModified": 1718529957,
+        "narHash": "sha256-N2N6zSVa66ratiJfmAhsD9cU+RPEFAgh0hdNbnFIKkQ=",
         "owner": "acristoffers",
         "repo": "wbproto-beautifier",
-        "rev": "3b2664731bca8804cbd80164cff06b99cc16a99d",
+        "rev": "cb5c5c48fa6af5b25f36a7cc4308d9b93b6524fc",
         "type": "github"
       },
       "original": {
