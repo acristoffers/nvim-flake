@@ -132,6 +132,17 @@ keymap('n', ']d', ':lua vim.diagnostic.goto_next()<cr>', opts)
 -- Center selection
 keymap('v', 'zZ', ':lua CenterSelection()<cr>', opts)
 
+--- Eval math (actually lua)
+keymap('v', '<leader>r', ':lua EvalSelection()<cr>', opts)
+
+function EvalSelection()
+  local startPos = vim.fn.getpos("'<")
+  local endPos = vim.fn.getpos("'>")
+  local selection = vim.api.nvim_buf_get_text(0, startPos[2] - 1, startPos[3] - 1, endPos[2] - 1, endPos[3], {})
+  local result = string.format("%s", vim.fn.eval(selection[1]))
+  vim.api.nvim_buf_set_text(0, startPos[2] - 1, startPos[3] - 1, endPos[2] - 1, endPos[3], { result })
+end
+
 function CenterSelection()
   local startPos = vim.fn.getpos("'<")
   local endPos = vim.fn.getpos("'>")
