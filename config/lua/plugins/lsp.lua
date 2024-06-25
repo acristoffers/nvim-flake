@@ -190,6 +190,16 @@ local function wbproto_beautifier()
   }
 end
 
+local function yamlfmt()
+  local default = require("formatter.filetypes.yaml").yamlfmt()
+  default.args = {
+    "-in",
+    "-formatter",
+    "retain_line_breaks_single=true,eof_newline=true,include_document_start=true,line_ending=lf,trim_trailing_whitespace=true"
+  }
+  return default
+end
+
 require("formatter").setup({
   filetype = {
     c = require("formatter.filetypes.c").clangformat,
@@ -207,7 +217,7 @@ require("formatter").setup({
     wbproto = wbproto_beautifier,
     xhtml = tidy,
     xml = tidy,
-    yaml = require("formatter.filetypes.yaml").yamlfmt,
+    yaml = yamlfmt,
   },
 })
 
