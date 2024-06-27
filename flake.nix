@@ -17,9 +17,12 @@
 
     lsp-setup-git.url = "github:junnplus/lsp-setup.nvim";
     lsp-setup-git.flake = false;
+
+    ouroboros-git.url = "github:jakemason/ouroboros.nvim";
+    ouroboros-git.flake = false;
   };
 
-  outputs = { self, flake-utils, nixpkgs, lsp-setup-git, zls, matlab-lsp, wbproto-beautifier }:
+  outputs = { self, flake-utils, nixpkgs, lsp-setup-git, zls, matlab-lsp, wbproto-beautifier, ouroboros-git }:
     flake-utils.lib.eachDefaultSystem (system:
       let
         pkgs = import nixpkgs { inherit system; };
@@ -30,6 +33,10 @@
         lsp-setup = pkgs.vimUtils.buildVimPlugin {
           name = "lsp-setup";
           src = lsp-setup-git;
+        };
+        ouroboros = pkgs.vimUtils.buildVimPlugin {
+          name = "ouroboros";
+          src = ouroboros-git;
         };
         neovim = pkgs.neovim.override {
           viAlias = true;
@@ -85,6 +92,7 @@
                 nvim-treesitter.withAllGrammars
                 nvim-ts-context-commentstring
                 orgmode
+                ouroboros
                 personal-config
                 plenary-nvim
                 project-nvim
