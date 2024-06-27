@@ -129,6 +129,7 @@ local function stylua()
     args = {
       "--indent-type", "Spaces",
       "--line-endings", "Unix",
+      "--indent-width", "2",
       "--search-parent-directories",
       "--sort-requires",
       "--stdin-filepath",
