@@ -332,38 +332,24 @@ local mappings = {
   -- " Debugging
   g = {
     name = "+Git",
+    C = { ":Telescope git_bcommits<cr>", "Checkout commit(for current file)" },
+    R = { ":lua require 'gitsigns'.reset_buffer()<cr>", "Reset Buffer" },
+    b = { ":Telescope git_branches<cr>", "Checkout branch" },
+    c = { ":Telescope git_commits<cr>", "Checkout commit" },
+    d = { ":Gitsigns diffthis HEAD<cr>", "Git Diff" },
+    g = { require("neogit").open, "Neogit" },
     j = { ":lua require 'gitsigns'.next_hunk()<cr>", "Next Hunk" },
     k = { ":lua require 'gitsigns'.prev_hunk()<cr>", "Prev Hunk" },
     l = { ":lua require 'gitsigns'.blame_line()<cr>", "Blame" },
+    o = { ":Telescope git_status<cr>", "Open changed file" },
     p = { ":lua require 'gitsigns'.preview_hunk()<cr>", "Preview Hunk" },
     r = { ":lua require 'gitsigns'.reset_hunk()<cr>", "Reset Hunk" },
-    R = { ":lua require 'gitsigns'.reset_buffer()<cr>", "Reset Buffer" },
     s = { ":lua require 'gitsigns'.stage_hunk()<cr>", "Stage Hunk" },
-    u = {
-      ":lua require 'gitsigns'.undo_stage_hunk()<cr>",
-      "Undo Stage Hunk",
-    },
-    o = { ":Telescope git_status<cr>", "Open changed file" },
-    b = { ":Telescope git_branches<cr>", "Checkout branch" },
-    c = { ":Telescope git_commits<cr>", "Checkout commit" },
-    C = {
-      ":Telescope git_bcommits<cr>",
-      "Checkout commit(for current file)",
-    },
-    d = {
-      ":Gitsigns diffthis HEAD<cr>",
-      "Git Diff",
-    },
+    u = { ":lua require 'gitsigns'.undo_stage_hunk()<cr>", "Undo Stage Hunk" },
     w = {
       name = "+Worktrees",
-      a = {
-        require('telescope').extensions.git_worktree.create_git_worktree,
-        "Add",
-      },
-      l = {
-        require('telescope').extensions.git_worktree.git_worktrees,
-        "List",
-      }
+      a = { require("telescope").extensions.git_worktree.create_git_worktree, "Add" },
+      l = { require("telescope").extensions.git_worktree.git_worktrees, "List" },
     },
   },
   l = {
