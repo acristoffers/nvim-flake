@@ -88,6 +88,7 @@
                 marks-nvim
                 mini-nvim
                 neoconf-nvim
+                neogit
                 nvim-autopairs
                 nvim-cmp
                 nvim-fzf

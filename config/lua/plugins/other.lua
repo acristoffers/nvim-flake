@@ -8,3 +8,4 @@ require("orgmode").setup({
   org_default_notes_file = "~/.org/notes.org",
 })
 require("git-worktree").setup()
+require("neogit").setup()
