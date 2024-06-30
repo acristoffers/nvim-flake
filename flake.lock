@@ -52,6 +52,23 @@
         "type": "github"
       }
     },
+    "git-worktree-git": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1714420982,
+        "narHash": "sha256-CC9+h1i+l9TbE60LABZnwjkHy94VGQ7Hqd5jVHEW+mw=",
+        "owner": "awerebea",
+        "repo": "git-worktree.nvim",
+        "rev": "a3917d0b7ca32e7faeed410cd6b0c572bf6384ac",
+        "type": "github"
+      },
+      "original": {
+        "owner": "awerebea",
+        "ref": "handle_changes_in_telescope_api",
+        "repo": "git-worktree.nvim",
+        "type": "github"
+      }
+    },
     "gitignore": {
       "inputs": {
         "nixpkgs": [
@@ -202,6 +219,7 @@
     "root": {
       "inputs": {
         "flake-utils": "flake-utils",
+        "git-worktree-git": "git-worktree-git",
         "lsp-setup-git": "lsp-setup-git",
         "matlab-lsp": "matlab-lsp",
         "nixpkgs": "nixpkgs",

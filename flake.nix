@@ -20,9 +20,12 @@
 
     ouroboros-git.url = "github:jakemason/ouroboros.nvim";
     ouroboros-git.flake = false;
+
+    git-worktree-git.url = "github:awerebea/git-worktree.nvim/handle_changes_in_telescope_api";
+    git-worktree-git.flake = false;
   };
 
-  outputs = { self, flake-utils, nixpkgs, lsp-setup-git, zls, matlab-lsp, wbproto-beautifier, ouroboros-git }:
+  outputs = inputs@{ self, flake-utils, nixpkgs, ... }:
     flake-utils.lib.eachDefaultSystem (system:
       let
         pkgs = import nixpkgs { inherit system; };
@@ -32,11 +35,15 @@
         };
         lsp-setup = pkgs.vimUtils.buildVimPlugin {
           name = "lsp-setup";
-          src = lsp-setup-git;
+          src = inputs.lsp-setup-git;
         };
         ouroboros = pkgs.vimUtils.buildVimPlugin {
           name = "ouroboros";
-          src = ouroboros-git;
+          src = inputs.ouroboros-git;
+        };
+        git-worktree = pkgs.vimUtils.buildVimPlugin {
+          name = "git-worktree.nvim";
+          src = inputs.git-worktree-git;
         };
         neovim = pkgs.neovim.override {
           viAlias = true;
@@ -67,6 +74,7 @@
                 friendly-snippets
                 git-blame-nvim
                 git-conflict-nvim
+                git-worktree
                 gitsigns-nvim
                 hop-nvim
                 indent-blankline-nvim
@@ -137,7 +145,7 @@
           kotlin-language-server
           lua-language-server
           marksman
-          matlab-lsp.packages.${system}.default
+          inputs.matlab-lsp.packages.${system}.default
           mdformat
           nil
           nodePackages_latest.bash-language-server
@@ -158,9 +166,9 @@
           texlab
           tree-sitter
           vscode-langservers-extracted
-          wbproto-beautifier.packages.${system}.default
+          inputs.wbproto-beautifier.packages.${system}.default
           yaml-language-server
-          zls.packages.${system}.default
+          inputs.zls.packages.${system}.default
         ];
       in
       rec {
