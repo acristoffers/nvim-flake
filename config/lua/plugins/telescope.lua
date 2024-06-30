@@ -1,9 +1,10 @@
 local telescope = require("telescope")
 
+telescope.load_extension("git_worktree")
 telescope.load_extension("media_files")
-telescope.load_extension("ui-select")
 telescope.load_extension("notify")
 telescope.load_extension("projects")
+telescope.load_extension("ui-select")
 
 local actions = require("telescope.actions")
 

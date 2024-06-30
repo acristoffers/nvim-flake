@@ -48,7 +48,9 @@ local function apply_action_in_document(selected_action)
   for _, diagnostic in ipairs(diagnostics) do
     params.range = diagnostic.range
     local results = vim.lsp.buf_request_sync(0, "textDocument/codeAction", params)
-    print(vim.inspect(results))
+    if results == nil then
+      goto continue
+    end
     for client_id, result in pairs(results) do
       if result.result then
         for _, action in ipairs(result.result) do
@@ -68,6 +70,7 @@ local function apply_action_in_document(selected_action)
         end
       end
     end
+    ::continue::
   end
 end
 
@@ -350,6 +353,17 @@ local mappings = {
     d = {
       ":Gitsigns diffthis HEAD<cr>",
       "Git Diff",
+    },
+    w = {
+      name = "+Worktrees",
+      a = {
+        require('telescope').extensions.git_worktree.create_git_worktree,
+        "Add",
+      },
+      l = {
+        require('telescope').extensions.git_worktree.git_worktrees,
+        "List",
+      }
     },
   },
   l = {
