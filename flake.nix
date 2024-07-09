@@ -116,7 +116,6 @@
                 vim-illuminate
                 vim-indent-object
                 vim-lion
-                vim-matchup
                 vim-repeat
                 vim-sneak
                 vim-tridactyl
