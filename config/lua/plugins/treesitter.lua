@@ -10,9 +10,9 @@ local opts = {
     enable = true,
   },
   highlight = {
-    enable = true,                                     -- false will disable the whole extension
-    disable = { "" },                                  -- list of language that will be disabled
-    additional_vim_regex_highlighting = { "org" },     -- Required for spellcheck, some LaTex highlights and code block highlights that do not have ts grammar
+    enable = true,                                 -- false will disable the whole extension
+    disable = { "" },                              -- list of language that will be disabled
+    additional_vim_regex_highlighting = { "org" }, -- Required for spellcheck, some LaTex highlights and code block highlights that do not have ts grammar
   },
   indent = { enable = true, disable = { "yaml" } },
   incremental_selection = {
@@ -23,9 +23,6 @@ local opts = {
       scope_incremental = "grc",
       node_decremental = "grm",
     },
-  },
-  matchup = {
-    enable = true,     -- mandatory, false will disable the whole extension
   },
   textobjects = {
     select = {
@@ -65,7 +62,7 @@ local opts = {
     },
     move = {
       enable = true,
-      set_jumps = true,       -- whether to set jumps in the jumplist
+      set_jumps = true, -- whether to set jumps in the jumplist
       goto_next_start = {
         ["]m"] = "@function.outer",
         ["]]"] = "@class.outer",
