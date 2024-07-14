@@ -97,7 +97,6 @@ require("lsp-setup").setup({
     clangd = require("lsp.settings.clangd"),
     cmake = {},
     cssls = require("lsp.settings.cssls"),
-    elixirls = require("lsp.settings.emmet_ls"),
     elmls = {},
     erlangls = {},
     eslint = {},
