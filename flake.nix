@@ -142,10 +142,12 @@
           git
           gopls
           html-tidy
+          inputs.matlab-lsp.packages.${system}.default
+          inputs.wbproto-beautifier.packages.${system}.default
+          inputs.zls.packages.${system}.default
           kotlin-language-server
           lua-language-server
           marksman
-          inputs.matlab-lsp.packages.${system}.default
           mdformat
           nil
           nodePackages_latest.bash-language-server
@@ -166,9 +168,7 @@
           texlab
           tree-sitter
           vscode-langservers-extracted
-          inputs.wbproto-beautifier.packages.${system}.default
           yaml-language-server
-          inputs.zls.packages.${system}.default
         ];
       in
       rec {
