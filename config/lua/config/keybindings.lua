@@ -150,7 +150,7 @@ function CenterSelection()
   local endLine = endPos[2]
   local middleLine = math.floor((startLine + endLine) / 2)
   vim.api.nvim_win_set_cursor(0, { middleLine, 0 })
-  vim.cmd('normal zz')
+  vim.cmd('normal! zz')
   vim.fn.setpos("'<", startPos)
   vim.fn.setpos("'>", endPos)
   vim.cmd('normal! gv')
