@@ -167,6 +167,7 @@
           taplo
           texlab
           tree-sitter
+          typescript
           vscode-langservers-extracted
           yaml-language-server
         ];
