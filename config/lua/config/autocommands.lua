@@ -131,6 +131,12 @@ local groups = {
         end,
       },
     },
+    {
+      event = "BufWritePre",
+      options = {
+        command = ":%s/ \\+$//g",
+      },
+    }
   },
   autoresize = {
     {
