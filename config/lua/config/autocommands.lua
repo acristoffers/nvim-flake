@@ -130,12 +130,6 @@ local groups = {
                     ]])
         end,
       },
-    },
-    {
-      event = "BufWritePre",
-      options = {
-        command = ":silent %s/ \\+$//g",
-      },
     }
   },
   autoresize = {
