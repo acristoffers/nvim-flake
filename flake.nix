@@ -111,6 +111,7 @@
                 telescope-nvim
                 telescope-ui-select-nvim
                 text-case-nvim
+                trim-nvim
                 undotree
                 vim-fish
                 vim-illuminate
