@@ -134,7 +134,7 @@ local groups = {
     {
       event = "BufWritePre",
       options = {
-        command = ":%s/ \\+$//g",
+        command = ":silent %s/ \\+$//g",
       },
     }
   },
