@@ -33,8 +33,8 @@ else
       require("config.xmlattr")
 
       vim.cmd([[
-            silent LspStart
-            silent bufdo e %
+        silent LspStart
+        silent bufdo e %
       ]])
     end)
   end)
