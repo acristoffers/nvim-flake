@@ -59,9 +59,9 @@ local groups = {
         pattern = { "fish" },
         callback = function()
           vim.cmd([[
-                        compiler fish
-                        setlocal foldmethod=expr
-                    ]])
+            compiler fish
+            setlocal foldmethod=expr
+          ]])
         end,
       },
     },
@@ -74,20 +74,6 @@ local groups = {
         command = "set filetype=matlab",
       },
     },
-    -- {
-    --   event = "FileType",
-    --   options = {
-    --     pattern = { "nix" },
-    --     command = "set commentstring=#\\ %s",
-    --   },
-    -- },
-    -- {
-    --   event = "FileType",
-    --   options = {
-    --     pattern = { "matlab" },
-    --     command = "set commentstring=\\%\\ %s",
-    --   },
-    -- },
     {
       event = "FileType",
       options = {
@@ -125,12 +111,12 @@ local groups = {
         pattern = { "gitcommit", "markdown" },
         callback = function()
           vim.cmd([[
-                        setlocal wrap
-                        setlocal spell
-                    ]])
+            setlocal wrap
+            setlocal spell
+          ]])
         end,
       },
-    }
+    },
   },
   autoresize = {
     {
