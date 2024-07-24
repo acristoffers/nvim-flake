@@ -13,29 +13,27 @@ else
   require("plugins.alpha")
   require("plugins.rainbow")
 
+  require("plugins.bufferline")
+  require("plugins.lualine")
+
+  require("plugins.other")
+  require("plugins.autopairs")
+  require("plugins.cmp")
+  require("plugins.comments")
+  require("plugins.gitsigns")
+  require("plugins.lsp")
+  require("plugins.luasnip")
+  require("plugins.treesitter")
+  require("plugins.project")
+  require("plugins.telescope")
+  require("plugins.git-conflict")
+  require("config.xmlattr")
+  require("plugins.whichkey")
+
   vim.schedule(function()
-    require("plugins.bufferline")
-    require("plugins.lualine")
-
-    vim.schedule(function()
-      require("plugins.other")
-      require("plugins.autopairs")
-      require("plugins.cmp")
-      require("plugins.comments")
-      require("plugins.gitsigns")
-      require("plugins.lsp")
-      require("plugins.luasnip")
-      require("plugins.treesitter")
-      require("plugins.project")
-      require("plugins.telescope")
-      require("plugins.whichkey")
-      require("plugins.git-conflict")
-      require("config.xmlattr")
-
-      vim.cmd([[
-        silent LspStart
-        silent bufdo e %
-      ]])
-    end)
+    vim.cmd([[
+      silent LspStart
+      silent bufdo e %
+    ]])
   end)
 end
