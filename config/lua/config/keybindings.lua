@@ -48,6 +48,8 @@ keymap('v', '>', '>gv', opts)
 -- Move text up and down
 keymap('v', '<A-j>', ':m .+1<cr>==', opts)
 keymap('v', '<A-k>', ':m .-2<cr>==', opts)
+keymap('n', '<A-j>', ':m .+1<cr>==', opts)
+keymap('n', '<A-k>', ':m .-2<cr>==', opts)
 
 keymap('v', 'p', '"_dP', opts)
 
