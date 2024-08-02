@@ -179,6 +179,7 @@ local options = {
     { "<leader>fn",  ":ene!<cr>",                                                                  desc = "New file",                                nowait = true, remap = false },
     { "<leader>fo",  ":lua require'telescope.builtin'.find_files()<cr>",                           desc = "Find File",                               nowait = true, remap = false },
     { "<leader>fs",  ":silent w<cr>",                                                              desc = "Save File",                               nowait = true, remap = false },
+    { "<leader>fS",  ":silent noa w<cr>",                                                          desc = "Save File (no autocommands)",             nowait = true, remap = false },
     { "<leader>fw",  ":Trim<cr>",                                                                  desc = "Remove trailling spaces",                 nowait = true, remap = false },
     { "<leader>g",   group = "Git",                                                                nowait = true,                                    remap = false },
     { "<leader>gC",  ":Telescope git_bcommits<cr>",                                                desc = "Checkout commit(for current file)",       nowait = true, remap = false },
