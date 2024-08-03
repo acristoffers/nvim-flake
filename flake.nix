@@ -107,6 +107,7 @@
                 project-nvim
                 rainbow-delimiters-nvim
                 rust-tools-nvim
+                targets-vim # packed with useful text-objects
                 telescope-media-files-nvim
                 telescope-nvim
                 telescope-ui-select-nvim
