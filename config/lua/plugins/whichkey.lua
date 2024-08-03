@@ -159,6 +159,7 @@ local options = {
     { "<leader>cI",  ":LspInstallInfo<cr>",                                                        desc = "Installer Info",                          nowait = true, remap = false },
     { "<leader>cS",  ":Telescope lsp_dynamic_workspace_symbols<cr>",                               desc = "Workspace Symbols",                       nowait = true, remap = false },
     { "<leader>ca",  ":lua vim.lsp.buf.code_action()<cr>",                                         desc = "Code Action",                             nowait = true, remap = false },
+    { "<leader>cc",  ":TextCaseOpenTelescope<cr>",                                                 desc = "Change Case",                             nowait = true, remap = false },
     { "<leader>cd",  ":Telescope diagnostics bufnr=0 theme=get_ivy<cr>",                           desc = "Buffer Diagnostics",                      nowait = true, remap = false },
     { "<leader>ce",  ":Telescope quickfix<cr>",                                                    desc = "Telescope Quickfix",                      nowait = true, remap = false },
     { "<leader>cf",  ":Format<cr>",                                                                desc = "Format",                                  nowait = true, remap = false },
