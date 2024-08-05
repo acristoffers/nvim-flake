@@ -52,8 +52,8 @@ keymap('n', '<A-j>', ':m .+1<cr>==', opts)
 keymap('n', '<A-k>', ':m .-2<cr>==', opts)
 
 -- Navigate tags
-keymap('n', '<C-[>', ':pop<cr>', opts)
-keymap('n', '<C-]>', ':tag<cr>', opts)
+keymap('n', 'g[', ':pop<cr>', opts)
+keymap('n', 'g]', ':tag<cr>', opts)
 
 keymap('v', 'p', '"_dP', opts)
 
