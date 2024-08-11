@@ -31,10 +31,10 @@ keymap('n', 'gt', ':bn<cr>', opts)
 keymap('n', 'gT', ':bp<cr>', opts)
 
 -- Snipe last
-keymap('n', '<A-g>', '$F', opts)
+keymap('n', '<A-g>', '$,', opts)
 
 -- Snipe first
-keymap('n', '<A-f>', '0f', opts)
+keymap('n', '<A-f>', '0;', opts)
 
 -- Insert --
 -- Press jk fast to enter
