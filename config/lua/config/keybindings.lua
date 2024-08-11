@@ -1,7 +1,7 @@
 local opts = { noremap = true, silent = true }
 
 -- Shorten function name
-local keymap = vim.api.nvim_set_keymap
+local keymap = vim.keymap.set
 
 --Remap space as leader key
 keymap('', '<Space>', '<Nop>', opts)
@@ -19,6 +19,8 @@ vim.g.maplocalleader = ' '
 -- Normal --
 
 keymap('n', 'gp', '`<v`>', opts)
+
+keymap('n', '<A-p>', function() vim.fn.setreg('+', vim.api.nvim_buf_get_name(0)) end, opts)
 
 -- Resize with arrows
 keymap('n', '<C-Up>', ':resize +2<cr>', opts)
@@ -136,20 +138,7 @@ keymap('n', '[d', ':lua vim.diagnostic.goto_prev()<cr>', opts)
 keymap('n', ']d', ':lua vim.diagnostic.goto_next()<cr>', opts)
 
 -- Center selection
-keymap('v', 'zZ', ':lua CenterSelection()<cr>', opts)
-
---- Eval math (actually lua)
-keymap('v', '<leader>r', ':lua EvalSelection()<cr>', opts)
-
-function EvalSelection()
-  local startPos = vim.fn.getpos("'<")
-  local endPos = vim.fn.getpos("'>")
-  local selection = vim.api.nvim_buf_get_text(0, startPos[2] - 1, startPos[3] - 1, endPos[2] - 1, endPos[3], {})
-  local result = string.format("%s", vim.fn.eval(selection[1]))
-  vim.api.nvim_buf_set_text(0, startPos[2] - 1, startPos[3] - 1, endPos[2] - 1, endPos[3], { result })
-end
-
-function CenterSelection()
+keymap('v', 'zZ', function()
   local startPos = vim.fn.getpos("'<")
   local endPos = vim.fn.getpos("'>")
   local startLine = startPos[2]
@@ -160,7 +149,16 @@ function CenterSelection()
   vim.fn.setpos("'<", startPos)
   vim.fn.setpos("'>", endPos)
   vim.cmd('normal! gv')
-end
+end, opts)
+
+--- Eval math (actually lua)
+keymap('v', '<leader>r', function()
+  local startPos = vim.fn.getpos("'<")
+  local endPos = vim.fn.getpos("'>")
+  local selection = vim.api.nvim_buf_get_text(0, startPos[2] - 1, startPos[3] - 1, endPos[2] - 1, endPos[3], {})
+  local result = string.format("%s", vim.fn.eval(selection[1]))
+  vim.api.nvim_buf_set_text(0, startPos[2] - 1, startPos[3] - 1, endPos[2] - 1, endPos[3], { result })
+end, opts)
 
 function SelectIdentifier()
   local line = vim.api.nvim_win_get_cursor(0)[1] - 1
