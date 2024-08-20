@@ -129,11 +129,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1718092381,
-        "narHash": "sha256-vXVyEv71XNr2LZp0BW4L6WhWPNIs2taEbaQ7QAmzCB4=",
+        "lastModified": 1724179944,
+        "narHash": "sha256-8aUbZ+gusd94K7PXCm8ECo0d/MEa3G24ljrS7l6wdag=",
         "owner": "acristoffers",
         "repo": "matlab-lsp",
-        "rev": "4a344344cfdd0b18fcc1893035999a18c902c478",
+        "rev": "e32f52ddaa317c40443d79a04188ad81ed07f96f",
         "type": "github"
       },
       "original": {
@@ -150,11 +150,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1717067539,
-        "narHash": "sha256-oIs5EF+6VpHJRvvpVWuqCYJMMVW/6h59aYUv9lABLtY=",
+        "lastModified": 1721727458,
+        "narHash": "sha256-r/xppY958gmZ4oTfLiHN0ZGuQ+RSTijDblVgVLFi1mw=",
         "owner": "nix-community",
         "repo": "naersk",
-        "rev": "fa19d8c135e776dc97f4dcca08656a0eeb28d5c0",
+        "rev": "3fb418eaf352498f6b6c30592e3beb63df42ef11",
         "type": "github"
       },
       "original": {
