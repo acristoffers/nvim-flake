@@ -65,17 +65,14 @@ vim.cmd([[ let g:sneak#prompt = '🔎  ' ]])
 vim.api.nvim_set_hl(0, "@variable.matlab", { link = "Identifier" })
 
 vim.g.mapleader = " "
+vim.g.gitblame_virtual_text_column = 102
 vim.g.lion_squeeze_spaces = 1
-if vim.loop.os_uname().sysname == "Darwin" then
-  vim.g.vimtex_view_method = "skim"
-else
-  vim.g.vimtex_view_general_viewer = "okular"
-  vim.g.vimtex_view_general_options = "--unique file:@pdf#src:@line@tex"
-end
-vim.g.Tex_FoldedSections = ""
+vim.g.vimtex_view_general_options = "--unique file:@pdf#src:@line@tex"
+vim.g.vimtex_view_general_viewer = "okular"
+vim.g.vimtex_syntax_enabled = 0
 vim.g.Tex_FoldedEnvironments = ""
 vim.g.Tex_FoldedMisc = ""
-vim.g.gitblame_virtual_text_column = 102
+vim.g.Tex_FoldedSections = ""
 
 function SetTab(num)
   vim.opt.shiftwidth = num
