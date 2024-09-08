@@ -121,7 +121,6 @@
                 vim-repeat
                 vim-sneak
                 vim-tridactyl
-                vimtex
                 virtual-types-nvim
                 which-key-nvim
               ];
