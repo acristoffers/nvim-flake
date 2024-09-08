@@ -186,7 +186,7 @@ function _G.PasteMotion(type)
   vim.cmd([[ normal gpP ]])
 end
 
-function NamedNodeAroundCursor(node_name)
+function NamedNodeAroundCursor(node_names)
   local parser = vim.treesitter.get_parser()
   local tree = parser:trees()[1]
   local root = tree:root()
@@ -198,7 +198,7 @@ function NamedNodeAroundCursor(node_name)
   local closest_node = root:named_descendant_for_range(cursor_row, cursor_col, cursor_row, cursor_col)
 
   while closest_node and closest_node:id() ~= root:id() do
-    if closest_node:type() == node_name then
+    if vim.tbl_contains(node_names, closest_node:type()) then
       return closest_node
     end
     closest_node = closest_node:parent()
@@ -207,7 +207,7 @@ function NamedNodeAroundCursor(node_name)
   return nil
 end
 
-function NamedNodeAfterCursor(node_name)
+function NamedNodeAfterCursor(node_names)
   local parser = vim.treesitter.get_parser()
   local tree = parser:trees()[1]
   local root = tree:root()
@@ -221,7 +221,7 @@ function NamedNodeAfterCursor(node_name)
       local sr, sc, _, _ = node:range()
       local is_after = (sr > cursor_row) or (sr == cursor_row and sc > cursor_col)
 
-      if is_after and node:type() == node_name then
+      if is_after and vim.tbl_contains(node_names, node:type()) then
         return node
       end
 
@@ -239,10 +239,10 @@ function NamedNodeAfterCursor(node_name)
   return walk_children(root)
 end
 
-function NamedNodeSnipe(node_name)
-  local node = NamedNodeAroundCursor(node_name)
+function NamedNodeSnipe(node_names)
+  local node = NamedNodeAroundCursor(node_names)
   if node == nil then
-    node = NamedNodeAfterCursor(node_name)
+    node = NamedNodeAfterCursor(node_names)
   end
   if node then
     local ls, cs, le, ce = node:range()
