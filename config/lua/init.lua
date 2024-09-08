@@ -1,5 +1,8 @@
 vim.loader.enable()
 
+local nix_config_path = vim.fn.fnamemodify(debug.getinfo(1).source:sub(2), ":p:h")
+vim.opt.rtp:append(nix_config_path)
+
 vim.fn.setenv("FULL_NIX_SHELL", 1)
 
 if not vim.go.loadplugins then

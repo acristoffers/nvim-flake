@@ -70,14 +70,69 @@ local groups = {
       options = {
         pattern = { "ledger" },
         callback = function()
-          vim.keymap.set("v", "ie", ':lua NamedNodeSnipe({"xact"})<cr>', { silent = true, noremap = false })
-          vim.keymap.set("o", "ie", ':lua NamedNodeSnipe({"xact"})<cr>', { silent = true, noremap = false })
-          vim.keymap.set("v", "il", ':lua NamedNodeSnipe({"payee"})<cr>', { silent = true, noremap = false })
-          vim.keymap.set("o", "il", ':lua NamedNodeSnipe({"payee"})<cr>', { silent = true, noremap = false })
-          vim.keymap.set("v", "iv", ':lua NamedNodeSnipe({"quantity"})<cr>', { silent = true, noremap = false })
-          vim.keymap.set("o", "iv", ':lua NamedNodeSnipe({"quantity"})<cr>', { silent = true, noremap = false })
-          vim.keymap.set("n", "<Space>me", ':normal civ<cr>', { silent = true, noremap = false })
-          vim.keymap.set("n", "<Space>ml", ':normal {cil<cr>', { silent = true, noremap = false })
+          local opts = { buffer = true, silent = true, noremap = true }
+          vim.keymap.set("x", "ie", ':lua NamedNodeSnipe({"xact"})<cr>', opts)
+          vim.keymap.set("o", "ie", ':lua NamedNodeSnipe({"xact"})<cr>', opts)
+          vim.keymap.set("x", "il", ':lua NamedNodeSnipe({"payee"})<cr>', opts)
+          vim.keymap.set("o", "il", ':lua NamedNodeSnipe({"payee"})<cr>', opts)
+          vim.keymap.set("x", "iv", ':lua NamedNodeSnipe({"quantity"})<cr>', opts)
+          vim.keymap.set("o", "iv", ':lua NamedNodeSnipe({"quantity"})<cr>', opts)
+          vim.keymap.set("n", "<Space>me", ':normal civ<cr>', opts)
+          vim.keymap.set("n", "<Space>ml", ':normal {cil<cr>', opts)
+        end,
+      },
+    },
+    {
+      event = "FileType",
+      options = {
+        pattern = { "tex" },
+        callback = function()
+          local opts = { buffer = true, silent = true, noremap = true }
+          local select = require 'nvim-treesitter.textobjects.select'.select_textobject
+          vim.keymap.set("x", "am", function() select("@math.outer") end, opts)
+          vim.keymap.set("o", "am", function() select("@math.outer") end, opts)
+          vim.keymap.set("x", "im", function() select("@math.inner") end, opts)
+          vim.keymap.set("o", "im", function() select("@math.inner") end, opts)
+
+          vim.keymap.set("x", "aS", function() select("@class.outer") end, opts)
+          vim.keymap.set("o", "aS", function() select("@class.outer") end, opts)
+          vim.keymap.set("x", "iS", function() select("@class.inner") end, opts)
+          vim.keymap.set("o", "iS", function() select("@class.inner") end, opts)
+
+          vim.keymap.set("x", "ae", function() select("@block.outer") end, opts)
+          vim.keymap.set("o", "ae", function() select("@block.outer") end, opts)
+          vim.keymap.set("x", "ie", function() select("@block.inner") end, opts)
+          vim.keymap.set("o", "ie", function() select("@block.inner") end, opts)
+
+          vim.keymap.set("x", "ac", function() select("@command.outer") end, opts)
+          vim.keymap.set("o", "ac", function() select("@command.outer") end, opts)
+          vim.keymap.set("x", "ic", function() select("@command.inner") end, opts)
+          vim.keymap.set("o", "ic", function() select("@command.inner") end, opts)
+
+          vim.keymap.set("x", "aa", function() select("@parameter.outer") end, opts)
+          vim.keymap.set("o", "aa", function() select("@parameter.outer") end, opts)
+          vim.keymap.set("x", "ia", function() select("@parameter.inner") end, opts)
+          vim.keymap.set("o", "ia", function() select("@parameter.inner") end, opts)
+
+          vim.keymap.set("x", "af", function() select("@call.outer") end, opts)
+          vim.keymap.set("o", "af", function() select("@call.outer") end, opts)
+          vim.keymap.set("x", "if", function() select("@call.inner") end, opts)
+          vim.keymap.set("o", "if", function() select("@call.inner") end, opts)
+
+          vim.keymap.set("x", "a^", function() select("@superscript.outer") end, opts)
+          vim.keymap.set("o", "a^", function() select("@superscript.outer") end, opts)
+          vim.keymap.set("x", "i^", function() select("@superscript.inner") end, opts)
+          vim.keymap.set("o", "i^", function() select("@superscript.inner") end, opts)
+
+          vim.keymap.set("x", "a_", function() select("@subscript.outer") end, opts)
+          vim.keymap.set("o", "a_", function() select("@subscript.outer") end, opts)
+          vim.keymap.set("x", "i_", function() select("@subscript.inner") end, opts)
+          vim.keymap.set("o", "i_", function() select("@subscript.inner") end, opts)
+
+          vim.keymap.set("x", "an", function() select("@item.outer") end, opts)
+          vim.keymap.set("o", "an", function() select("@item.outer") end, opts)
+          vim.keymap.set("x", "in", function() select("@item.inner") end, opts)
+          vim.keymap.set("o", "in", function() select("@item.inner") end, opts)
         end,
       },
     },
