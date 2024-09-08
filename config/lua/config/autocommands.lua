@@ -70,12 +70,14 @@ local groups = {
       options = {
         pattern = { "ledger" },
         callback = function()
-          vim.keymap.set("v", "ie", ':lua NamedNodeSnipe("xact")<cr>', { silent = true, noremap = false })
-          vim.keymap.set("o", "ie", ':lua NamedNodeSnipe("xact")<cr>', { silent = true, noremap = false })
-          vim.keymap.set("v", "il", ':lua NamedNodeSnipe("payee")<cr>', { silent = true, noremap = false })
-          vim.keymap.set("o", "il", ':lua NamedNodeSnipe("payee")<cr>', { silent = true, noremap = false })
-          vim.keymap.set("v", "iv", ':lua NamedNodeSnipe("quantity")<cr>', { silent = true, noremap = false })
-          vim.keymap.set("o", "iv", ':lua NamedNodeSnipe("quantity")<cr>', { silent = true, noremap = false })
+          vim.keymap.set("v", "ie", ':lua NamedNodeSnipe({"xact"})<cr>', { silent = true, noremap = false })
+          vim.keymap.set("o", "ie", ':lua NamedNodeSnipe({"xact"})<cr>', { silent = true, noremap = false })
+          vim.keymap.set("v", "il", ':lua NamedNodeSnipe({"payee"})<cr>', { silent = true, noremap = false })
+          vim.keymap.set("o", "il", ':lua NamedNodeSnipe({"payee"})<cr>', { silent = true, noremap = false })
+          vim.keymap.set("v", "iv", ':lua NamedNodeSnipe({"quantity"})<cr>', { silent = true, noremap = false })
+          vim.keymap.set("o", "iv", ':lua NamedNodeSnipe({"quantity"})<cr>', { silent = true, noremap = false })
+          vim.keymap.set("n", "<Space>me", ':normal civ<cr>', { silent = true, noremap = false })
+          vim.keymap.set("n", "<Space>ml", ':normal {cil<cr>', { silent = true, noremap = false })
         end,
       },
     },
