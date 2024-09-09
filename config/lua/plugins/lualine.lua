@@ -78,7 +78,7 @@ lualine.setup({
     lualine_c = {},
     lualine_x = {},
     lualine_y = { diff, spaces, encoding, "filetype" },
-    lualine_z = { lsp_status, progress },
+    lualine_z = { lsp_status, progress, "location" },
   },
   inactive_sections = {
     lualine_a = {},
