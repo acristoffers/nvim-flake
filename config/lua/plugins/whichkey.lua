@@ -259,10 +259,12 @@ local options = {
       nowait = true,
       remap = false
     },
-    { "<leader>sk", ":Telescope keymaps<cr>",     desc = "Keymaps",          nowait = true, remap = false },
-    { "<leader>so", ":Telescope colorscheme<cr>", desc = "Colorscheme",      nowait = true, remap = false },
-    { "<leader>sp", ":Telescope live_grep<cr>",   desc = "Live Grep",        nowait = true, remap = false },
-    { "<leader>sr", ":Telescope oldfiles<cr>",    desc = "Open Recent File", nowait = true, remap = false },
+    { "<leader>sw", ":mksession! ~/.local/share/nvim/session.vim<cr>", desc = "Save session",     nowait = true, remap = false },
+    { "<leader>sl", ":source ~/.local/share/nvim/session.vim<cr>",     desc = "Load session",     nowait = true, remap = false },
+    { "<leader>sk", ":Telescope keymaps<cr>",                         desc = "Keymaps",          nowait = true, remap = false },
+    { "<leader>so", ":Telescope colorscheme<cr>",                     desc = "Colorscheme",      nowait = true, remap = false },
+    { "<leader>sp", ":Telescope live_grep<cr>",                       desc = "Live Grep",        nowait = true, remap = false },
+    { "<leader>sr", ":Telescope oldfiles<cr>",                        desc = "Open Recent File", nowait = true, remap = false },
     {
       "<leader>st",
       function()
