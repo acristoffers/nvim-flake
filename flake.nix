@@ -69,6 +69,7 @@
                 comment-nvim
                 dracula-nvim
                 dressing-nvim
+                firenvim
                 flutter-tools-nvim
                 formatter-nvim
                 friendly-snippets
