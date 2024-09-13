@@ -56,7 +56,7 @@ local function on_attach(client, bufnr)
   end
   local moses_ok, Moses = pcall(require, "moses")
   if moses_ok then
-    local noformat = { "tsserver", "lua_ls", "jsonls" }
+    local noformat = { "ts_ls", "lua_ls", "jsonls" }
     if Moses.include(noformat, client.name) then
       client.server_capabilities.document_formatting = false
     else
@@ -113,7 +113,7 @@ require("lsp-setup").setup({
     rust_analyzer = require("lsp.settings.rust_analyzer"),
     solargraph = {},
     texlab = {},
-    tsserver = {},
+    ts_ls = {},
     vimls = {},
     vuels = {},
     yamlls = {},
