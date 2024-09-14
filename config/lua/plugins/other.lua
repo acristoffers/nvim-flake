@@ -1,6 +1,7 @@
 require("ibl").setup()
 require("marks").setup()
 require("neoconf").setup()
+require('mini.align').setup()
 require("nvim-surround").setup()
 require("textcase").setup()
 require("orgmode").setup({
