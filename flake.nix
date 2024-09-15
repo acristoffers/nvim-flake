@@ -63,6 +63,7 @@
             customRC = ''lua require("init")'';
             packages.all = with pkgs.vimPlugins; {
               start = [
+                ChatGPT-nvim
                 alpha-nvim
                 bufdelete-nvim
                 bufferline-nvim
@@ -110,6 +111,8 @@
                 nvim-treesitter-context
                 nvim-treesitter-textobjects
                 nvim-treesitter.withAllGrammars
+                nui-nvim
+                trouble-nvim
                 nvim-ts-context-commentstring
                 orgmode
                 ouroboros
