@@ -33,6 +33,7 @@ local opts = function()
 
   --   פּ ﯟ   some other good icons
   local kind_icons = {
+    Copilot = "",
     Text = "󰉿",
     Method = "m",
     Function = "󰊕",
@@ -110,6 +111,7 @@ local opts = function()
         -- Kind icons
         vim_item.kind = string.format("%s", kind_icons[vim_item.kind])
         vim_item.menu = ({
+          copilot = "[COPILOT]",
           nvim_lsp = "[LSP]",
           nvim_lsp_signature_help = "[LSP-SIG]",
           nvim_lua = "[NVIM_LUA]",
@@ -122,12 +124,13 @@ local opts = function()
       end,
     },
     sources = cmp.config.sources({
-      { name = "nvim_lsp" },
-      { name = "nvim_lsp_signature_help" },
-      { name = "nvim_lua" },
-      { name = "luasnip" },
-      { name = "orgmode" },
-      { name = "path" },
+      { name = "copilot",                 group_index = 2 },
+      { name = "nvim_lsp",                group_index = 2 },
+      { name = "nvim_lsp_signature_help", group_index = 2 },
+      { name = "nvim_lua",                group_index = 2 },
+      { name = "luasnip",                 group_index = 2 },
+      { name = "orgmode",                 group_index = 2 },
+      { name = "path",                    group_index = 2 },
     }, {
       { name = "buffer", keyword_length = 4 },
     }),

@@ -1,5 +1,11 @@
 require("lspconfig.ui.windows").default_options.border = "rounded"
 
+require("copilot").setup({
+  suggestion = { enabled = false },
+  panel = { enabled = false },
+})
+require("copilot_cmp").setup()
+
 local config = {
   virtual_text = false,
   signs = true,

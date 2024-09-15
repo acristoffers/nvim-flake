@@ -21,6 +21,9 @@
     ouroboros-git.url = "github:jakemason/ouroboros.nvim";
     ouroboros-git.flake = false;
 
+    copilot-lualine-git.url = "github:AndreM222/copilot-lualine";
+    copilot-lualine-git.flake = false;
+
     git-worktree-git.url = "github:awerebea/git-worktree.nvim/handle_changes_in_telescope_api";
     git-worktree-git.flake = false;
   };
@@ -45,6 +48,10 @@
           name = "git-worktree.nvim";
           src = inputs.git-worktree-git;
         };
+        copilot-lualine = pkgs.vimUtils.buildVimPlugin {
+          name = "copilot-lualine.nvim";
+          src = inputs.copilot-lualine-git;
+        };
         neovim = pkgs.neovim.override {
           viAlias = true;
           vimAlias = true;
@@ -67,6 +74,9 @@
                 cmp-path
                 cmp_luasnip
                 comment-nvim
+                copilot-cmp
+                copilot-lua
+                copilot-lualine
                 dracula-nvim
                 dressing-nvim
                 firenvim
