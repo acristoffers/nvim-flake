@@ -251,3 +251,40 @@ function NamedNodeSnipe(node_names)
     vim.cmd([[ normal! gv ]])
   end
 end
+
+local function get_date()
+  -- Get the current date
+  local year, month = os.date("%Y"), os.date("%m")
+  -- Ask the user for input
+  local input = vim.fn.input("Date (YYYY/MM/DD): ")
+  -- If the input is empty, return today's date
+  if input == nil or input == "" then
+    return os.date("%Y/%m/%d")
+    -- If input is a number, return that day of the current month
+  elseif tonumber(input) ~= nil then
+    return string.format("%04d/%02d/%02d", year, month, tonumber(input))
+    -- If the input is a date in ISO format, return that date
+  else
+    return input
+  end
+end
+
+function InsertLedgerEntry()
+  local date = get_date()
+  local label = vim.fn.input("Label: ")
+  local last_match = vim.fn.search(label, "bcnW")
+  if last_match == 0 then
+    local default_entry = {
+      "",
+      date .. " * " .. label,
+      "    Expenses:Other                                 0 EUR",
+      "    Bank:Checking:Revolut",
+    }
+    vim.api.nvim_buf_set_lines(0, -1, -1, false, default_entry)
+  else
+    vim.api.nvim_win_set_cursor(0, { last_match, 0 })
+    vim.fn.setreg("a", date)
+    vim.cmd([[ normal! yipGpOj_viW"ap ]])
+  end
+  vim.cmd([[ normal! Gvipozz0 ]])
+end
