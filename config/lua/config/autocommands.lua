@@ -70,15 +70,18 @@ local groups = {
       options = {
         pattern = { "ledger" },
         callback = function()
-          local opts = { buffer = true, silent = true, noremap = true }
+          local opts = { buffer = true, silent = true }
           vim.keymap.set("x", "ie", ':lua NamedNodeSnipe({"xact"})<cr>', opts)
           vim.keymap.set("o", "ie", ':lua NamedNodeSnipe({"xact"})<cr>', opts)
           vim.keymap.set("x", "il", ':lua NamedNodeSnipe({"payee"})<cr>', opts)
           vim.keymap.set("o", "il", ':lua NamedNodeSnipe({"payee"})<cr>', opts)
           vim.keymap.set("x", "iv", ':lua NamedNodeSnipe({"quantity"})<cr>', opts)
           vim.keymap.set("o", "iv", ':lua NamedNodeSnipe({"quantity"})<cr>', opts)
-          vim.keymap.set("n", "<Space>me", ':normal civ<cr>', opts)
-          vim.keymap.set("n", "<Space>ml", ':normal {cil<cr>', opts)
+          -- Because of some weird behavior in vim.keymap.set, bindings with
+          -- text-objects don't work and I have to use nmap instead
+          vim.cmd([[ nmap <Leader>me civ ]])
+          vim.cmd([[ nmap <Leader>ml {cil ]])
+          vim.keymap.set("n", "<leader>ma", ':lua InsertLedgerEntry()<cr>', opts)
         end,
       },
     },
