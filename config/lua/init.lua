@@ -32,6 +32,7 @@ else
   require("plugins.git-conflict")
   require("config.xmlattr")
   require("plugins.whichkey")
+  require("plugins.chatgpt")
 
   vim.schedule(function()
     vim.cmd([[

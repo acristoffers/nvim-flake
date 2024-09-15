@@ -162,6 +162,8 @@ local options = {
     { "<leader>cc",  ":TextCaseOpenTelescope<cr>",                                                 desc = "Change Case",                             nowait = true, remap = false },
     { "<leader>cd",  ":Telescope diagnostics bufnr=0 theme=get_ivy<cr>",                           desc = "Buffer Diagnostics",                      nowait = true, remap = false },
     { "<leader>ce",  ":Telescope quickfix<cr>",                                                    desc = "Telescope Quickfix",                      nowait = true, remap = false },
+    { "<leader>cgp", ":ChatGPT<cr>",                                                               desc = "ChatGPT Prompt",                          nowait = true, remap = false },
+    { "<leader>cge", ":ChatGPTEditWithInstructions<cr>",                                           desc = "Edit With Instructions",                  nowait = true, remap = false },
     { "<leader>cf",  ":Format<cr>",                                                                desc = "Format",                                  nowait = true, remap = false },
     { "<leader>ch",  ":Ouroboros<cr>",                                                             desc = "Switch .h/.cpp",                          nowait = true, remap = false },
     { "<leader>ci",  ":LspInfo<cr>",                                                               desc = "Info",                                    nowait = true, remap = false },
@@ -261,10 +263,10 @@ local options = {
     },
     { "<leader>sw", ":mksession! ~/.local/share/nvim/session.vim<cr>", desc = "Save session",     nowait = true, remap = false },
     { "<leader>sl", ":source ~/.local/share/nvim/session.vim<cr>",     desc = "Load session",     nowait = true, remap = false },
-    { "<leader>sk", ":Telescope keymaps<cr>",                         desc = "Keymaps",          nowait = true, remap = false },
-    { "<leader>so", ":Telescope colorscheme<cr>",                     desc = "Colorscheme",      nowait = true, remap = false },
-    { "<leader>sp", ":Telescope live_grep<cr>",                       desc = "Live Grep",        nowait = true, remap = false },
-    { "<leader>sr", ":Telescope oldfiles<cr>",                        desc = "Open Recent File", nowait = true, remap = false },
+    { "<leader>sk", ":Telescope keymaps<cr>",                          desc = "Keymaps",          nowait = true, remap = false },
+    { "<leader>so", ":Telescope colorscheme<cr>",                      desc = "Colorscheme",      nowait = true, remap = false },
+    { "<leader>sp", ":Telescope live_grep<cr>",                        desc = "Live Grep",        nowait = true, remap = false },
+    { "<leader>sr", ":Telescope oldfiles<cr>",                         desc = "Open Recent File", nowait = true, remap = false },
     {
       "<leader>st",
       function()
