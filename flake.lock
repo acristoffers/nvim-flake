@@ -1,5 +1,21 @@
 {
   "nodes": {
+    "copilot-lualine-git": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1725375487,
+        "narHash": "sha256-PXiJ7rdlE8J93TFtu+D+8398Wg7DhK7EZ0Aw4JDoqWM=",
+        "owner": "AndreM222",
+        "repo": "copilot-lualine",
+        "rev": "f40450c3e138766026327e7807877ea860618258",
+        "type": "github"
+      },
+      "original": {
+        "owner": "AndreM222",
+        "repo": "copilot-lualine",
+        "type": "github"
+      }
+    },
     "flake-compat": {
       "flake": false,
       "locked": {
@@ -206,6 +222,7 @@
     },
     "root": {
       "inputs": {
+        "copilot-lualine-git": "copilot-lualine-git",
         "flake-utils": "flake-utils",
         "git-worktree-git": "git-worktree-git",
         "lsp-setup-git": "lsp-setup-git",

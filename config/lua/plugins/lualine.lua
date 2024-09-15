@@ -51,7 +51,7 @@ local function progress()
 end
 
 local function spaces()
-  return "󱁐 " .. vim.api.nvim_buf_get_option(0, "shiftwidth")
+  return "󱁐 " .. vim.api.nvim_get_option_value('shiftwidth', { buf = 0 })
 end
 
 local function lsp_status()
@@ -78,7 +78,7 @@ lualine.setup({
     lualine_c = {},
     lualine_x = {},
     lualine_y = { diff, spaces, encoding, "filetype" },
-    lualine_z = { lsp_status, progress, "location" },
+    lualine_z = { "copilot", lsp_status, progress, "location" },
   },
   inactive_sections = {
     lualine_a = {},
