@@ -163,7 +163,7 @@ local options = {
     { "<leader>cd",  ":Telescope diagnostics bufnr=0 theme=get_ivy<cr>",                           desc = "Buffer Diagnostics",                      nowait = true, remap = false },
     { "<leader>ce",  ":Telescope quickfix<cr>",                                                    desc = "Telescope Quickfix",                      nowait = true, remap = false },
     { "<leader>cgp", ":ChatGPT<cr>",                                                               desc = "ChatGPT Prompt",                          nowait = true, remap = false },
-    { "<leader>cge", ":ChatGPTEditWithInstructions<cr>",                                           desc = "Edit With Instructions",                  nowait = true, remap = false },
+    { "<leader>cge", ":ChatGPTEditWithInstructions<cr>",                                           desc = "Edit With Instructions",                  nowait = true, remap = false, mode = "v" },
     { "<leader>cf",  ":Format<cr>",                                                                desc = "Format",                                  nowait = true, remap = false },
     { "<leader>ch",  ":Ouroboros<cr>",                                                             desc = "Switch .h/.cpp",                          nowait = true, remap = false },
     { "<leader>ci",  ":LspInfo<cr>",                                                               desc = "Info",                                    nowait = true, remap = false },
