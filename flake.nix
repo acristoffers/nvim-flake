@@ -137,6 +137,7 @@
                 trouble-nvim
                 undotree
                 vim-fish
+                vim-fugitive
                 vim-illuminate
                 vim-indent-object
                 vim-lion
