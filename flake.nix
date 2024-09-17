@@ -26,6 +26,9 @@
 
     git-worktree-git.url = "github:awerebea/git-worktree.nvim/handle_changes_in_telescope_api";
     git-worktree-git.flake = false;
+
+    telescope-git-file-history-git.url = "github:isak102/telescope-git-file-history.nvim";
+    telescope-git-file-history-git.flake = false;
   };
 
   outputs = inputs@{ self, flake-utils, nixpkgs, ... }:
@@ -51,6 +54,10 @@
         copilot-lualine = pkgs.vimUtils.buildVimPlugin {
           name = "copilot-lualine.nvim";
           src = inputs.copilot-lualine-git;
+        };
+        telescope-git-file-history = pkgs.vimUtils.buildVimPlugin {
+          name = "telescope-git-file-history.nvim";
+          src = inputs.telescope-git-file-history-git;
         };
         neovim = pkgs.neovim.override {
           viAlias = true;
@@ -101,6 +108,7 @@
                 mini-nvim
                 neoconf-nvim
                 neogit
+                nui-nvim
                 nvim-autopairs
                 nvim-cmp
                 nvim-fzf
@@ -111,8 +119,6 @@
                 nvim-treesitter-context
                 nvim-treesitter-textobjects
                 nvim-treesitter.withAllGrammars
-                nui-nvim
-                trouble-nvim
                 nvim-ts-context-commentstring
                 orgmode
                 ouroboros
@@ -122,11 +128,13 @@
                 rainbow-delimiters-nvim
                 rust-tools-nvim
                 targets-vim # packed with useful text-objects
+                telescope-git-file-history
                 telescope-media-files-nvim
                 telescope-nvim
                 telescope-ui-select-nvim
                 text-case-nvim
                 trim-nvim
+                trouble-nvim
                 undotree
                 vim-fish
                 vim-illuminate
