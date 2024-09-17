@@ -191,6 +191,7 @@ local options = {
     { "<leader>gc",  ":Telescope git_commits<cr>",                                                 desc = "Checkout commit",                         nowait = true, remap = false },
     { "<leader>gd",  ":Gitsigns diffthis HEAD<cr>",                                                desc = "Git Diff",                                nowait = true, remap = false },
     { "<leader>gg",  require("neogit").open,                                                       desc = "Neogit",                                  nowait = true, remap = false },
+    { "<leader>gh",  require("telescope").extensions.git_file_history.git_file_history,            desc = "Wayback Machine (History)",               nowait = true, remap = false },
     { "<leader>gj",  ":lua require 'gitsigns'.next_hunk()<cr>",                                    desc = "Next Hunk",                               nowait = true, remap = false },
     { "<leader>gk",  ":lua require 'gitsigns'.prev_hunk()<cr>",                                    desc = "Prev Hunk",                               nowait = true, remap = false },
     { "<leader>gl",  ":lua require 'gitsigns'.blame_line()<cr>",                                   desc = "Blame",                                   nowait = true, remap = false },
