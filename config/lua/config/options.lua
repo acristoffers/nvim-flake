@@ -8,6 +8,7 @@ local options = {
   conceallevel = 0,                        -- so that `` is visible in markdown files
   cursorline = true,                       -- highlight the current line
   expandtab = true,                        -- convert tabs to spaces
+  encoding = "utf-8",                      -- the encoding used for the editor
   fileencoding = "utf-8",                  -- the encoding written to a file
   hlsearch = true,                         -- highlight all matches on previous search pattern
   ignorecase = true,                       -- ignore case in search patterns
