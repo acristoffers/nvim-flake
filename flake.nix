@@ -166,6 +166,7 @@
           git
           gopls
           html-tidy
+          icu.dev
           inputs.matlab-lsp.packages.${system}.default
           inputs.wbproto-beautifier.packages.${system}.default
           inputs.zls.packages.${system}.default

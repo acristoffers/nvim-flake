@@ -288,3 +288,29 @@ function InsertLedgerEntry()
   end
   vim.cmd([[ normal! Gvipozz0 ]])
 end
+
+function NormalizeBuferUTF8Canonical()
+  local lines = vim.api.nvim_buf_get_lines(0, 0, -1, false)
+  local tmpfile = vim.fn.tempname()
+  vim.fn.writefile(lines, tmpfile)
+
+  local cmd = "uconv -t utf-8 --canon " .. tmpfile
+  local handle = io.popen(cmd)
+  if handle == nil then
+    return
+  end
+  local result = handle:read("*a")
+  handle:close()
+
+  local normalized_lines = vim.split(result, "\n")
+  vim.api.nvim_buf_set_lines(0, 0, -1, false, normalized_lines)
+
+  vim.fn.delete(tmpfile)
+end
+vim.api.nvim_create_user_command("NormalizeBufferNFC", NormalizeBuferUTF8Canonical, {})
+
+function SaveNormalizedUTF8()
+  vim.opt["fileencoding"] = "utf-8"
+  NormalizeBuferUTF8Canonical()
+  vim.cmd([[ silent write ]])
+end
