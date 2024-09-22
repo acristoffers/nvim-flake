@@ -25,6 +25,9 @@
  (#make-range! "command.inner" @_start @_end))
 
 ((color_reference
+   name: (curly_group_text text: _ @call.inner @command.inner) @call.outer) @command.outer)
+
+((color_reference
    name: (curly_group_text text: _ @call.inner) @call.outer
    text: (curly_group "{" . _ @_start _? @_end . "}")) @command.outer
   (#make-range! "command.inner" @_start @_end))
