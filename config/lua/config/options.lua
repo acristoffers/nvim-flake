@@ -43,6 +43,11 @@ for k, v in pairs(options) do
   vim.opt[k] = v
 end
 
+local dracula = require("dracula")
+dracula.setup({
+  transparent_bg = true,
+})
+
 vim.cmd([[ colorscheme dracula ]])
 vim.cmd([[ highlight CursorLine guibg=#21222C ]])
 
