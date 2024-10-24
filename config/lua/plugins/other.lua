@@ -17,6 +17,18 @@ require("trim").setup({
   highlight = false
 })
 require("markdown").setup({
+  mappings = {
+    inline_surround_toggle = "mgs",       -- (string|boolean) toggle inline style
+    inline_surround_toggle_line = "mgss", -- (string|boolean) line-wise toggle inline style
+    inline_surround_delete = "mds",       -- (string|boolean) delete emphasis surrounding cursor
+    inline_surround_change = "mcs",       -- (string|boolean) change emphasis surrounding cursor
+    link_add = "mgl",                     -- (string|boolean) add link
+    link_follow = "mgx",                  -- (string|boolean) follow link
+    go_curr_heading = "m]c",              -- (string|boolean) set cursor to current section heading
+    go_parent_heading = "m]p",            -- (string|boolean) set cursor to parent section heading
+    go_next_heading = "m]]",              -- (string|boolean) set cursor to next section heading
+    go_prev_heading = "m[[",              -- (string|boolean) set cursor to previous section heading
+  },
   on_attach = function(bufnr)
     local map = vim.keymap.set
     local opts = { buffer = bufnr }
