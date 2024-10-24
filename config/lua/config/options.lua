@@ -45,6 +45,7 @@ end
 
 vim.cmd([[ colorscheme dracula ]])
 vim.cmd([[ highlight CursorLine guibg=#21222C ]])
+vim.cmd([[ highlight rainbowcol1 guifg=#bd93f9 ]])
 
 vim.cmd([[ set whichwrap+=<,>,[,],h,l ]])
 vim.cmd([[ set iskeyword+=- ]])

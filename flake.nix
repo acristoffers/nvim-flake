@@ -104,6 +104,7 @@
                 lualine-lsp-progress
                 lualine-nvim
                 luasnip
+                markdown-nvim
                 marks-nvim
                 mini-nvim
                 neoconf-nvim
