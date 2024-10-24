@@ -16,3 +16,14 @@ require("trim").setup({
   },
   highlight = false
 })
+require("markdown").setup({
+  on_attach = function(bufnr)
+    local map = vim.keymap.set
+    local opts = { buffer = bufnr }
+    map({ 'n', 'i' }, '<M-o>', ':MDListItemBelow<CR>', opts)
+    map({ 'n', 'i' }, '<M-O>', ':MDListItemAbove<CR>', opts)
+    map('n', '<M-c>', ':MDTaskToggle<CR>', opts)
+    map('x', '<M-c>', ':MDTaskToggle<CR>', opts)
+    map('n', '<M-t>', ':MDToc<CR>', opts)
+  end,
+})
