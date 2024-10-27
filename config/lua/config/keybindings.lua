@@ -246,6 +246,10 @@ function NamedNodeSnipe(node_names)
   end
   if node then
     local ls, cs, le, ce = node:range()
+    -- gv is going to use the last visual mode, which may be a visual-line mode, especially after
+    -- InsertLedgerEntry. This creates a "normal" visual mode to ensure that gv becomes a normal
+    -- visual mode too.
+    vim.cmd([[ normal! v0 ]])
     vim.api.nvim_buf_set_mark(0, "<", ls + 1, cs, {})
     vim.api.nvim_buf_set_mark(0, ">", le + 1, ce - 2, {})
     vim.cmd([[ normal! gv ]])
