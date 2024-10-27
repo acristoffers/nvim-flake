@@ -179,6 +179,7 @@ local options = {
     { "<leader>fa",  ":silent wa<cr>",                                                             desc = "Save All",                                nowait = true, remap = false },
     { "<leader>fg",  ":lua require'telescope.builtin'.git_files()<cr>",                            desc = "Find Git File",                           nowait = true, remap = false },
     { "<leader>fh",  ":wshada!<cr>",                                                               desc = "Save shada (fixes overpersistent marks)", nowait = true, remap = false },
+    { "<leader>fl",  ":e /home/alan/.org/finances/2024.ledger<cr>",                                desc = "Open Ledger Journal",                     nowait = true, remap = false },
     { "<leader>fn",  ":ene!<cr>",                                                                  desc = "New file",                                nowait = true, remap = false },
     { "<leader>fo",  ":lua require'telescope.builtin'.find_files()<cr>",                           desc = "Find File",                               nowait = true, remap = false },
     { "<leader>fs",  SaveNormalizedUTF8,                                                           desc = "Save File",                               nowait = true, remap = false },
