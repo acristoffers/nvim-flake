@@ -82,6 +82,7 @@ local groups = {
           vim.cmd([[ nmap <Leader>me civ ]])
           vim.cmd([[ nmap <Leader>ml {cil ]])
           vim.keymap.set("n", "<leader>ma", ':lua InsertLedgerEntry()<cr>', opts)
+          SetTab(4)
         end,
       },
     },
