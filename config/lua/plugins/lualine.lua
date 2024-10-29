@@ -51,7 +51,7 @@ local function progress()
 end
 
 local function spaces()
-  return "󱁐 " .. vim.api.nvim_get_option_value('shiftwidth', { buf = 0 })
+  return "󱁐 " .. vim.api.nvim_get_option_value("shiftwidth", { buf = 0 })
 end
 
 local function lsp_status()
@@ -63,10 +63,48 @@ local function lsp_status()
   end
 end
 
+local function ledger_run(Account)
+  local ledger_file = os.getenv("HOME") .. "/.org/finances/2024.ledger"
+  if vim.fn.executable("ledger") == 1 and vim.fn.filereadable(ledger_file) then
+    local cmd = string.format("ledger -f %s bal %s", ledger_file, Account)
+    local handle = io.popen(cmd)
+    if handle then
+      local output = handle:read("*a")
+      handle:close()
+      local balance = output:match("([%d%.]+) EUR")
+      if balance then
+        return balance
+      end
+    end
+  end
+  return ""
+end
+
+local ledger_cache = {
+  bnp = "0",
+  revolut = "0",
+  savings = "0",
+  last_update = 0,
+}
+
+local function ledger()
+  if vim.bo.filetype ~= "ledger" then
+    return ""
+  end
+  local current_time = os.time()
+  if current_time - ledger_cache.last_update >= 1 or ledger_cache.last_update == 0 then
+    ledger_cache.bnp = ledger_run("Bank:Checking:BNP")
+    ledger_cache.revolut = ledger_run("Bank:Checking:Revolut")
+    ledger_cache.savings = ledger_run("Bank:Saving")
+    ledger_cache.last_update = current_time
+  end
+  return string.format("%s | %s | %s", ledger_cache.revolut, ledger_cache.bnp, ledger_cache.savings)
+end
+
 lualine.setup({
   options = {
     icons_enabled = true,
-    theme = "auto",
+    theme = "dracula",
     component_separators = { left = "", right = "" },
     section_separators = { left = "", right = "" },
     disabled_filetypes = { "dashboard", "NvimTree", "Outline" },
@@ -77,7 +115,7 @@ lualine.setup({
     lualine_b = { branch, diagnostics },
     lualine_c = {},
     lualine_x = {},
-    lualine_y = { diff, spaces, encoding, "filetype" },
+    lualine_y = { ledger, diff, spaces, encoding, "filetype" },
     lualine_z = { "copilot", lsp_status, progress, "location" },
   },
   inactive_sections = {
