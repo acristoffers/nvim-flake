@@ -189,6 +189,7 @@ local groups = {
             setlocal wrap
             setlocal spell
           ]])
+          SetTab(2)
         end,
       },
     },
