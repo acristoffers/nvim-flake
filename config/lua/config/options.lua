@@ -9,6 +9,7 @@ local options = {
   cursorline = true,                       -- highlight the current line
   expandtab = true,                        -- convert tabs to spaces
   encoding = "utf-8",                      -- the encoding used for the editor
+  inccommand = "split",                    -- show substitutions in a split window
   fileencoding = "utf-8",                  -- the encoding written to a file
   hlsearch = true,                         -- highlight all matches on previous search pattern
   ignorecase = true,                       -- ignore case in search patterns
