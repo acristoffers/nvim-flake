@@ -186,6 +186,7 @@
           nodePackages_latest.typescript-language-server
           nodePackages_latest.vim-language-server
           nodePackages_latest.vls
+          nushell
           ocamlPackages.ocaml-lsp
           ocamlPackages.ocamlformat
           pyright
