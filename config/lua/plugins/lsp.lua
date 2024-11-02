@@ -196,6 +196,13 @@ local function wbproto_beautifier()
   }
 end
 
+local function ledger_beautifier()
+  return {
+    exe = "ledger-beautifier",
+    stdin = true,
+  }
+end
+
 local function yamlfmt()
   local default = require("formatter.filetypes.yaml").yamlfmt()
   default.args = {
@@ -214,6 +221,7 @@ require("formatter").setup({
     html = tidy,
     javascript = require("formatter.filetypes.javascript").clangformat,
     json = require("formatter.filetypes.json").jq,
+    ledger = ledger_beautifier,
     lua = stylua,
     markdown = mdformat,
     nix = require("formatter.filetypes.nix").nixpkgs_fmt,

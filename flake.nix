@@ -15,6 +15,10 @@
     wbproto-beautifier.inputs.nixpkgs.follows = "nixpkgs";
     wbproto-beautifier.inputs.flake-utils.follows = "flake-utils";
 
+    ledger-formatter.url = "github:acristoffers/ledger-formatter";
+    ledger-formatter.inputs.nixpkgs.follows = "nixpkgs";
+    ledger-formatter.inputs.flake-utils.follows = "flake-utils";
+
     lsp-setup-git.url = "github:junnplus/lsp-setup.nvim";
     lsp-setup-git.flake = false;
 
@@ -168,6 +172,7 @@
           gopls
           html-tidy
           icu.dev
+          inputs.ledger-formatter.packages.${system}.default
           inputs.matlab-lsp.packages.${system}.default
           inputs.wbproto-beautifier.packages.${system}.default
           inputs.zls.packages.${system}.default

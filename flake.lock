@@ -106,6 +106,29 @@
         "type": "github"
       }
     },
+    "ledger-formatter": {
+      "inputs": {
+        "flake-utils": [
+          "flake-utils"
+        ],
+        "nixpkgs": [
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1730542300,
+        "narHash": "sha256-pm+ySebLhNLkGBciu/eW9UsrhrkhWm32sVN5+ncSfHg=",
+        "owner": "acristoffers",
+        "repo": "ledger-formatter",
+        "rev": "6dfa10bdfdb27f8e32d39c5023d9eb7484c89656",
+        "type": "github"
+      },
+      "original": {
+        "owner": "acristoffers",
+        "repo": "ledger-formatter",
+        "type": "github"
+      }
+    },
     "lsp-setup-git": {
       "flake": false,
       "locked": {
@@ -182,6 +205,7 @@
         "copilot-lualine-git": "copilot-lualine-git",
         "flake-utils": "flake-utils",
         "git-worktree-git": "git-worktree-git",
+        "ledger-formatter": "ledger-formatter",
         "lsp-setup-git": "lsp-setup-git",
         "matlab-lsp": "matlab-lsp",
         "nixpkgs": "nixpkgs",
