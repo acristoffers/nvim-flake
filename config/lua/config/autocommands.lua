@@ -143,6 +143,17 @@ local groups = {
   },
   general = {
     {
+      event = { "BufWrite" },
+      options = {
+        callback = function()
+          vim.cmd [[
+            call mkdir($HOME .. "/.local/share/nvim/sessions/" .. $HOSTNAME, "p")
+            mksession! $HOME/.local/share/nvim/sessions/$HOSTNAME/session.vim
+          ]]
+        end,
+      },
+    },
+    {
       event = { "BufNewFile", "BufRead" },
       options = {
         pattern = { "*.m" },
