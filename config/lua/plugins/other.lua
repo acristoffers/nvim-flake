@@ -3,6 +3,7 @@ require("marks").setup()
 require("neoconf").setup()
 require("mini.align").setup()
 require("nvim-surround").setup()
+require("colorizer").setup()
 require("textcase").setup()
 require("orgmode").setup({
   org_agenda_files = { "~/.org/agenda.org" },
@@ -44,15 +45,15 @@ vim.g.firenvim_config = {
   globalSettings = { alt = "all" },
   localSettings = {
     [".*"] = {
-      cmdline  = "neovim",
-      content  = "text",
+      cmdline = "neovim",
+      content = "text",
       priority = 0,
       selector = "textarea",
-      takeover = "always"
+      takeover = "always",
     },
     [".*rgdi.vitibot.*"] = {
-      takeover = 'never',
-      priority = 1
-    }
-  }
+      takeover = "never",
+      priority = 1,
+    },
+  },
 }
