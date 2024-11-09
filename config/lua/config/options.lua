@@ -1,7 +1,7 @@
 local options = {
   backup = false,                          -- creates a backup file
   clipboard = "unnamedplus",               -- allows neovim to access the system clipboard
-  cmdheight = 2,                           -- more space in the neovim command line for displaying messages
+  cmdheight = 1,                           -- more space in the neovim command line for displaying messages
   colorcolumn = "121",
   commentstring = "",
   completeopt = { "menuone", "noselect" }, -- mostly just for cmp
@@ -44,26 +44,23 @@ for k, v in pairs(options) do
   vim.opt[k] = v
 end
 
-vim.cmd([[ colorscheme catppuccin ]])
-vim.cmd([[ highlight CursorLine guibg=#21222C ]])
-vim.cmd([[ highlight rainbowcol1 guifg=#bd93f9 ]])
-
-vim.cmd([[ set whichwrap+=<,>,[,],h,l ]])
-vim.cmd([[ set iskeyword+=- ]])
-vim.cmd([[ set laststatus=3 ]])
-vim.cmd([[ set nrformats=bin,octal,hex,alpha ]])
-
-vim.cmd([[ set foldmethod=expr ]])
-vim.cmd([[ set foldexpr=nvim_treesitter#foldexpr() ]])
-vim.cmd([[ set nofoldenable ]])
-
-vim.cmd([[ let g:sneak#label = 1 ]])
-vim.cmd([[ let g:sneak#s_next = 1 ]])
-vim.cmd([[ map gS <Plug>Sneak_, ]])
-vim.cmd([[ map gs <Plug>Sneak_; ]])
-vim.cmd([[ highlight Sneak guifg=black guibg=#00C7DF ctermfg=black ctermbg=cyan ]])
-vim.cmd([[ highlight SneakScope guifg=red guibg=yellow ctermfg=red ctermbg=yellow ]])
-vim.cmd([[ let g:sneak#prompt = '🔎  ' ]])
+vim.cmd([[
+  highlight rainbowcol1 guifg=#bd93f9
+  set whichwrap+=<,>,[,],h,l
+  set iskeyword+=-
+  set laststatus=3
+  set nrformats=bin,octal,hex,alpha
+  set foldmethod=expr
+  set foldexpr=nvim_treesitter#foldexpr()
+  set nofoldenable
+  let g:sneak#label = 1
+  let g:sneak#s_next = 1
+  map gS <Plug>Sneak_,
+  map gs <Plug>Sneak_;
+  highlight Sneak guifg=black guibg=#00C7DF ctermfg=black ctermbg=cyan
+  highlight SneakScope guifg=red guibg=yellow ctermfg=red ctermbg=yellow
+  let g:sneak#prompt = '🔎  '
+]])
 
 vim.api.nvim_set_hl(0, "@variable.matlab", { link = "Identifier" })
 
@@ -77,8 +74,8 @@ vim.g.Tex_FoldedEnvironments = ""
 vim.g.Tex_FoldedMisc = ""
 vim.g.Tex_FoldedSections = ""
 
-function SetTab(num)
-  vim.opt.shiftwidth = num
-  vim.opt.tabstop = num
-  vim.opt.softtabstop = num
+function SetTab(n)
+  vim.opt.shiftwidth = n
+  vim.opt.tabstop = n
+  vim.opt.softtabstop = n
 end
