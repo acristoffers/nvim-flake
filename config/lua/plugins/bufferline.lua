@@ -67,7 +67,13 @@ local opts = {
     --   return buffer_a.modified > buffer_b.modified
     -- end
   },
-  highlights = require("catppuccin.groups.integrations.bufferline").get({}),
+  highlights = require("catppuccin.groups.integrations.bufferline").get({
+    custom = {
+      all = {
+        fill = { bg = require("catppuccin.palettes").get_palette().mantle },
+      },
+    },
+  }),
 }
 
 require("bufferline").setup(opts)
