@@ -116,6 +116,7 @@
                 nui-nvim
                 nvim-autopairs
                 nvim-cmp
+                nvim-colorizer-lua
                 nvim-fzf
                 nvim-lspconfig
                 nvim-notify
