@@ -13,13 +13,13 @@ end
 vim.fn.setenv("FULL_NIX_SHELL", 1)
 vim.fn.setenv("HOSTNAME", hostname)
 
-if not vim.go.loadplugins then
-  vim.cmd([[ se nu rnu ]])
-  vim.cmd([[ se tabstop=8 ]])
-  vim.cmd([[ se shiftwidth=4 smarttab expandtab ]])
-  vim.cmd([[ colorscheme catppuccin ]])
-  vim.cmd([[ highlight CursorLine guibg=#21222C ]])
-else
+vim.cmd([[
+  se nu rnu tabstop=2 shiftwidth=2 smarttab expandtab
+  colorscheme catppuccin
+  highlight CursorLine guibg=#21222C
+]])
+
+if vim.go.loadplugins then
   require("config.autocommands")
   require("config.keybindings")
   require("config.options")
