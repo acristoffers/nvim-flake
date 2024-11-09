@@ -67,44 +67,7 @@ local opts = {
     --   return buffer_a.modified > buffer_b.modified
     -- end
   },
-  highlights = {
-    fill = {
-      fg = "#191A21",
-      bg = "#191A21",
-    },
-    background = {
-      fg = "#AAAAAA",
-      bg = "#191A21",
-    },
-
-    buffer_selected = {
-      fg = { attribute = "bg", highlight = "Normal" },
-      bg = { attribute = "bg", highlight = "Normal" },
-    },
-
-    close_button = {
-      fg = { attribute = "bg", highlight = "TabLine" },
-      bg = "#191A21",
-    },
-
-    separator = {
-      fg = "#191A21",
-      bg = "#191A21",
-    },
-    separator_selected = {
-      fg = "#BF94F6",
-      bg = "#BF94F6",
-    },
-    separator_visible = {
-      fg = "#191A21",
-      bg = "#191A21",
-    },
-
-    indicator_selected = {
-      fg = { attribute = "fg", highlight = "LspDiagnosticsDefaultHint" },
-      bg = { attribute = "bg", highlight = "Normal" },
-    },
-  },
+  highlights = require("catppuccin.groups.integrations.bufferline").get({}),
 }
 
 require("bufferline").setup(opts)

@@ -17,7 +17,7 @@ if not vim.go.loadplugins then
   vim.cmd([[ se nu rnu ]])
   vim.cmd([[ se tabstop=8 ]])
   vim.cmd([[ se shiftwidth=4 smarttab expandtab ]])
-  vim.cmd([[ colorscheme dracula ]])
+  vim.cmd([[ colorscheme catppuccin ]])
   vim.cmd([[ highlight CursorLine guibg=#21222C ]])
 else
   require("config.autocommands")

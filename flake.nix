@@ -78,6 +78,7 @@
                 alpha-nvim
                 bufdelete-nvim
                 bufferline-nvim
+                catppuccin-nvim
                 cmp-buffer
                 cmp-cmdline
                 cmp-nvim-lsp
@@ -89,7 +90,6 @@
                 copilot-cmp
                 copilot-lua
                 copilot-lualine
-                dracula-nvim
                 dressing-nvim
                 firenvim
                 flutter-tools-nvim

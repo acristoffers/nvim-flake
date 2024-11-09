@@ -44,7 +44,7 @@ for k, v in pairs(options) do
   vim.opt[k] = v
 end
 
-vim.cmd([[ colorscheme dracula ]])
+vim.cmd([[ colorscheme catppuccin ]])
 vim.cmd([[ highlight CursorLine guibg=#21222C ]])
 vim.cmd([[ highlight rainbowcol1 guifg=#bd93f9 ]])
 
