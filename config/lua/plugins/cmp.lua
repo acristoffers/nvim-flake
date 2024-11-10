@@ -1,30 +1,37 @@
-require("cmp_nvim_lsp").setup()
+local ok, cmp = pcall(require, "cmp")
+if not ok then
+  return
+end
 
-local cmp = require("cmp")
-cmp.register_source("buffer", require("cmp_buffer"))
-cmp.register_source("luasnip", require("cmp_luasnip").new())
-cmp.register_source("nvim_lsp_signature_help", require("cmp_nvim_lsp_signature_help").new())
-cmp.register_source("nvim_lua", require("cmp_nvim_lua").new())
-cmp.register_source("path", require("cmp_path").new())
+local ok_nvim_lsp, cmp_nvim_lsp = pcall(require, "cmp_nvim_lsp")
+if ok_nvim_lsp then
+  cmp_nvim_lsp.setup()
+end
 
-local cmp_luasnip = vim.api.nvim_create_augroup("cmp_luasnip", {})
-vim.api.nvim_create_autocmd("User", {
-  pattern = "LuasnipCleanup",
-  callback = function()
-    require("cmp_luasnip").clear_cache()
-  end,
-  group = cmp_luasnip,
-})
-vim.api.nvim_create_autocmd("User", {
-  pattern = "LuasnipSnippetsAdded",
-  callback = function()
-    require("cmp_luasnip").refresh()
-  end,
-  group = cmp_luasnip,
-})
+local ok_cmp_luasnip, cmp_luasnip = pcall(require, "cmp_luasnip")
+if ok_cmp_luasnip then
+  local cmp_luasnip_group = vim.api.nvim_create_augroup("cmp_luasnip", {})
+  vim.api.nvim_create_autocmd("User", {
+    pattern = "LuasnipCleanup",
+    callback = function()
+      cmp_luasnip.clear_cache()
+    end,
+    group = cmp_luasnip_group,
+  })
+  vim.api.nvim_create_autocmd("User", {
+    pattern = "LuasnipSnippetsAdded",
+    callback = function()
+      cmp_luasnip.refresh()
+    end,
+    group = cmp_luasnip_group,
+  })
+end
 
 local opts = function()
-  local luasnip = require("luasnip")
+  local ok_luasnip, luasnip = pcall(require, "luasnip")
+  if not ok_luasnip then
+    return
+  end
 
   local check_backspace = function()
     local col = vim.fn.col(".") - 1
@@ -149,4 +156,4 @@ local opts = function()
   }
 end
 
-require("cmp").setup(opts())
+cmp.setup(opts())

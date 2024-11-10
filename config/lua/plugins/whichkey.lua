@@ -1,10 +1,18 @@
-require("hop").setup({})
+local ok_hop, hop = pcall(require, "hop")
+if ok_hop then
+  hop.setup({})
+end
 
 --------------------------------------------------------------------------------
 --                                                                            --
---                      Better LSP Code Actions/Quickfix                      --
+--                           Whichkey Configuration                           --
 --                                                                            --
 --------------------------------------------------------------------------------
+
+local ok_wk, which_key = pcall(require, "which-key")
+if not ok_wk then
+  return
+end
 
 local function quickfix()
   vim.lsp.buf.code_action({
@@ -15,125 +23,9 @@ local function quickfix()
   })
 end
 
-local action_state = require("telescope.actions.state")
-local actions = require("telescope.actions")
-local conf = require("telescope.config").values
-local finders = require("telescope.finders")
-local pickers = require("telescope.pickers")
-
-local function transform_diagnostics(nvim_diagnostics)
-  local lsp_diagnostics = {}
-  for _, d in ipairs(nvim_diagnostics) do
-    table.insert(lsp_diagnostics, {
-      range = {
-        start = { line = d.lnum, character = d.col },
-        ["end"] = { line = d.end_lnum, character = d.end_col },
-      },
-      message = d.message,
-      severity = d.severity,
-      code = d.code,
-      source = d.source,
-    })
-  end
-  return lsp_diagnostics
-end
-
-local function apply_action_in_document(selected_action)
-  local diagnostics = transform_diagnostics(vim.diagnostic.get(0))
-  local params = {
-    textDocument = vim.lsp.util.make_text_document_params(),
-    context = { diagnostics = diagnostics },
-  }
-
-  for _, diagnostic in ipairs(diagnostics) do
-    params.range = diagnostic.range
-    local results = vim.lsp.buf_request_sync(0, "textDocument/codeAction", params)
-    if results == nil then
-      goto continue
-    end
-    for client_id, result in pairs(results) do
-      if result.result then
-        for _, action in ipairs(result.result) do
-          if action.title == selected_action.title then
-            if action.edit or type(action.command) == "table" then
-              if action.edit then
-                local offset_encoding = vim.lsp.get_client_by_id(client_id).offset_encoding
-                vim.lsp.util.apply_workspace_edit(action.edit, offset_encoding)
-                return apply_action_in_document(selected_action)
-              end
-              if action.command then
-                vim.lsp.buf.execute_command(action.command)
-                return apply_action_in_document(selected_action)
-              end
-            end
-          end
-        end
-      end
-    end
-    ::continue::
-  end
-end
-
-function GetCodeActionsAndApplyGlobally()
-  local diagnostics = transform_diagnostics(vim.diagnostic.get(0))
-  local params = {
-    textDocument = vim.lsp.util.make_text_document_params(),
-    range = vim.lsp.util.make_range_params().range,
-    context = { diagnostics = diagnostics },
-  }
-
-  vim.lsp.buf_request_all(0, "textDocument/codeAction", params, function(results)
-    local flat_results = {}
-    for _, result in pairs(results) do
-      if result.result then
-        for _, action in ipairs(result.result) do
-          table.insert(flat_results, action)
-        end
-      end
-    end
-
-    if #flat_results > 0 then
-      pickers
-          .new({}, {
-            prompt_title = "Code Actions",
-            finder = finders.new_table({
-              results = flat_results,
-              entry_maker = function(entry)
-                return {
-                  value = entry,
-                  display = entry.title or "Unnamed action",
-                  ordinal = entry.title or "",
-                }
-              end,
-            }),
-            sorter = conf.generic_sorter({}),
-            attach_mappings = function(prompt_bufnr, _)
-              actions.select_default:replace(function()
-                local selection = action_state.get_selected_entry()
-                actions.close(prompt_bufnr)
-                apply_action_in_document(selection.value)
-              end)
-              return true
-            end,
-          })
-          :find()
-    else
-      print("No code actions available")
-    end
-  end)
-end
-
---------------------------------------------------------------------------------
---                                                                            --
---                           Whichkey Configuration                           --
---                                                                            --
---------------------------------------------------------------------------------
-
 local options = {
-  ---@type false | "classic" | "modern" | "helix"
   preset = "modern",
   delay = 200,
-  ---@type wk.Spec
   spec = {
     { "<leader> ",   ":lua require'telescope.builtin'.find_files()<cr>",                           desc = "Find File",                               nowait = true, remap = false },
     { "<leader>;",   ":Alpha<cr>",                                                                 desc = "Dashboard",                               nowait = true, remap = false },
@@ -302,12 +194,9 @@ local options = {
     { "<leader>w|", "<C-w>|",                     desc = "Resize Vertical Windows",   nowait = true, remap = false },
   },
 }
-
-local which_key = require("which-key")
 which_key.setup(options)
 
-local hop_ok, hop = pcall(require, "hop")
-if hop_ok then
+if ok_hop then
   local directions = require("hop.hint").HintDirection
   local specs = {
     mode = { "n", "v" },
