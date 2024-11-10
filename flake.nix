@@ -43,25 +43,12 @@
           name = "personal-config";
           src = ./config;
         };
-        lsp-setup = pkgs.vimUtils.buildVimPlugin {
-          name = "lsp-setup";
-          src = inputs.lsp-setup-git;
-        };
-        ouroboros = pkgs.vimUtils.buildVimPlugin {
-          name = "ouroboros";
-          src = inputs.ouroboros-git;
-        };
-        git-worktree = pkgs.vimUtils.buildVimPlugin {
-          name = "git-worktree.nvim";
-          src = inputs.git-worktree-git;
-        };
-        copilot-lualine = pkgs.vimUtils.buildVimPlugin {
-          name = "copilot-lualine.nvim";
-          src = inputs.copilot-lualine-git;
-        };
-        telescope-git-file-history = pkgs.vimUtils.buildVimPlugin {
-          name = "telescope-git-file-history.nvim";
-          src = inputs.telescope-git-file-history-git;
+        git-plugins = with pkgs.vimUtils; with inputs; {
+          lsp-setup = buildVimPlugin { name = "lsp-setup"; src = lsp-setup-git; };
+          ouroboros = buildVimPlugin { name = "ouroboros"; src = ouroboros-git; };
+          git-worktree = buildVimPlugin { name = "git-worktree.nvim"; src = git-worktree-git; };
+          copilot-lualine = buildVimPlugin { name = "copilot-lualine.nvim"; src = copilot-lualine-git; };
+          telescope-git-file-history = buildVimPlugin { name = "telescope-git-file-history.nvim"; src = telescope-git-file-history-git; };
         };
         neovim = pkgs.neovim.override {
           viAlias = true;
@@ -72,138 +59,12 @@
           extraMakeWrapperArgs = "--prefix PATH : ${pkgs.lib.makeBinPath runtimeDependencies}";
           configure = {
             customRC = ''lua require("init")'';
-            packages.all = with pkgs.vimPlugins; {
-              start = [
-                ChatGPT-nvim
-                alpha-nvim
-                bufdelete-nvim
-                bufferline-nvim
-                catppuccin-nvim
-                cmp-buffer
-                cmp-cmdline
-                cmp-nvim-lsp
-                cmp-nvim-lsp-signature-help
-                cmp-nvim-lua
-                cmp-path
-                cmp_luasnip
-                comment-nvim
-                copilot-cmp
-                copilot-lua
-                copilot-lualine
-                dressing-nvim
-                firenvim
-                flutter-tools-nvim
-                formatter-nvim
-                friendly-snippets
-                git-blame-nvim
-                git-conflict-nvim
-                git-worktree
-                gitsigns-nvim
-                hop-nvim
-                indent-blankline-nvim
-                julia-vim
-                lsp-colors-nvim
-                lsp-setup
-                lsp-status-nvim
-                lualine-lsp-progress
-                lualine-nvim
-                luasnip
-                markdown-nvim
-                marks-nvim
-                mini-nvim
-                neoconf-nvim
-                neogit
-                nui-nvim
-                nvim-autopairs
-                nvim-cmp
-                nvim-colorizer-lua
-                nvim-fzf
-                nvim-lspconfig
-                nvim-notify
-                nvim-surround
-                nvim-tree-lua
-                nvim-treesitter-context
-                nvim-treesitter-textobjects
-                nvim-treesitter.withAllGrammars
-                nvim-ts-context-commentstring
-                orgmode
-                ouroboros
-                personal-config
-                plenary-nvim
-                project-nvim
-                rainbow-delimiters-nvim
-                rust-tools-nvim
-                targets-vim # packed with useful text-objects
-                telescope-git-file-history
-                telescope-media-files-nvim
-                telescope-nvim
-                telescope-ui-select-nvim
-                text-case-nvim
-                trim-nvim
-                trouble-nvim
-                undotree
-                vim-fish
-                vim-fugitive
-                vim-illuminate
-                vim-indent-object
-                vim-lion
-                vim-repeat
-                vim-sneak
-                vim-tridactyl
-                virtual-types-nvim
-                which-key-nvim
-              ];
+            packages.all = {
+              start = [ personal-config ] ++ (import ./nix/start.nix { inherit pkgs; inherit git-plugins; });
             };
           };
         };
-        runtimeDependencies = with pkgs; [
-          bat
-          black
-          clang-tools
-          cmake-language-server
-          delta
-          dune_3
-          elmPackages.elm-language-server
-          emmet-ls
-          erlang-ls
-          fd
-          flutter
-          fzf
-          git
-          gopls
-          html-tidy
-          icu.dev
-          inputs.ledger-formatter.packages.${system}.default
-          inputs.matlab-lsp.packages.${system}.default
-          inputs.wbproto-beautifier.packages.${system}.default
-          inputs.zls.packages.${system}.default
-          kotlin-language-server
-          lua-language-server
-          marksman
-          mdformat
-          nil
-          nodePackages_latest.bash-language-server
-          nodePackages_latest.eslint
-          nodePackages_latest.typescript-language-server
-          nodePackages_latest.vim-language-server
-          nodePackages_latest.vls
-          nushell
-          ocamlPackages.ocaml-lsp
-          ocamlPackages.ocamlformat
-          pyright
-          ripgrep
-          rubyPackages.solargraph
-          rust-analyzer
-          silver-searcher
-          stdenv.cc
-          stylua
-          taplo
-          texlab
-          tree-sitter
-          typescript
-          vscode-langservers-extracted
-          yaml-language-server
-        ];
+        runtimeDependencies = import ./nix/runtime.nix { inherit pkgs; inherit inputs; };
       in
       rec {
         formatter = pkgs.nixpkgs-fmt;

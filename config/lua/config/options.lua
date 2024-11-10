@@ -7,12 +7,12 @@ local options = {
   completeopt = { "menuone", "noselect" }, -- mostly just for cmp
   conceallevel = 0,                        -- so that `` is visible in markdown files
   cursorline = true,                       -- highlight the current line
-  expandtab = true,                        -- convert tabs to spaces
   encoding = "utf-8",                      -- the encoding used for the editor
-  inccommand = "split",                    -- show substitutions in a split window
+  expandtab = true,                        -- convert tabs to spaces
   fileencoding = "utf-8",                  -- the encoding written to a file
   hlsearch = true,                         -- highlight all matches on previous search pattern
   ignorecase = true,                       -- ignore case in search patterns
+  inccommand = "split",                    -- show substitutions in a split window
   mouse = "a",                             -- allow the mouse to be used in neovim
   number = true,                           -- set numbered lines
   numberwidth = 4,                         -- set number column width to 2 {default 4}
@@ -53,6 +53,7 @@ vim.cmd([[
   set foldmethod=expr
   set foldexpr=nvim_treesitter#foldexpr()
   set nofoldenable
+  set mousemoveevent
   let g:sneak#label = 1
   let g:sneak#s_next = 1
   map gS <Plug>Sneak_,
@@ -73,9 +74,3 @@ vim.g.vimtex_syntax_enabled = 0
 vim.g.Tex_FoldedEnvironments = ""
 vim.g.Tex_FoldedMisc = ""
 vim.g.Tex_FoldedSections = ""
-
-function SetTab(n)
-  vim.opt.shiftwidth = n
-  vim.opt.tabstop = n
-  vim.opt.softtabstop = n
-end

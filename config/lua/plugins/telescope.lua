@@ -1,4 +1,7 @@
-local telescope = require("telescope")
+local ok, telescope = pcall(require, "telescope")
+if not ok then
+  return
+end
 
 telescope.load_extension("git_file_history")
 telescope.load_extension("git_worktree")
@@ -9,36 +12,6 @@ telescope.load_extension("textcase")
 telescope.load_extension("ui-select")
 
 local actions = require("telescope.actions")
-
-require("dressing").setup({
-  background_colour = "Normal",
-  fps = 30,
-  icons = {
-    DEBUG = "",
-    ERROR = "",
-    INFO = "",
-    TRACE = "✎",
-    WARN = "",
-  },
-  level = 2,
-  minimum_width = 50,
-  render = "default",
-  stages = "fade_in_slide_out",
-  timeout = 5000,
-  top_down = true,
-})
-
-require("notify").setup({
-  timeout = 3000,
-  background_colour = "#282a36",
-  max_height = function()
-    return math.floor(vim.o.lines * 0.75)
-  end,
-  max_width = function()
-    return math.floor(vim.o.columns * 0.75)
-  end,
-})
-vim.notify = require("notify")
 
 telescope.setup({
   defaults = {
@@ -75,7 +48,7 @@ telescope.setup({
         ["<C-q>"] = actions.send_to_qflist + actions.open_qflist,
         ["<M-q>"] = actions.send_selected_to_qflist + actions.open_qflist,
         ["<C-l>"] = actions.complete_tag,
-        ["<C-_>"] = actions.which_key,         -- keys from pressing <C-/>
+        ["<C-_>"] = actions.which_key, -- keys from pressing <C-/>
       },
 
       n = {
@@ -125,7 +98,7 @@ telescope.setup({
       -- filetypes whitelist
       -- defaults to {"png", "jpg", "mp4", "webm", "pdf"}
       filetypes = { "png", "webp", "jpg", "jpeg" },
-      find_cmd = "rg",       -- find command (defaults to `fd`)
+      find_cmd = "rg", -- find command (defaults to `fd`)
     },
     -- Your extension configuration goes here:
     -- extension_name = {

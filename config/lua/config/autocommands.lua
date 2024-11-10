@@ -4,7 +4,9 @@ local groups = {
       event = "BufEnter",
       options = {
         callback = function()
-          vim.cmd([[silent LspStart]])
+          if vim.fn.exists(":LspStart") > 0 then
+            vim.cmd([[ silent LspStart ]])
+          end
         end,
       },
     },
@@ -37,7 +39,10 @@ local groups = {
         pattern = { "flutter", "dart" },
         callback = function()
           vim.defer_fn(function()
-            require("flutter-tools").setup({})
+            local ok, flutter_tools = pcall(require, "flutter_tools")
+            if ok then
+              flutter_tools.setup({})
+            end
           end, 500)
         end,
       },
@@ -48,7 +53,10 @@ local groups = {
         pattern = { "rust" },
         callback = function()
           vim.defer_fn(function()
-            require("rust-tools").setup({})
+            local ok, rust_tools = pcall(require, "rust-tools")
+            if ok then
+              rust_tools.setup({})
+            end
           end, 500)
         end,
       },
@@ -91,8 +99,12 @@ local groups = {
       options = {
         pattern = { "tex" },
         callback = function()
+          local ok, ts_select = pcall(require, "nvim-treesitter.textobjects.select")
+          if not ok then
+            return
+          end
           local opts = { buffer = true, silent = true, noremap = true }
-          local select = require 'nvim-treesitter.textobjects.select'.select_textobject
+          local select = ts_select.select_textobject
           vim.keymap.set("x", "am", function() select("@math.outer") end, opts)
           vim.keymap.set("o", "am", function() select("@math.outer") end, opts)
           vim.keymap.set("x", "im", function() select("@math.inner") end, opts)

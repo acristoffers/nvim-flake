@@ -1,4 +1,7 @@
-local npairs = require("nvim-autopairs")
+local ok, npairs = pcall(require, "nvim-autopairs")
+if not ok then
+  return
+end
 
 npairs.setup({
   check_ts = true,
@@ -12,7 +15,7 @@ npairs.setup({
     map = "<M-e>",
     chars = { "{", "[", "(", '"', "'" },
     pattern = string.gsub([[ [%'%"%)%>%]%)%}%,] ]], "%s+", ""),
-    offset = 0,     -- Offset from pattern match
+    offset = 0, -- Offset from pattern match
     end_key = "$",
     keys = "qwertyuiopzxcvbnmasdfghjkl",
     check_comma = true,
@@ -21,7 +24,8 @@ npairs.setup({
   },
 })
 
-local cmp_ap = require("nvim-autopairs.completion.cmp")
-local cmp = require("cmp")
-
-cmp.event:on("confirm_done", cmp_ap.on_confirm_done({ map_char = { tex = "" } }))
+local ok, cmp = pcall(require, "cmp")
+if ok then
+  local cmp_ap = require("nvim-autopairs.completion.cmp")
+  cmp.event:on("confirm_done", cmp_ap.on_confirm_done({ map_char = { tex = "" } }))
+end

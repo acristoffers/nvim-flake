@@ -1,6 +1,9 @@
-require("luasnip.loaders.from_vscode").lazy_load()
+local ok, luasnip = pcall(require, "luasnip")
+if not ok then
+  return
+end
 
-local luasnip = require("luasnip")
+require("luasnip.loaders.from_vscode").lazy_load()
 
 luasnip.setup({
   history = true,

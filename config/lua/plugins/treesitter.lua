@@ -1,14 +1,17 @@
 vim.opt.runtimepath:append(vim.fn.expand("~/.local/share/nvim/tree-sitter/parsers"))
 
+local ok, ts_configs = pcall(require, "nvim-treesitter.configs")
+if not ok then
+  return
+end
+
 local opts = {
   parser_install_dir = vim.fn.expand("~/.local/share/nvim/tree-sitter/parsers"),
   ensure_installed = {},
   sync_install = false,
   auto_install = false,
   ignore_install = {},
-  autopairs = {
-    enable = true,
-  },
+  autopairs = { enable = true },
   highlight = {
     enable = true,                                 -- false will disable the whole extension
     disable = { "" },                              -- list of language that will be disabled
@@ -91,27 +94,32 @@ local opts = {
   },
 }
 
-require("nvim-treesitter.configs").setup(opts)
-require("treesitter-context").setup({
-  patterns = {
-    zig = {
-      "block",
-      "FnProto",
-      "function",
-      "TopLevelDecl",
-      "Statement",
-      "IfStatement",
-      "WhileStatement",
-      "WhileExpr",
-      "ForStatement",
-      "ForExpr",
-      "WhileStatement",
-      "WhileExpr",
+ts_configs.setup(opts)
+
+local ok, ts_context = pcall(require, "treesitter-context")
+if ok then
+  ts_context.setup({
+    patterns = {
+      zig = {
+        "block",
+        "FnProto",
+        "function",
+        "TopLevelDecl",
+        "Statement",
+        "IfStatement",
+        "WhileStatement",
+        "WhileExpr",
+        "ForStatement",
+        "ForExpr",
+        "WhileStatement",
+        "WhileExpr",
+      },
     },
-  },
-})
+  })
+end
 
 local parser_config = require("nvim-treesitter.parsers").get_parser_configs()
+
 parser_config.wbproto = {
   install_info = {
     url = "https://github.com/acristoffers/tree-sitter-wbproto",

@@ -1,4 +1,7 @@
-local lualine = require("lualine")
+local ok, lualine = pcall(require, "lualine")
+if not ok then
+  return
+end
 
 local hide_in_width = function()
   return vim.fn.winwidth(0) > 80
@@ -101,22 +104,26 @@ local function ledger()
   return string.format("%s | %s | %s", ledger_cache.revolut, ledger_cache.bnp, ledger_cache.savings)
 end
 
+local catppuccin = require "catppuccin.utils.lualine" ()
+local catppuccin_colors = require("catppuccin.palettes").get_palette()
+catppuccin.normal.c.bg = catppuccin_colors.base
+
 lualine.setup({
   options = {
     icons_enabled = true,
-    theme = "auto",
-    component_separators = { left = "", right = "" },
-    section_separators = { left = "", right = "" },
+    theme = catppuccin,
+    component_separators = { left = "│", right = "│" },
+    section_separators = { left = "", right = "" },
+
     disabled_filetypes = { "dashboard", "NvimTree", "Outline" },
-    always_divide_middle = true,
   },
   sections = {
     lualine_a = { mode },
-    lualine_b = { branch, diagnostics },
-    lualine_c = {},
-    lualine_x = {},
-    lualine_y = { ledger, diff, spaces, encoding, "filetype" },
-    lualine_z = { "copilot", lsp_status, progress, "location" },
+    lualine_b = {},
+    lualine_c = { branch, diagnostics },
+    lualine_x = { ledger, diff, spaces, encoding, "filetype", "copilot", lsp_status, progress, },
+    lualine_y = {},
+    lualine_z = { "location" },
   },
   inactive_sections = {
     lualine_a = {},

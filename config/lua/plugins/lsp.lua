@@ -1,10 +1,26 @@
+local ok, lspconfig = pcall(require, "lspconfig")
+if not ok then
+  return
+end
+
+local ok_lsp_setup, lsp_setup = pcall(require, "lsp-setup")
+if not ok_lsp_setup then
+  return
+end
+
 require("lspconfig.ui.windows").default_options.border = "rounded"
 
-require("copilot").setup({
-  suggestion = { enabled = false },
-  panel = { enabled = false },
-})
-require("copilot_cmp").setup()
+local ok_copilot, copilot = pcall(require, "copilot")
+if ok_copilot then
+  copilot.setup({
+    suggestion = { enabled = false },
+    panel = { enabled = false },
+  })
+  local ok_copilot_cmp, copilot_cmp = pcall(require, "copilot_cmp")
+  if ok_copilot_cmp then
+    copilot_cmp.setup()
+  end
+end
 
 local config = {
   virtual_text = false,
@@ -60,24 +76,15 @@ local function on_attach(client, bufnr)
   if virtualtypes_ok and client.server_capabilities.code_lens then
     virtualtypes.on_attach(client)
   end
-  local moses_ok, Moses = pcall(require, "moses")
-  if moses_ok then
-    local noformat = { "ts_ls", "lua_ls", "jsonls" }
-    if Moses.include(noformat, client.name) then
-      client.server_capabilities.document_formatting = false
-    else
-      require("lsp-setup.utils").format_on_save(client)
-    end
-  end
+  require("lsp-setup.utils").format_on_save(client)
 end
 
-local lspconfig = require("lspconfig")
 lspconfig.matlab.setup({
   on_attach = on_attach,
   capabilities = default_capabilities,
 })
 
-require("lsp-setup").setup({
+lsp_setup.setup({
   default_mappings = false,
   -- Custom mappings, will overwrite the default mappings for the same key
   mappings = {
@@ -127,121 +134,3 @@ require("lsp-setup").setup({
     zls = {},
   },
 })
-
-local function stylua()
-  local futil = require("formatter.util")
-  return {
-    exe = "stylua",
-    args = {
-      "--indent-type", "Spaces",
-      "--line-endings", "Unix",
-      "--indent-width", "2",
-      "--search-parent-directories",
-      "--sort-requires",
-      "--stdin-filepath",
-      futil.escape_path(futil.get_current_buffer_file_path()),
-      "--",
-      "-",
-    },
-    stdin = true,
-  }
-end
-
-local function tidy()
-  return {
-    exe = "tidy",
-    args = {
-      "-quiet",
-      "-xml",
-      "--indent auto",
-      "--indent-spaces 2",
-      "--vertical-space yes",
-      "--tidy-mark no",
-      "--wrap 100",
-    },
-    stdin = true,
-    try_node_exe = true,
-  }
-end
-
-local function mdformat()
-  return {
-    exe = "mdformat",
-    args = {
-      "--wrap", "100",
-      "--end-of-line", "lf",
-      "--number",
-    },
-    stdin = false,
-  }
-end
-
-local function black()
-  local futil = require("formatter.util")
-  return {
-    exe = "black",
-    args = {
-      "-q",
-      "-l", "100",
-      "--stdin-filename", futil.escape_path(futil.get_current_buffer_file_name()),
-      "-"
-    },
-    stdin = true,
-  }
-end
-
-local function wbproto_beautifier()
-  return {
-    exe = "wbproto-beautifier",
-    stdin = true,
-  }
-end
-
-local function ledger_beautifier()
-  return {
-    exe = "ledger-beautifier",
-    stdin = true,
-  }
-end
-
-local function yamlfmt()
-  local default = require("formatter.filetypes.yaml").yamlfmt()
-  default.args = {
-    "-in",
-    "-formatter",
-    "retain_line_breaks_single=true,eof_newline=true,include_document_start=true,line_ending=lf,trim_trailing_whitespace=true"
-  }
-  return default
-end
-
-require("formatter").setup({
-  filetype = {
-    c = require("formatter.filetypes.c").clangformat,
-    cpp = require("formatter.filetypes.cpp").clangformat,
-    fish = require("formatter.filetypes.fish").fishindent,
-    html = tidy,
-    javascript = require("formatter.filetypes.javascript").clangformat,
-    json = require("formatter.filetypes.json").jq,
-    ledger = ledger_beautifier,
-    lua = stylua,
-    markdown = mdformat,
-    nix = require("formatter.filetypes.nix").nixpkgs_fmt,
-    python = black,
-    sh = require("formatter.filetypes.sh").shfmt,
-    toml = require("formatter.filetypes.toml").taplo,
-    wbproto = wbproto_beautifier,
-    xhtml = tidy,
-    xml = tidy,
-    yaml = yamlfmt,
-  },
-})
-
-lsp_status.config({
-  indicator_errors = "",
-  indicator_warnings = "",
-  indicator_info = "",
-  indicator_hint = "",
-  indicator_ok = "",
-  status_symbol = "",
-})
-lsp_status.register_progress()
