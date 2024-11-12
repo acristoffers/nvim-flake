@@ -76,7 +76,6 @@ local function on_attach(client, bufnr)
   if virtualtypes_ok and client.server_capabilities.code_lens then
     virtualtypes.on_attach(client)
   end
-  require("lsp-setup.utils").format_on_save(client)
 end
 
 lspconfig.matlab.setup({
