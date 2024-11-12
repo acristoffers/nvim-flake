@@ -53,10 +53,12 @@ if vim.go.loadplugins then
   require("plugins.chatgpt")
   require("plugins.whichkey")
 
-  vim.schedule(function()
-    vim.cmd([[
+  if vim.g.started_by_firenvim ~= true then
+    vim.schedule(function()
+      vim.cmd([[
       silent LspStart
       silent bufdo e %
     ]])
-  end)
+    end)
+  end
 end
