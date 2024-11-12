@@ -5,7 +5,7 @@ vim.opt.rtp:append(nix_config_path)
 
 vim.schedule(function()
   local hostname = "localhost"
-  local handle = io.popen("hostnamectl hostname")
+  local handle = io.popen("hostname")
   if handle ~= nil then
     hostname = handle:read("*a")
     handle:close()
