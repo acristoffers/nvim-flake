@@ -7,7 +7,7 @@ vim.schedule(function()
   local hostname = "localhost"
   local handle = io.popen("hostname")
   if handle ~= nil then
-    hostname = handle:read("*a")
+    hostname = vim.fn.trim(handle:read("*a"))
     handle:close()
   end
   vim.fn.setenv("HOSTNAME", hostname)
