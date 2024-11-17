@@ -84,7 +84,7 @@ local opts = {
       },
     },
     lsp_interop = {
-      enable = true,
+      enable = false,
       border = "rounded",
       peek_definition_code = {
         ["<leader>df"] = "@function.outer",
