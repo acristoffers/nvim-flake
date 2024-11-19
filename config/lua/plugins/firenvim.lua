@@ -15,3 +15,8 @@ vim.g.firenvim_config = {
     },
   },
 }
+
+vim.api.nvim_create_autocmd({'BufEnter'}, {
+    pattern = "git.vitibot.fr_*.txt",
+    command = "set filetype=markdown tw=70"
+})
