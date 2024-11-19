@@ -81,7 +81,7 @@ local options = {
       remap = false,
     },
     {
-      "<leader>bcl",
+      "<leader>bco",
       ":BufferLineCloseRight<cr><cmd>BufferLineCloseLeft<cr>",
       desc = "Close Others",
       nowait = true,
@@ -95,7 +95,7 @@ local options = {
       remap = false,
     },
     {
-      "<leader>bcr",
+      "<leader>bcl",
       ":BufferLineCloseRight<cr>",
       desc = "Close all to the right",
       nowait = true,
