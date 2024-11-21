@@ -866,7 +866,7 @@ local specs = {
   { "<leader>", group = "Text", nowait = true, remap = false },
   { "<leader>s", ":sort<cr>", desc = "Sort", nowait = true, remap = false },
   { "<leader>S", ":sort i<cr>", desc = "Sort (Case Insensitive)", nowait = true, remap = false },
-  { "<leader>u", ":!uniq", desc = "Unique", nowait = true, remap = false },
+  { "<leader>u", ":!uniq <cr>", desc = "Unique", nowait = true, remap = false },
 }
 
 which_key.add(specs)
