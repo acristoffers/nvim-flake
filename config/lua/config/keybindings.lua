@@ -22,6 +22,7 @@ keymap("n", "gp", "`<v`>", opts)
 
 keymap("n", "<A-p>", function()
   vim.fn.setreg("+", vim.api.nvim_buf_get_name(0))
+  print(vim.api.nvim_buf_get_name(0))
 end, opts)
 
 -- Resize with arrows
