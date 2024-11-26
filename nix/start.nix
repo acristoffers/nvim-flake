@@ -6,7 +6,6 @@ with git-plugins;
   ChatGPT-nvim
   alpha-nvim
   bufdelete-nvim
-  bufferline-nvim
   catppuccin-nvim
   cmp-buffer
   cmp-cmdline

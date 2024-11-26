@@ -421,3 +421,17 @@ if ok_telescope then
     end)
   end
 end
+
+--------------------------------------------------------------------------------
+--                                                                            --
+--                             Non-wrapping bnext                             --
+--                                                                            --
+--------------------------------------------------------------------------------
+
+function NonWrappingGoToBuffer(n)
+  local listed_buffers = vim.tbl_filter(function(a)
+    return vim.fn.buflisted(a) == 1
+  end, vim.api.nvim_list_bufs())
+  local index = math.min(n, #listed_buffers)
+  vim.api.nvim_set_current_buf(listed_buffers[index])
+end
