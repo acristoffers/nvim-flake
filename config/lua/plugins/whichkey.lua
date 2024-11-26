@@ -14,15 +14,6 @@ if not ok_wk then
   return
 end
 
-local function quickfix()
-  vim.lsp.buf.code_action({
-    filter = function(a)
-      return a.isPreferred
-    end,
-    apply = true,
-  })
-end
-
 local options = {
   preset = "modern",
   delay = 200,
@@ -55,13 +46,6 @@ local options = {
     },
     {
       "<leader>bb",
-      ":BufferLinePick<cr>",
-      desc = "Go to Buffer (BufferLine)",
-      nowait = true,
-      remap = false,
-    },
-    {
-      "<leader>bB",
       ":Telescope buffers<cr>",
       desc = "Go to Buffer (Telescope)",
       nowait = true,
@@ -74,30 +58,9 @@ local options = {
       remap = false,
     },
     {
-      "<leader>bch",
-      ":BufferLineCloseLeft<cr>",
-      desc = "Close all to the left",
-      nowait = true,
-      remap = false,
-    },
-    {
-      "<leader>bco",
-      ":BufferLineCloseRight<cr><cmd>BufferLineCloseLeft<cr>",
+      "<leader>bo",
+      ":%bd|e#<cr>",
       desc = "Close Others",
-      nowait = true,
-      remap = false,
-    },
-    {
-      "<leader>bcp",
-      ":BufferLinePickClose<cr>",
-      desc = "Pick which buffer to close",
-      nowait = true,
-      remap = false,
-    },
-    {
-      "<leader>bcl",
-      ":BufferLineCloseRight<cr>",
-      desc = "Close all to the right",
       nowait = true,
       remap = false,
     },
@@ -117,14 +80,14 @@ local options = {
     },
     {
       "<leader>bn",
-      ":BufferLineCycleNext<cr>",
+      ":bn<cr>",
       desc = "Next",
       nowait = true,
       remap = false,
     },
     {
       "<leader>bp",
-      ":BufferLineCyclePrev<cr>",
+      ":bp<cr>",
       desc = "Previous",
       nowait = true,
       remap = false,
@@ -139,20 +102,6 @@ local options = {
     {
       "<leader>bs",
       group = "Sort",
-      nowait = true,
-      remap = false,
-    },
-    {
-      "<leader>bsd",
-      ":BufferLineSortByDirectory<cr>",
-      desc = "Sort by directory",
-      nowait = true,
-      remap = false,
-    },
-    {
-      "<leader>bse",
-      ":BufferLineSortByExtension<cr>",
-      desc = "Sort by language",
       nowait = true,
       remap = false,
     },

@@ -104,6 +104,19 @@ local function ledger()
   return string.format("%s | %s | %s", ledger_cache.revolut, ledger_cache.bnp, ledger_cache.savings)
 end
 
+local function buffer_number()
+  local listed_buffers = vim.tbl_filter(function(a)
+    return vim.fn.buflisted(a) == 1
+  end, vim.api.nvim_list_bufs())
+  local current_buffer = vim.api.nvim_get_current_buf()
+  for k, v in pairs(listed_buffers) do
+    if current_buffer == v then
+      return tostring(k)
+    end
+  end
+  return ""
+end
+
 local catppuccin = require "catppuccin.utils.lualine" ()
 local catppuccin_colors = require("catppuccin.palettes").get_palette()
 catppuccin.normal.c.bg = catppuccin_colors.base
@@ -120,7 +133,7 @@ lualine.setup({
   sections = {
     lualine_a = { mode },
     lualine_b = {},
-    lualine_c = { branch, diagnostics },
+    lualine_c = { branch, diagnostics, buffer_number, "filename" },
     lualine_x = { ledger, diff, spaces, encoding, "filetype", "copilot", lsp_status, progress, },
     lualine_y = {},
     lualine_z = { "location" },
@@ -128,7 +141,7 @@ lualine.setup({
   inactive_sections = {
     lualine_a = {},
     lualine_b = {},
-    lualine_c = { "filename" },
+    lualine_c = {},
     lualine_x = { "location" },
     lualine_y = {},
     lualine_z = {},

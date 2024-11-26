@@ -28,7 +28,6 @@ if vim.go.loadplugins then
 
   require("plugins.catppuccin")
   require("plugins.alpha")
-  require("plugins.bufferline")
   require("plugins.lualine")
 
   require("plugins.other")
