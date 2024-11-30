@@ -5,7 +5,7 @@ local groups = {
       options = {
         callback = function()
           if vim.fn.exists(":LspStart") > 0 then
-            vim.cmd([[ silent LspStart ]])
+            vim.cmd([[silent LspStart]])
           end
         end,
       },
@@ -15,7 +15,7 @@ local groups = {
       options = {
         pattern = "*.zon",
         callback = function()
-          vim.cmd([[ set filetype=zig ]])
+          vim.cmd([[set filetype=zig]])
         end,
       },
     },
