@@ -87,8 +87,8 @@ local groups = {
           vim.keymap.set("o", "iv", ':lua NamedNodeSnipe({"quantity"})<cr>', opts)
           -- Because of some weird behavior in vim.keymap.set, bindings with
           -- text-objects don't work and I have to use nmap instead
-          vim.cmd([[ nmap <Leader>me civ ]])
-          vim.cmd([[ nmap <Leader>ml {cil ]])
+          vim.cmd([[nmap <Leader>me civ]])
+          vim.cmd([[nmap <Leader>ml {cil]])
           vim.keymap.set("n", "<leader>ma", ":lua InsertLedgerEntry()<cr>", opts)
           SetTab(4)
         end,
