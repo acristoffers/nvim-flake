@@ -21,7 +21,7 @@ endfunction
 
 ---@diagnostic disable-next-line: unused-local
 function _G.PasteMotion(type)
-  vim.cmd([[ normal gpP ]])
+  vim.cmd([[normal gpP]])
 end
 
 --------------------------------------------------------------------------------
@@ -88,7 +88,7 @@ function SelectIdentifier()
 
   vim.api.nvim_buf_set_mark(0, "<", line + 1, s, {})
   vim.api.nvim_buf_set_mark(0, ">", line + 1, e, {})
-  vim.cmd([[ normal! gv ]])
+  vim.cmd([[normal! gv]])
 end
 
 --------------------------------------------------------------------------------
@@ -160,10 +160,10 @@ function NamedNodeSnipe(node_names)
     -- gv is going to use the last visual mode, which may be a visual-line mode, especially after
     -- InsertLedgerEntry. This creates a "normal" visual mode to ensure that gv becomes a normal
     -- visual mode too.
-    vim.cmd([[ normal! v0 ]])
+    vim.cmd([[normal! v0]])
     vim.api.nvim_buf_set_mark(0, "<", ls + 1, cs, {})
     vim.api.nvim_buf_set_mark(0, ">", le + 1, ce - 2, {})
-    vim.cmd([[ normal! gv ]])
+    vim.cmd([[normal! gv]])
   end
 end
 
@@ -205,9 +205,9 @@ function InsertLedgerEntry()
   else
     vim.api.nvim_win_set_cursor(0, { last_match, 0 })
     vim.fn.setreg("a", date)
-    vim.cmd([[ normal! yipGpOj_viW"ap ]])
+    vim.cmd([[normal! yipGpOj_viW"ap]])
   end
-  vim.cmd([[ normal! Gvipozz0 ]])
+  vim.cmd([[normal! Gvipozz0]])
 end
 
 --------------------------------------------------------------------------------
@@ -238,7 +238,7 @@ end
 function SaveNormalizedUTF8()
   vim.opt["fileencoding"] = "utf-8"
   NormalizeBuferUTF8Canonical()
-  vim.cmd([[ silent write ]])
+  vim.cmd([[silent write]])
 end
 
 vim.api.nvim_create_user_command("NormalizeBufferNFC", NormalizeBuferUTF8Canonical, {})
@@ -277,7 +277,7 @@ if ok then
 
     vim.api.nvim_buf_set_mark(0, "<", start_row, start_col - 1, {})
     vim.api.nvim_buf_set_mark(0, ">", end_row, end_col - 1 - p, {})
-    vim.cmd([[ normal! gv ]])
+    vim.cmd([[normal! gv]])
   end
 
   function SelectXmlAttribute(inner)
