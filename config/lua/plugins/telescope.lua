@@ -3,14 +3,6 @@ if not ok then
   return
 end
 
-telescope.load_extension("git_file_history")
-telescope.load_extension("git_worktree")
-telescope.load_extension("media_files")
-telescope.load_extension("notify")
-telescope.load_extension("projects")
-telescope.load_extension("textcase")
-telescope.load_extension("ui-select")
-
 local actions = require("telescope.actions")
 
 telescope.setup({
@@ -94,6 +86,7 @@ telescope.setup({
     -- builtin picker
   },
   extensions = {
+    fzf = {},
     media_files = {
       -- filetypes whitelist
       -- defaults to {"png", "jpg", "mp4", "webm", "pdf"}
@@ -107,3 +100,12 @@ telescope.setup({
     -- please take a look at the readme of the extension you want to configure
   },
 })
+
+telescope.load_extension("git_file_history")
+telescope.load_extension("git_worktree")
+telescope.load_extension("media_files")
+telescope.load_extension("notify")
+telescope.load_extension("projects")
+telescope.load_extension("textcase")
+telescope.load_extension("ui-select")
+telescope.load_extension('fzf')

@@ -62,6 +62,7 @@ with git-plugins;
   rainbow-delimiters-nvim
   rust-tools-nvim
   targets-vim # packed with useful text-objects
+  telescope-fzf-native-nvim
   telescope-git-file-history
   telescope-media-files-nvim
   telescope-nvim
