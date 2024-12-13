@@ -128,7 +128,6 @@ lsp_setup.setup({
     texlab = {},
     ts_ls = {},
     vimls = {},
-    vuels = {},
     yamlls = {},
     zls = {},
   },
