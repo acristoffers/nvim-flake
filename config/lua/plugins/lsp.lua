@@ -12,14 +12,7 @@ require("lspconfig.ui.windows").default_options.border = "rounded"
 
 local ok_copilot, copilot = pcall(require, "copilot")
 if ok_copilot then
-  copilot.setup({
-    suggestion = { enabled = false },
-    panel = { enabled = false },
-  })
-  local ok_copilot_cmp, copilot_cmp = pcall(require, "copilot_cmp")
-  if ok_copilot_cmp then
-    copilot_cmp.setup()
-  end
+  copilot.setup()
 end
 
 local config = {
