@@ -3,7 +3,6 @@
 with pkgs; [
   bat
   black
-  clang-tools
   cmake-language-server
   delta
   dune_3
@@ -23,6 +22,7 @@ with pkgs; [
   inputs.zls.inputs.zig-overlay.packages.${system}.master
   inputs.zls.packages.${system}.default
   kotlin-language-server
+  llvmPackages_19.clang-tools
   lua-language-server
   marksman
   mdformat
