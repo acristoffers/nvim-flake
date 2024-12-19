@@ -15,7 +15,6 @@ with git-plugins;
   cmp-path
   cmp_luasnip
   comment-nvim
-  copilot-cmp
   copilot-lua
   copilot-lualine
   dressing-nvim
