@@ -1,4 +1,9 @@
-require("project_nvim").setup({
+local ok, project = pcall(require, "project_nvim")
+if not ok then
+  return
+end
+
+project.setup({
     -- Manual mode doesn't automatically change your root directory, so you have
     -- the option to manually do so using `:ProjectRoot` command.
     manual_mode = false,

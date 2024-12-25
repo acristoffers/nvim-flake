@@ -52,8 +52,8 @@ configs["matlab"] = {
   },
 }
 
-local cmp_nvim = require("cmp_nvim_lsp")
-local lsp_status = require("lsp-status")
+local _, cmp_nvim = pcall(require, "cmp_nvim_lsp")
+local _, lsp_status = pcall(require, "lsp-status")
 local default_capabilities = vim.lsp.protocol.make_client_capabilities()
 default_capabilities = cmp_nvim.default_capabilities(default_capabilities)
 default_capabilities = vim.tbl_extend("keep", default_capabilities, lsp_status.capabilities)
