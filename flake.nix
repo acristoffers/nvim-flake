@@ -45,11 +45,11 @@
           doCheck = false;
         };
         git-plugins = with pkgs.vimUtils; with inputs; {
-          lsp-setup = buildVimPlugin { name = "lsp-setup"; src = lsp-setup-git; };
+          lsp-setup = buildVimPlugin { name = "lsp-setup"; src = lsp-setup-git; doCheck = false; };
           ouroboros = buildVimPlugin { name = "ouroboros"; src = ouroboros-git; doCheck = false; };
           git-worktree = buildVimPlugin { name = "git-worktree.nvim"; src = git-worktree-git; doCheck = false; };
-          copilot-lualine = buildVimPlugin { name = "copilot-lualine.nvim"; src = copilot-lualine-git; };
-          telescope-git-file-history = buildVimPlugin { name = "telescope-git-file-history.nvim"; src = telescope-git-file-history-git; };
+          copilot-lualine = buildVimPlugin { name = "copilot-lualine.nvim"; src = copilot-lualine-git; doCheck = false; };
+          telescope-git-file-history = buildVimPlugin { name = "telescope-git-file-history.nvim"; src = telescope-git-file-history-git; doCheck = false; };
         };
         vim-plugins = import ./nix/start.nix { inherit pkgs; inherit git-plugins; };
         neovim = pkgs.neovim.override {
