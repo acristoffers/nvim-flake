@@ -125,7 +125,8 @@ end
 keymap("v", "zZ", ":lua CenterSelection()<cr>", opts)
 
 --- Eval math (actually lua)
-keymap("v", "<leader>r", ":lua EvalLua()<cr>", opts)
+keymap("v", "<leader>r", ":lua EvalLuaExpression()<cr>", opts)
+keymap("v", "<leader>R", ":lua EvalLua()<cr>", opts)
 
 --- XML text-objects
 if SelectXmlAttribute ~= nil then

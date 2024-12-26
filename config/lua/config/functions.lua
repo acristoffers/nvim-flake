@@ -49,12 +49,56 @@ end
 --                                                                            --
 --------------------------------------------------------------------------------
 
+function EvalLuaExpression()
+  local startPos = vim.fn.getpos("'<")
+  local endPos = vim.fn.getpos("'>")
+  local selection = vim.api.nvim_buf_get_text(0, startPos[2] - 1, startPos[3] - 1, endPos[2] - 1, endPos[3], {})
+  local output = {}
+  local orig_print = print
+  print = function(...)
+    local args = { ... }
+    local message = table.concat(vim.tbl_map(tostring, args), "\t")
+    table.insert(output, message)
+  end
+  local chunk = loadstring("print(" .. selection[1] .. ")")
+  local ok, _ = pcall(function()
+    if chunk then
+      chunk()
+    end
+  end)
+  print = orig_print
+  if ok then
+    vim.api.nvim_buf_set_text(0, startPos[2] - 1, startPos[3] - 1, endPos[2] - 1, endPos[3], output)
+  else
+    local notfiy_ok, notify = pcall(require, 'notify')
+    if notfiy_ok then
+      notify.notify("Could not run code", vim.log.levels.ERROR, {})
+    else
+      print("Could not run code")
+    end
+  end
+end
+
 function EvalLua()
   local startPos = vim.fn.getpos("'<")
   local endPos = vim.fn.getpos("'>")
   local selection = vim.api.nvim_buf_get_text(0, startPos[2] - 1, startPos[3] - 1, endPos[2] - 1, endPos[3], {})
-  local result = string.format("%s", vim.fn.eval(selection[1]))
-  vim.api.nvim_buf_set_text(0, startPos[2] - 1, startPos[3] - 1, endPos[2] - 1, endPos[3], { result })
+  local chunk = loadstring(selection[1])
+  local ok, _ = pcall(function()
+    if not chunk then
+      return ""
+    else
+      return chunk()
+    end
+  end)
+  if not ok then
+    local notfiy_ok, notify = pcall(require, 'notify')
+    if notfiy_ok then
+      notify.notify("Could not run code", vim.log.levels.ERROR, {})
+    else
+      print("Could not run code")
+    end
+  end
 end
 
 --------------------------------------------------------------------------------
@@ -392,29 +436,29 @@ if ok_telescope then
 
       if #flat_results > 0 then
         pickers
-          .new({}, {
-            prompt_title = "Code Actions",
-            finder = finders.new_table({
-              results = flat_results,
-              entry_maker = function(entry)
-                return {
-                  value = entry,
-                  display = entry.title or "Unnamed action",
-                  ordinal = entry.title or "",
-                }
+            .new({}, {
+              prompt_title = "Code Actions",
+              finder = finders.new_table({
+                results = flat_results,
+                entry_maker = function(entry)
+                  return {
+                    value = entry,
+                    display = entry.title or "Unnamed action",
+                    ordinal = entry.title or "",
+                  }
+                end,
+              }),
+              sorter = conf.generic_sorter({}),
+              attach_mappings = function(prompt_bufnr, _)
+                actions.select_default:replace(function()
+                  local selection = action_state.get_selected_entry()
+                  actions.close(prompt_bufnr)
+                  apply_action_in_document(selection.value)
+                end)
+                return true
               end,
-            }),
-            sorter = conf.generic_sorter({}),
-            attach_mappings = function(prompt_bufnr, _)
-              actions.select_default:replace(function()
-                local selection = action_state.get_selected_entry()
-                actions.close(prompt_bufnr)
-                apply_action_in_document(selection.value)
-              end)
-              return true
-            end,
-          })
-          :find()
+            })
+            :find()
       else
         print("No code actions available")
       end
