@@ -142,6 +142,10 @@ local opts = function()
       behavior = cmp.ConfirmBehavior.Replace,
       select = false,
     },
+    completion = {
+      autocomplete = false,
+      completeopt = 'menu,menuone,noselect'
+    },
     window = {
       completion = cmp.config.window.bordered(),
       documentation = cmp.config.window.bordered(),

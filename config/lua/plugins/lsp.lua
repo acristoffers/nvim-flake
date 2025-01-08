@@ -124,4 +124,8 @@ lsp_setup.setup({
     yamlls = {},
     zls = {},
   },
+  inlay_hints = {
+    enabled = true,
+    highlight = 'Comment',
+  }
 })
