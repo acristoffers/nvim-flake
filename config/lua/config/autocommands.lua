@@ -91,6 +91,7 @@ local groups = {
           vim.cmd([[nmap <Leader>ml {cil]])
           vim.keymap.set("n", "<leader>ma", ":lua InsertLedgerEntry()<cr>", opts)
           SetTab(4)
+          vim.bo.commentstring = '; %s'
         end,
       },
     },
