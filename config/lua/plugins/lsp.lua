@@ -121,7 +121,7 @@ lsp_setup.setup({
     texlab = {},
     ts_ls = {},
     vimls = {},
-    yamlls = {},
+    yamlls = require("lsp.settings.yamlls"),
     zls = {},
   },
   inlay_hints = {
