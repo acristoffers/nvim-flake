@@ -308,6 +308,13 @@ local options = {
     },
     {
       "<leader>ff",
+      ":Telescope frecency workspace=CWD<cr>",
+      desc = "Open recent (frecency)",
+      nowait = true,
+      remap = false,
+    },
+    {
+      "<leader>fw",
       SaveNormalizedUTF8,
       desc = "Save File (Fix Encoding)",
       nowait = true,
