@@ -22,7 +22,6 @@ with git-plugins;
   flutter-tools-nvim
   formatter-nvim
   friendly-snippets
-  git-blame-nvim
   git-conflict-nvim
   git-worktree
   gitsigns-nvim
