@@ -210,9 +210,25 @@
         "matlab-lsp": "matlab-lsp",
         "nixpkgs": "nixpkgs",
         "ouroboros-git": "ouroboros-git",
-        "telescope-git-file-history-git": "telescope-git-file-history-git",
+        "snacks-git": "snacks-git",
         "wbproto-beautifier": "wbproto-beautifier",
         "zls": "zls"
+      }
+    },
+    "snacks-git": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1739118895,
+        "narHash": "sha256-hyJJSZ50Db9yudzWtyzdlEfbdwBw3czBI3/bFz3R0NU=",
+        "owner": "folke",
+        "repo": "snacks.nvim",
+        "rev": "a17788539a5e66784535d0c973bdc08728f16c46",
+        "type": "github"
+      },
+      "original": {
+        "owner": "folke",
+        "repo": "snacks.nvim",
+        "type": "github"
       }
     },
     "systems": {
@@ -242,22 +258,6 @@
       "original": {
         "owner": "nix-systems",
         "repo": "default",
-        "type": "github"
-      }
-    },
-    "telescope-git-file-history-git": {
-      "flake": false,
-      "locked": {
-        "lastModified": 1727128584,
-        "narHash": "sha256-rf5orEKvsS7gRcUb3+USmCK2SD84xusGU1xIIW8Ntyw=",
-        "owner": "isak102",
-        "repo": "telescope-git-file-history.nvim",
-        "rev": "c27d99ba88ec5f0b6d2b9f9bc67dd3d14c610b25",
-        "type": "github"
-      },
-      "original": {
-        "owner": "isak102",
-        "repo": "telescope-git-file-history.nvim",
         "type": "github"
       }
     },

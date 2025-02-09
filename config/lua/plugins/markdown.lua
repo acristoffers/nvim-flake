@@ -19,10 +19,10 @@ markdown.setup({
   on_attach = function(bufnr)
     local map = vim.keymap.set
     local opts = { buffer = bufnr }
-    map({ "n", "i" }, "<M-o>", ":MDListItemBelow<CR>", opts)
-    map({ "n", "i" }, "<M-O>", ":MDListItemAbove<CR>", opts)
-    map("n", "<leader>mx", ":MDTaskToggle<CR>", opts)
-    map("x", "<leader>mx", ":MDTaskToggle<CR>", opts)
-    map("n", "<leader>mt", ":MDToc<CR>", opts)
+    map({ "n", "i" }, "<M-o>", "<cmd>MDListItemBelow<CR>", opts)
+    map({ "n", "i" }, "<M-O>", "<cmd>MDListItemAbove<CR>", opts)
+    map("n", "<leader>mx", "<cmd>MDTaskToggle<CR>", opts)
+    map("x", "<leader>mx", "<cmd>MDTaskToggle<CR>", opts)
+    map("n", "<leader>mt", "<cmd>MDToc<CR>", opts)
   end,
 })

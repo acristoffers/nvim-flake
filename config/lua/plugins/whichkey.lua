@@ -20,15 +20,8 @@ local options = {
   spec = {
     {
       "<leader> ",
-      ":lua require'telescope.builtin'.find_files()<cr>",
+      ":lua Snacks.picker.files()<cr>",
       desc = "Find File",
-      nowait = true,
-      remap = false,
-    },
-    {
-      "<leader>;",
-      ":Alpha<cr>",
-      desc = "Dashboard",
       nowait = true,
       remap = false,
     },
@@ -46,8 +39,8 @@ local options = {
     },
     {
       "<leader>bb",
-      ":Telescope buffers<cr>",
-      desc = "Go to Buffer (Telescope)",
+      ":lua Snacks.picker.buffers()<cr>",
+      desc = "Go to Buffer (Picker)",
       nowait = true,
       remap = false,
     },
@@ -59,7 +52,7 @@ local options = {
     },
     {
       "<leader>bo",
-      ":%bd|e#<cr>",
+      ":lua Snacks.bufdelete.other()<cr>",
       desc = "Close Others",
       nowait = true,
       remap = false,
@@ -111,8 +104,7 @@ local options = {
       nowait = true,
       remap = false,
     },
-    { "<leader>cc", ":TextCaseOpenTelescope<cr>", desc = "Change Case",             nowait = true, remap = false },
-    { "<leader>ch", ":Ouroboros<cr>",             desc = "Switch .h/.cpp",          nowait = true, remap = false },
+    { "<leader>ch", ":silent lua require'ouroboros'.switch()<cr>",             desc = "Switch .h/.cpp",          nowait = true, remap = false },
     { "<leader>ct", ":Trim<cr>",                  desc = "Trim trailling spaces",   nowait = true, remap = false },
     { "<leader>cf", ":Format<cr>",                desc = "Format (formatter.nvim)", nowait = true, remap = false },
     { "<leader>l",  group = "LSP",                nowait = true,                    remap = false },
@@ -132,14 +124,14 @@ local options = {
     },
     {
       "<leader>ld",
-      ":Telescope diagnostics bufnr=0 theme=get_ivy<cr>",
+      ":lua Snacks.picker.diagnostics_buffer()<cr>",
       desc = "Diagnostics (Buffer)",
       nowait = true,
       remap = false,
     },
     {
       "<leader>lD",
-      ":Telescope diagnostics<cr>",
+      ":lua Snacks.picker.diagnostics()<cr>",
       desc = "Diagnostics (Workspace)",
       nowait = true,
       remap = false,
@@ -202,8 +194,8 @@ local options = {
     },
     {
       "<leader>lQ",
-      ":Telescope quickfix<cr>",
-      desc = "Quickfix (Telescope)",
+      ":lua Snacks.picker.loclist()<cr>",
+      desc = "Quickfix (Picker)",
       nowait = true,
       remap = false,
     },
@@ -216,14 +208,14 @@ local options = {
     },
     {
       "<leader>ls",
-      ":Telescope lsp_document_symbols<cr>",
+      ":lua Snacks.picker.lsp_symbols()<cr>",
       desc = "Document Symbols",
       nowait = true,
       remap = false,
     },
     {
       "<leader>lS",
-      ":Telescope lsp_dynamic_workspace_symbols<cr>",
+      ":lua Snacks.picker.lsp_workspace_symbols()<cr>",
       desc = "Workspace Symbols",
       nowait = true,
       remap = false,
@@ -236,7 +228,7 @@ local options = {
     },
     {
       "<leader>te",
-      ":NvimTreeToggle<CR>",
+      ":lua Snacks.explorer()<CR>",
       desc = "File Tree",
       nowait = true,
       remap = false,
@@ -272,28 +264,6 @@ local options = {
       remap = false,
     },
     {
-      "<leader>tl",
-      function()
-        local luasnip_ok, luasnip = pcall(require, "luasnip")
-        if not luasnip_ok then
-          print("LuaSnip is not installed")
-          return
-        end
-        while true do
-          local session = luasnip.session
-          local node = session.current_nodes[vim.api.nvim_get_current_buf()]
-          if not node then
-            print("Removed all snippets")
-            return
-          end
-          luasnip.unlink_current()
-        end
-      end,
-      desc = "Erase autocompletion/snippets stops",
-      nowait = true,
-      remap = false,
-    },
-    {
       "<leader>f",
       group = "File",
       nowait = true,
@@ -307,13 +277,6 @@ local options = {
       remap = false,
     },
     {
-      "<leader>ff",
-      ":Telescope frecency workspace=CWD<cr>",
-      desc = "Open recent (frecency)",
-      nowait = true,
-      remap = false,
-    },
-    {
       "<leader>fw",
       SaveNormalizedUTF8,
       desc = "Save File (Fix Encoding)",
@@ -322,7 +285,7 @@ local options = {
     },
     {
       "<leader>fg",
-      ":lua require'telescope.builtin'.git_files()<cr>",
+      ":lua Snacks.picker.git_files()<cr>",
       desc = "Find Git File",
       nowait = true,
       remap = false,
@@ -350,14 +313,14 @@ local options = {
     },
     {
       "<leader>fo",
-      ":lua require'telescope.builtin'.find_files()<cr>",
+      ":lua Snacks.picker.files()<cr>",
       desc = "Open File",
       nowait = true,
       remap = false,
     },
     {
       "<leader>fr",
-      ":Telescope oldfiles<CR>",
+      ":lua Snacks.picker.recent()<CR>",
       desc = "Recent File",
       nowait = true,
       remap = false,
@@ -383,13 +346,6 @@ local options = {
       remap = false,
     },
     {
-      "<leader>gC",
-      ":Telescope git_bcommits<cr>",
-      desc = "Checkout commit (for current file)",
-      nowait = true,
-      remap = false,
-    },
-    {
       "<leader>gR",
       ":lua require 'gitsigns'.reset_buffer()<cr>",
       desc = "Reset Buffer",
@@ -398,15 +354,15 @@ local options = {
     },
     {
       "<leader>gb",
-      ":Telescope git_branches<cr>",
+      ":lua Snacks.picker.git_branches()<cr>",
       desc = "Checkout branch",
       nowait = true,
       remap = false,
     },
     {
       "<leader>gc",
-      ":Telescope git_commits<cr>",
-      desc = "Checkout commit",
+      ":GitConflictRefresh<cr>",
+      desc = "Git Conflict Refresh",
       nowait = true,
       remap = false,
     },
@@ -424,13 +380,13 @@ local options = {
       nowait = true,
       remap = false,
     },
-    {
-      "<leader>gh",
-      require("telescope").extensions.git_file_history.git_file_history,
-      desc = "Wayback Machine (History)",
-      nowait = true,
-      remap = false,
-    },
+    -- {
+    --   "<leader>gh",
+    --   require("telescope").extensions.git_file_history.git_file_history,
+    --   desc = "Wayback Machine (History)",
+    --   nowait = true,
+    --   remap = false,
+    -- },
     {
       "<leader>gj",
       ":lua require 'gitsigns'.next_hunk()<cr>",
@@ -454,7 +410,7 @@ local options = {
     },
     {
       "<leader>go",
-      ":Telescope git_status<cr>",
+      ":lua Snacks.picker.git_status()<cr>",
       desc = "Open changed file",
       nowait = true,
       remap = false,
@@ -494,20 +450,6 @@ local options = {
       remap = false,
     },
     {
-      "<leader>gwa",
-      require("telescope").extensions.git_worktree.create_git_worktree,
-      desc = "Add",
-      nowait = true,
-      remap = false,
-    },
-    {
-      "<leader>gwl",
-      require("telescope").extensions.git_worktree.git_worktrees,
-      desc = "List",
-      nowait = true,
-      remap = false,
-    },
-    {
       "<leader>p",
       group = "Projects",
       nowait = true,
@@ -516,7 +458,7 @@ local options = {
     {
       "<leader>pp",
       function()
-        require("telescope").extensions.projects.projects({})
+        PickProject()
       end,
       desc = "Open Project",
       nowait = true,
@@ -578,49 +520,49 @@ local options = {
     },
     {
       "<leader>hC",
-      ":Telescope commands<cr>",
+      ":lua Snacks.picker.commands()<cr>",
       desc = "Commands",
       nowait = true,
       remap = false,
     },
     {
       "<leader>hH",
-      ":Telescope highlights<cr>",
+      ":lua Snacks.picker.highlights()<cr>",
       desc = "Highlight groups",
       nowait = true,
       remap = false,
     },
     {
       "<leader>hM",
-      ":Telescope man_pages<cr>",
+      ":lua Snacks.picker.man()<cr>",
       desc = "Man Pages",
       nowait = true,
       remap = false,
     },
     {
       "<leader>hR",
-      ":Telescope registers<cr>",
+      ":lua Snacks.picker.registers()<cr>",
       desc = "Registers",
       nowait = true,
       remap = false,
     },
     {
       "<leader>hc",
-      ":lua require('telescope.builtin').colorscheme({enable_preview = true})<cr>",
+      ":lua Snacks.picker.colorschemes()<cr>",
       desc = "Colorscheme",
       nowait = true,
       remap = false,
     },
     {
       "<leader>hh",
-      ":Telescope help_tags<cr>",
+      ":lua Snacks.picker.help()<cr>",
       desc = "Find Help",
       nowait = true,
       remap = false,
     },
     {
       "<leader>hk",
-      ":Telescope keymaps<cr>",
+      ":lua Snacks.picker.keymaps()<cr>",
       desc = "Keymaps",
       nowait = true,
       remap = false,
@@ -633,7 +575,7 @@ local options = {
     },
     {
       "<leader>sg",
-      ":Telescope live_grep<cr>",
+      ":lua Snacks.picker.grep()<cr>",
       desc = "Live Grep",
       nowait = true,
       remap = false,

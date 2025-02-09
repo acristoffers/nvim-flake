@@ -24,6 +24,7 @@ with pkgs; [
   kotlin-language-server
   llvmPackages_19.clang-tools
   lua-language-server
+  luajitPackages.luarocks
   marksman
   mdformat
   nil

@@ -74,3 +74,5 @@ vim.g.vimtex_syntax_enabled = 0
 vim.g.Tex_FoldedEnvironments = ""
 vim.g.Tex_FoldedMisc = ""
 vim.g.Tex_FoldedSections = ""
+
+vim.opt.runtimepath:prepend(vim.fn.expand("~/.local/share/nvim"))
