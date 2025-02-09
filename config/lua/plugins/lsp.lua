@@ -52,10 +52,10 @@ configs["matlab"] = {
   },
 }
 
-local _, cmp_nvim = pcall(require, "cmp_nvim_lsp")
+local _, blink = pcall(require, "blink.cmp")
 local _, lsp_status = pcall(require, "lsp-status")
 local default_capabilities = vim.lsp.protocol.make_client_capabilities()
-default_capabilities = cmp_nvim.default_capabilities(default_capabilities)
+default_capabilities = blink.get_lsp_capabilities(default_capabilities)
 default_capabilities = vim.tbl_extend("keep", default_capabilities, lsp_status.capabilities)
 
 local function on_attach(client, bufnr)
@@ -80,10 +80,10 @@ lsp_setup.setup({
   default_mappings = false,
   -- Custom mappings, will overwrite the default mappings for the same key
   mappings = {
-    gd = 'lua require"telescope.builtin".lsp_definitions()',
-    gy = "lua vim.lsp.buf.type_definition()",
-    gi = 'lua require"telescope.builtin".lsp_implementations()',
-    gr = 'lua require"telescope.builtin".lsp_references()',
+    gd = 'lua Snacks.picker.lsp_definitions()',
+    gy = "lua Snacks.picker.lsp_type_definitions()",
+    gi = 'lua Snacks.picker.lsp_implementations()',
+    gr = 'lua Snacks.picker.lsp_references()',
     gD = "lua vim.lsp.buf.declaration()",
     K = "lua vim.lsp.buf.hover()",
     ["<C-k>"] = "lua vim.lsp.buf.signature_help()",

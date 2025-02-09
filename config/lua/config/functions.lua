@@ -70,7 +70,7 @@ function EvalLuaExpression()
   if ok then
     vim.api.nvim_buf_set_text(0, startPos[2] - 1, startPos[3] - 1, endPos[2] - 1, endPos[3], output)
   else
-    local notfiy_ok, notify = pcall(require, 'notify')
+    local notfiy_ok, notify = pcall(require, "notify")
     if notfiy_ok then
       notify.notify("Could not run code", vim.log.levels.ERROR, {})
     else
@@ -92,7 +92,7 @@ function EvalLua()
     end
   end)
   if not ok then
-    local notfiy_ok, notify = pcall(require, 'notify')
+    local notfiy_ok, notify = pcall(require, "notify")
     if notfiy_ok then
       notify.notify("Could not run code", vim.log.levels.ERROR, {})
     else
@@ -436,29 +436,29 @@ if ok_telescope then
 
       if #flat_results > 0 then
         pickers
-            .new({}, {
-              prompt_title = "Code Actions",
-              finder = finders.new_table({
-                results = flat_results,
-                entry_maker = function(entry)
-                  return {
-                    value = entry,
-                    display = entry.title or "Unnamed action",
-                    ordinal = entry.title or "",
-                  }
-                end,
-              }),
-              sorter = conf.generic_sorter({}),
-              attach_mappings = function(prompt_bufnr, _)
-                actions.select_default:replace(function()
-                  local selection = action_state.get_selected_entry()
-                  actions.close(prompt_bufnr)
-                  apply_action_in_document(selection.value)
-                end)
-                return true
+          .new({}, {
+            prompt_title = "Code Actions",
+            finder = finders.new_table({
+              results = flat_results,
+              entry_maker = function(entry)
+                return {
+                  value = entry,
+                  display = entry.title or "Unnamed action",
+                  ordinal = entry.title or "",
+                }
               end,
-            })
-            :find()
+            }),
+            sorter = conf.generic_sorter({}),
+            attach_mappings = function(prompt_bufnr, _)
+              actions.select_default:replace(function()
+                local selection = action_state.get_selected_entry()
+                actions.close(prompt_bufnr)
+                apply_action_in_document(selection.value)
+              end)
+              return true
+            end,
+          })
+          :find()
       else
         print("No code actions available")
       end
@@ -478,4 +478,29 @@ function NonWrappingGoToBuffer(n)
   end, vim.api.nvim_list_bufs())
   local index = math.min(n, #listed_buffers)
   vim.api.nvim_set_current_buf(listed_buffers[index])
+end
+
+--------------------------------------------------------------------------------
+--                                                                            --
+--                                Snack picker                                --
+--                                                                            --
+--------------------------------------------------------------------------------
+
+function PickProject()
+  local items = require("project_nvim").get_recent_projects()
+  local opts = {
+    prompt = "Switch Project",
+    format_item = function(item)
+      return vim.fn.fnamemodify(item, ":t") .. " (" .. item .. ")"
+    end,
+  }
+  local on_choice = function(selected_item)
+    local result = require("project_nvim.project").set_pwd(selected_item, "Snack")
+    if result then
+      require("snacks.picker").files()
+    else
+      vim.notify("Failed to changed PWD to " .. selected_item)
+    end
+  end
+  require("snacks.picker").select(items, opts, on_choice):show()
 end

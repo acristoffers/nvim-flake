@@ -31,8 +31,8 @@
     git-worktree-git.url = "github:awerebea/git-worktree.nvim/handle_changes_in_telescope_api";
     git-worktree-git.flake = false;
 
-    telescope-git-file-history-git.url = "github:isak102/telescope-git-file-history.nvim";
-    telescope-git-file-history-git.flake = false;
+    snacks-git.url = "github:folke/snacks.nvim";
+    snacks-git.flake = false;
   };
 
   outputs = inputs@{ self, flake-utils, nixpkgs, ... }:
@@ -49,9 +49,8 @@
           ouroboros = buildVimPlugin { name = "ouroboros"; src = ouroboros-git; doCheck = false; };
           git-worktree = buildVimPlugin { name = "git-worktree.nvim"; src = git-worktree-git; doCheck = false; };
           copilot-lualine = buildVimPlugin { name = "copilot-lualine.nvim"; src = copilot-lualine-git; doCheck = false; };
-          telescope-git-file-history = buildVimPlugin { name = "telescope-git-file-history.nvim"; src = telescope-git-file-history-git; doCheck = false; };
+          snacks = buildVimPlugin { name = "snacks.nvim"; src = snacks-git; doCheck = false; };
         };
-        vim-plugins = import ./nix/start.nix { inherit pkgs; inherit git-plugins; };
         neovim = pkgs.neovim.override {
           viAlias = true;
           vimAlias = true;
@@ -61,11 +60,10 @@
           extraMakeWrapperArgs = "--prefix PATH : ${pkgs.lib.makeBinPath runtimeDependencies}";
           configure = {
             customRC = ''
-            lua <<EOF
-            require("init")
-            require("lazy").setup({
-              spec = {
-                {
+              lua <<EOF
+              require("init")
+              require("lazy").setup({
+                spec = {
                   -- lazy changes the rtp, so we have to add it again
                   {
                     "init",
@@ -73,11 +71,17 @@
                     lazy = false,
                     priority = 1000,
                     config = function()
-                      require("config.functions")
-                      require("config.options")
                       require("config.autocommands")
+                      require("config.functions")
                       require("config.keybindings")
+                      require("config.options")
                     end,
+                  },
+                  {
+                    "copilot",
+                    dir = "${pkgs.vimPlugins.copilot-lua}",
+                    lazy = false,
+                    priority = 1000,
                   },
 
                   -- Not lazy
@@ -87,6 +91,7 @@
                     lazy = false, -- make sure we load this during startup if it is your main colorscheme
                     priority = 1000, -- make sure to load this before all the other start plugins
                     config = function()
+                      require("plugins.catppuccin")
                       vim.cmd([[
                         call setenv("FULL_NIX_SHELL", 1)
                         se nu rnu tabstop=2 shiftwidth=2 smarttab expandtab
@@ -96,53 +101,117 @@
                     end,
                   },
                   {
-                    "alpha-nvim",
-                    dir = "${pkgs.vimPlugins.alpha-nvim}",
-                    lazy = false, -- make sure we load this during startup if it is your main colorscheme
-                    config = function()
-                      require("plugins.alpha")
-                    end,
+                    "nvim-treesitter",
+                    lazy = false,
+                    dir = "${pkgs.vimPlugins.nvim-treesitter.withAllGrammars}",
+                    config = function() require("plugins.treesitter") end,
+                    dependencies = {
+                      { "nvim-treesitter-context", dir = "${pkgs.vimPlugins.nvim-treesitter-context}" },
+                      { "nvim-treesitter-textobjects", dir = "${pkgs.vimPlugins.nvim-treesitter-textobjects}" },
+                      { "nvim-ts-context-commentstring", dir = "${pkgs.vimPlugins.nvim-ts-context-commentstring}" },
+                    }
                   },
-
-                  -- Lazy after all
-                  { "bufdelete"            , event = "VeryLazy", dir = "${pkgs.vimPlugins.bufdelete-nvim}" }       ,
-                  { "indent-blankline-nvim", event = "VeryLazy", dir = "${pkgs.vimPlugins.indent-blankline-nvim}" },
-                  { "lsp-colors-nvim"      , event = "VeryLazy", dir = "${pkgs.vimPlugins.lsp-colors-nvim}" }      ,
-                  { "marks-nvim"           , event = "VeryLazy", dir = "${pkgs.vimPlugins.marks-nvim}" }           ,
-                  { "mini-nvim"            , event = "VeryLazy", dir = "${pkgs.vimPlugins.mini-nvim}" }            ,
-                  { "neoconf-nvim"         , event = "VeryLazy", dir = "${pkgs.vimPlugins.neoconf-nvim}" }         ,
-                  { "neogit"               , event = "VeryLazy", dir = "${pkgs.vimPlugins.neogit}" }               ,
-                  { "nui-nvim"             , event = "VeryLazy", dir = "${pkgs.vimPlugins.nui-nvim}" }             ,
-                  { "nvim-colorizer-lua"   , event = "VeryLazy", dir = "${pkgs.vimPlugins.nvim-colorizer-lua}" }   ,
-                  { "nvim-fzf"             , event = "VeryLazy", dir = "${pkgs.vimPlugins.nvim-fzf}" }             ,
-                  { "nvim-surround"        , event = "VeryLazy", dir = "${pkgs.vimPlugins.nvim-surround}" }        ,
-                  { "nvim-web-devicons"    , event = "VeryLazy", dir = "${pkgs.vimPlugins.nvim-web-devicons}" }    ,
-                  { "nvim-tree-lua"        , event = "VeryLazy", dir = "${pkgs.vimPlugins.nvim-tree-lua}" }        ,
-                  { "ouroboros"            , event = "VeryLazy", dir = "${git-plugins.ouroboros}" }                ,
-                  { "targets-vim"          , event = "VeryLazy", dir = "${pkgs.vimPlugins.targets-vim}" }          ,
-                  { "text-case-nvim"       , event = "VeryLazy", dir = "${pkgs.vimPlugins.text-case-nvim}" }       ,
-                  { "trouble-nvim"         , event = "VeryLazy", dir = "${pkgs.vimPlugins.trouble-nvim}" }         ,
-                  { "undotree"             , event = "VeryLazy", dir = "${pkgs.vimPlugins.undotree}" }             ,
-                  { "vim-fugitive"         , event = "VeryLazy", dir = "${pkgs.vimPlugins.vim-fugitive}" }         ,
-                  { "vim-illuminate"       , event = "VeryLazy", dir = "${pkgs.vimPlugins.vim-illuminate}" }       ,
-                  { "vim-indent-object"    , event = "VeryLazy", dir = "${pkgs.vimPlugins.vim-indent-object}" }    ,
-                  { "vim-lion"             , event = "VeryLazy", dir = "${pkgs.vimPlugins.vim-lion}" }             ,
-                  { "vim-repeat"           , event = "VeryLazy", dir = "${pkgs.vimPlugins.vim-repeat}" }           ,
-                  { "vim-sneak"            , event = "VeryLazy", dir = "${pkgs.vimPlugins.vim-sneak}" }            ,
-                  { "vim-tridactyl"        , event = "VeryLazy", dir = "${pkgs.vimPlugins.vim-tridactyl}" }        ,
-                  { "virtual-types-nvim"   , event = "VeryLazy", dir = "${pkgs.vimPlugins.virtual-types-nvim}" }   ,
+                  {
+                    "rainbow-delimiters-nvim",
+                    lazy = false,
+                    dir = "${pkgs.vimPlugins.rainbow-delimiters-nvim}",
+                    config = function()
+                      require("plugins.rainbow")
+                    end,
+                    dependencies = { "nvim-treesitter" }
+                  },
+                  {
+                    "firenvim",
+                    lazy = false,
+                    dir = "${pkgs.vimPlugins.firenvim}",
+                    config = function()
+                      require("plugins.firenvim")
+                    end
+                  },
 
                   -- Lazy on require
                   { "plenary", dir = "${pkgs.vimPlugins.plenary-nvim}" },
+                  { "marks", dir = "${pkgs.vimPlugins.marks-nvim}"},
+                  { "colorizer", dir = "${pkgs.vimPlugins.nvim-colorizer-lua}" },
+                  { "neogit", dir = "${pkgs.vimPlugins.neogit}" },
+                  { "ouroboros", dir = "${git-plugins.ouroboros}" },
 
-                  -- Lazy with setup or conditions
-                  -- { "julia-vim"      , ft = {"julia"}, dir = "${pkgs.vimPlugins.julia-vim}" }      ,
+                  -- Lazy on condition
+                  { "nvim-fzf", event = "VeryLazy", dir = "${pkgs.vimPlugins.nvim-fzf}" },
+                  { "targets-vim", event = "VeryLazy", dir = "${pkgs.vimPlugins.targets-vim}" },
+                  { "trouble-nvim", event = "VeryLazy", dir = "${pkgs.vimPlugins.trouble-nvim}" },
+                  { "undotree", event = "VeryLazy", dir = "${pkgs.vimPlugins.undotree}" },
                   { "rust-tools-nvim", ft = {"rust"} , dir = "${pkgs.vimPlugins.rust-tools-nvim}" },
-                  { "vim-fish"       , ft = {"fish"} , dir = "${pkgs.vimPlugins.vim-fish}" }       ,
+                  { "vim-fish", ft = {"fish"}, dir = "${pkgs.vimPlugins.vim-fish}" },
+                  { "vim-illuminate", event = "VeryLazy", dir = "${pkgs.vimPlugins.vim-illuminate}" },
+                  { "vim-sneak", event = "VeryLazy", dir = "${pkgs.vimPlugins.vim-sneak}" },
+                  { "vim-tridactyl", event = "VeryLazy", dir = "${pkgs.vimPlugins.vim-tridactyl}" },
+                  { "virtual-types-nvim", event = "VeryLazy", dir = "${pkgs.vimPlugins.virtual-types-nvim}" },
+                  {
+                    "snacks.nvim",
+                    priority = 999,
+                    lazy = false,
+                    dir = "${git-plugins.snacks}",
+                    opts = {
+                      bigfile      = { enabled = true },
+                      bufdelete    = { enabled = true },
+                      dashboard    = { enabled = true, example = "doom" },
+                      explorer     = { enabled = true, replace_netrw = true },
+                      git          = { enabled = true },
+                      indent       = { enabled = true },
+                      input        = { enabled = true },
+                      notifier     = { enabled = true },
+                      notify       = { enabled = true },
+                      picker       = { enabled = true, layout = { preset = "telescope" } },
+                      quickfile    = { enabled = true },
+                      scope        = { enabled = true },
+                      scroll       = { enabled = false },
+                      statuscolumn = { enabled = true },
+                      toggle       = { enabled = true },
+                      words        = { enabled = true },
+                    },
+                  },
+                  {
+                    "mini.nvim",
+                    priority = 1000,
+                    lazy = false,
+                    dir = "${pkgs.vimPlugins.mini-nvim}",
+                    config = function()
+                      require("mini.ai").setup()
+                      require("mini.align").setup()
+                      require("mini.comment").setup()
+                      require("mini.icons").setup()
+                      require("mini.move").setup()
+                      require("mini.pairs").setup()
+                      require("mini.snippets").setup()
+                      require("mini.splitjoin").setup()
+                      require("mini.surround").setup()
+                    end
+                  },
+                  {
+                    "blink.cmp",
+                    event = "VeryLazy",
+                    dir = "${pkgs.vimPlugins.blink-cmp}",
+                    config = function()
+                      require("plugins.blink")
+                    end
+                  },
+                  {
+                    "lsp-setup",
+                    event = "VeryLazy",
+                    dir = "${git-plugins.lsp-setup}",
+                    config = function()
+                      require("plugins.lsp")
+                    end,
+                    dependencies = {
+                      { "lspconfig", dir = "${pkgs.vimPlugins.nvim-lspconfig}" },
+                      { "lsp-status", dir = "${pkgs.vimPlugins.lsp-status-nvim}" },
+                    }
+                  },
                   {
                     "lualine",
-                    dir = "${pkgs.vimPlugins.lualine-nvim}",
                     event = "VeryLazy",
+                    dir = "${pkgs.vimPlugins.lualine-nvim}",
                     config = function()
                       require("plugins.lualine")
                     end,
@@ -151,95 +220,6 @@
                       { "copilot-lualine", dir = "${git-plugins.copilot-lualine}" },
                       { "lualine-lsp-progress", dir = "${pkgs.vimPlugins.lualine-lsp-progress}" },
                     },
-                  },
-                  {
-                    "nvim-treesitter",
-                    event = "VeryLazy",
-                    dir = "${pkgs.vimPlugins.nvim-treesitter.withAllGrammars}",
-                    config = function()
-                      require("plugins.treesitter")
-                    end,
-                    dependencies = {
-                      { "nvim-treesitter-context", dir = "${pkgs.vimPlugins.nvim-treesitter-context}" },
-                      { "nvim-treesitter-textobjects", dir = "${pkgs.vimPlugins.nvim-treesitter-textobjects}" },
-                      { "nvim-ts-context-commentstring", dir = "${pkgs.vimPlugins.nvim-ts-context-commentstring}" },
-                    }
-                  },
-                  {
-                    "luasnip",
-                    event = "VeryLazy",
-                    dir = "${pkgs.vimPlugins.luasnip}",
-                    config = function()
-                      require("plugins.luasnip")
-                    end,
-                    dependencies = {
-                      { "friendly-snippets", dir = "${pkgs.vimPlugins.friendly-snippets}" },
-                    }
-                  },
-                  {
-                    "cmp",
-                    event = "VeryLazy",
-                    dir = "${pkgs.vimPlugins.nvim-cmp}",
-                    config = function()
-                      require("plugins.cmp")
-                    end,
-                    dependencies = {
-                      { "cmp-buffer", dir = "${pkgs.vimPlugins.cmp-buffer}" },
-                      { "cmp-cmdline", dir = "${pkgs.vimPlugins.cmp-cmdline}" },
-                      { "cmp-nvim-lsp-signature-help", dir = "${pkgs.vimPlugins.cmp-nvim-lsp-signature-help}" },
-                      { "cmp-nvim-lua", dir = "${pkgs.vimPlugins.cmp-nvim-lua}" },
-                      { "cmp-path", dir = "${pkgs.vimPlugins.cmp-path}" },
-                      { "cmp_luasnip", dir = "${pkgs.vimPlugins.cmp_luasnip}" },
-                      { "cmp_nvim_lsp", dir = "${pkgs.vimPlugins.cmp-nvim-lsp}" },
-                    },
-                  },
-                  {
-                    "lspconfig",
-                    event = "VeryLazy",
-                    dir = "${pkgs.vimPlugins.nvim-lspconfig}",
-                    config = function()
-                      require("plugins.lsp")
-                    end,
-                    dependencies = {
-                      { "copilot-lua", dir = "${pkgs.vimPlugins.copilot-lua}" },
-                    }
-                  },
-                  {
-                    "Comment",
-                    event = "VeryLazy",
-                    dir = "${pkgs.vimPlugins.comment-nvim}",
-                    config = function()
-                      require("plugins.comments")
-                    end
-                  },
-                  {
-                    "chatgpt",
-                    event = "VeryLazy",
-                    dir = "${pkgs.vimPlugins.ChatGPT-nvim}",
-                    config = function()
-                      require("plugins.chatgpt")
-                    end
-                  },
-                  {
-                    "dressing-nvim",
-                    event = "VeryLazy",
-                    dir = "${pkgs.vimPlugins.dressing-nvim}",
-                    config = function()
-                      require("plugins.dressing")
-                    end
-                  },
-                  {
-                    "firenvim",
-                    event = "VeryLazy",
-                    dir = "${pkgs.vimPlugins.firenvim}",
-                    config = function()
-                      require("plugins.firenvim")
-                    end
-                  },
-                  {
-                    "flutter-tools-nvim",
-                    ft = { "flutter", "dart" },
-                    dir = "${pkgs.vimPlugins.flutter-tools-nvim}",
                   },
                   {
                     "formatter-nvim",
@@ -259,7 +239,7 @@
                   },
                   {
                     "git-worktree",
-                    even = "VeryLazy",
+                    event = "VeryLazy",
                     dir = "${git-plugins.git-worktree}",
                     config = function()
                       require("plugins.other")
@@ -274,61 +254,11 @@
                     end
                   },
                   {
-                    "which-key-nvim",
-                    event = "VeryLazy",
-                    dir = "${pkgs.vimPlugins.which-key-nvim}",
-                    config = function()
-                      require("plugins.whichkey")
-                    end,
-                    dependencies = {
-                      { "hop-nvim", dir = "${pkgs.vimPlugins.hop-nvim}" },
-                    },
-                  },
-                  {
-                    "telescope",
-                    event = "VeryLazy",
-                    dir = "${pkgs.vimPlugins.telescope-nvim}",
-                    config = function()
-                      require("plugins.telescope")
-                    end,
-                    dependencies = {
-                      { "telescope-frecency-nvim", dir = "${pkgs.vimPlugins.telescope-frecency-nvim}" },
-                      { "telescope-fzf-native-nvim", dir = "${pkgs.vimPlugins.telescope-fzf-native-nvim}" },
-                      { "telescope-git-file-history", dir = "${git-plugins.telescope-git-file-history}" },
-                      { "telescope-media-files-nvim", dir = "${pkgs.vimPlugins.telescope-media-files-nvim}" },
-                      { "telescope-ui-select-nvim", dir = "${pkgs.vimPlugins.telescope-ui-select-nvim}" },
-                    }
-                  },
-                  {
-                    "rainbow-delimiters-nvim",
-                    event = "VeryLazy",
-                    dir = "${pkgs.vimPlugins.rainbow-delimiters-nvim}",
-                    config = function()
-                      require("plugins.rainbow")
-                    end
-                  },
-                  {
-                    "nvim-autopairs",
-                    event = "VeryLazy",
-                    dir = "${pkgs.vimPlugins.nvim-autopairs}",
-                    config = function()
-                      require("plugins.autopairs")
-                    end
-                  },
-                  {
                     "project-nvim",
                     event = "VeryLazy",
                     dir = "${pkgs.vimPlugins.project-nvim}",
                     config = function()
                      require("plugins.project")
-                    end
-                  },
-                  {
-                    "nvim-notify",
-                    event = "VeryLazy",
-                    dir = "${pkgs.vimPlugins.nvim-notify}",
-                    config = function()
-                      require("plugins.notify")
                     end
                   },
                   {
@@ -349,30 +279,35 @@
                   },
                   {
                     "markdown-nvim",
-                    event = "VeryLazy",
+                    ft = { "markdown" },
                     dir = "${pkgs.vimPlugins.markdown-nvim}",
                     config = function()
                       require("plugins.markdown")
                     end
                   },
                   {
-                    "lsp-setup",
+                    "which-key",
                     event = "VeryLazy",
-                    dir = "${git-plugins.lsp-setup}",
+                    dir = "${pkgs.vimPlugins.which-key-nvim}",
                     config = function()
-                      require("plugins.lsp")
-                    end
+                      require("plugins.whichkey")
+                   end,
+                    dependencies = {
+                      { "hop-nvim", dir = "${pkgs.vimPlugins.hop-nvim}" },
+                    },
                   },
                 },
-              },
-              defaults = { lazy = true },
-              checker = { enabled = false },
-            })
-            EOF
+                defaults = { lazy = true },
+                checker = { enabled = false },
+              })
+              EOF
             '';
-            packages.all = {
-              start = [ personal-config pkgs.vimPlugins.lazy-nvim ];
-              opt = vim-plugins;
+            packages.all = with pkgs.vimPlugins; {
+              start = [
+                personal-config
+                lazy-nvim
+                copilot-lua
+              ];
             };
           };
         };

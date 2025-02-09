@@ -107,20 +107,6 @@ keymap("v", "io", ":lua SelectIdentifier()<cr>", { silent = true, noremap = true
 keymap("o", "ao", ":lua SelectIdentifier()<cr>", { silent = true, noremap = true })
 keymap("o", "io", ":lua SelectIdentifier()<cr>", { silent = true, noremap = true })
 
--- LSP is having trouble defining those --
-local ok, _ = pcall(require, "telescope.builtin")
-if ok then
-  local telescope_require = ':lua require"telescope.builtin"'
-  keymap("n", "gd", telescope_require .. ".lsp_definitions()<cr>", opts)
-  keymap("n", "gi", telescope_require .. ".lsp_implementations()<cr>", opts)
-  keymap("n", "gr", telescope_require .. ".lsp_references()<cr>", opts)
-  keymap("n", "gD", ":lua vim.lsp.buf.declaration()<cr>", opts)
-  keymap("n", "K", ":lua vim.lsp.buf.hover()<cr>", opts)
-  keymap("n", "<C-k>", ":lua vim.lsp.buf.signature_help()<cr>", opts)
-  keymap("n", "[d", ":lua vim.diagnostic.goto_prev()<cr>", opts)
-  keymap("n", "]d", ":lua vim.diagnostic.goto_next()<cr>", opts)
-end
-
 -- Center selection
 keymap("v", "zZ", ":lua CenterSelection()<cr>", opts)
 
