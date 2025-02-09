@@ -36,34 +36,6 @@ local groups = {
     {
       event = "FileType",
       options = {
-        pattern = { "flutter", "dart" },
-        callback = function()
-          vim.defer_fn(function()
-            local ok, flutter_tools = pcall(require, "flutter_tools")
-            if ok then
-              flutter_tools.setup({})
-            end
-          end, 500)
-        end,
-      },
-    },
-    {
-      event = "FileType",
-      options = {
-        pattern = { "rust" },
-        callback = function()
-          vim.defer_fn(function()
-            local ok, rust_tools = pcall(require, "rust-tools")
-            if ok then
-              rust_tools.setup({})
-            end
-          end, 500)
-        end,
-      },
-    },
-    {
-      event = "FileType",
-      options = {
         pattern = { "fish" },
         callback = function()
           vim.cmd([[
