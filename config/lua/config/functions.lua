@@ -128,7 +128,7 @@ function SelectIdentifier()
       break
     end
   end
-  e = e - 3
+  e = e - 2
 
   vim.api.nvim_buf_set_mark(0, "<", line + 1, s, {})
   vim.api.nvim_buf_set_mark(0, ">", line + 1, e, {})
