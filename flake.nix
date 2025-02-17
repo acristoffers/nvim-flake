@@ -5,7 +5,6 @@
 
     zls.url = "github:acristoffers/zls";
     zls.inputs.nixpkgs.follows = "nixpkgs";
-    zls.inputs.flake-utils.follows = "flake-utils";
 
     matlab-lsp.url = "github:acristoffers/matlab-lsp";
     matlab-lsp.inputs.nixpkgs.follows = "nixpkgs";
@@ -128,6 +127,7 @@
                       require("plugins.firenvim")
                     end
                   },
+                  { "text-case.nvim", lazy=false, dir = "${pkgs.vimPlugins.text-case-nvim}" },
 
                   -- Lazy on require
                   { "plenary", dir = "${pkgs.vimPlugins.plenary-nvim}" },
