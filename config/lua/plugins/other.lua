@@ -10,4 +10,8 @@ setup("git-worktree")
 setup("marks")
 setup("neogit")
 setup("ouroboros")
-setup("textcase")
+
+require("textcase").setup {
+  default_keymappings_enabled = true,
+  prefix = "gb",
+}
