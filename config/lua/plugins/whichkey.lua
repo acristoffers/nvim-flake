@@ -568,6 +568,13 @@ local options = {
       remap = false,
     },
     {
+      "<leader>hn",
+      ":lua Snacks.notifier.show_history()<cr>",
+      desc = "Notifications",
+      nowait = true,
+      remap = false,
+    },
+    {
       "<leader>s",
       group = "Search",
       nowait = true,
