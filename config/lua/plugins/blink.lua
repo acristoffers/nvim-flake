@@ -25,4 +25,8 @@ blink.setup({
   sources = {
     default = { "lsp", "path", "snippets", "buffer" },
   },
+
+  snippets = { preset = 'mini_snippets' },
+
+  signature = { enabled = true },
 })
