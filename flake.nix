@@ -3,8 +3,8 @@
     nixpkgs.url = "github:NixOS/nixpkgs/nixpkgs-unstable";
     flake-utils.url = "github:numtide/flake-utils";
 
-    zls.url = "github:acristoffers/zls";
-    zls.inputs.nixpkgs.follows = "nixpkgs";
+    # zls.url = "github:acristoffers/zls";
+    # zls.inputs.nixpkgs.follows = "nixpkgs";
 
     matlab-lsp.url = "github:acristoffers/matlab-lsp";
     matlab-lsp.inputs.nixpkgs.follows = "nixpkgs";
