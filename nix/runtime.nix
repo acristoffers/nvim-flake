@@ -19,8 +19,8 @@ with pkgs; [
   inputs.ledger-formatter.packages.${system}.default
   inputs.matlab-lsp.packages.${system}.default
   inputs.wbproto-beautifier.packages.${system}.default
-  # inputs.zls.inputs.zig-overlay.packages.${system}.master
-  # inputs.zls.packages.${system}.default
+  inputs.zls.inputs.zig-overlay.packages.${system}.master
+  inputs.zls.packages.${system}.default
   kotlin-language-server
   llvmPackages_19.clang-tools
   lua-language-server
