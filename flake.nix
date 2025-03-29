@@ -30,6 +30,9 @@
     git-worktree-git.url = "github:awerebea/git-worktree.nvim/handle_changes_in_telescope_api";
     git-worktree-git.flake = false;
 
+    # TODO: replace with nixpkgs version once it is updated
+    copilot-language-server.url = "github:arunoruto/flake";
+
     snacks-git.url = "github:folke/snacks.nvim";
     snacks-git.flake = false;
   };
@@ -79,6 +82,9 @@
                   {
                     "copilot",
                     dir = "${pkgs.vimPlugins.copilot-lua}",
+                    opts = {
+                      lsp_binary = "${inputs.copilot-language-server.packages.x86_64-linux.copilot-language-server-fhs}/bin/copilot-language-server",
+                    },
                     lazy = false,
                     priority = 1000,
                   },
