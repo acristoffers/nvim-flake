@@ -89,7 +89,7 @@ keymap("n", "<C-d>", "<C-d>zz", { silent = true, noremap = true })
 keymap("n", "n", "nzz", { silent = true, noremap = true })
 
 -- Horizontal center --
-keymap("n", "z|", "zszH", { silent = true, noremap = true })
+keymap("n", "z|", "zszH", { silent = true, noremap = true, desc = "Center horizontaly" })
 
 -- Text Object for the entire buffer --
 keymap("v", "aG", ":<C-U>normal! ggVG$<cr>", { silent = true, noremap = true })
@@ -109,6 +109,7 @@ keymap("o", "io", ":lua SelectIdentifier()<cr>", { silent = true, noremap = true
 
 -- Center selection
 keymap("v", "zZ", ":lua CenterSelection()<cr>", opts)
+keymap("v", "zn", ":lua MoveToCenterOfSelection()<cr>", opts)
 
 --- Eval math (actually lua)
 keymap("v", "<leader>r", ":lua EvalLuaExpression()<cr>", opts)

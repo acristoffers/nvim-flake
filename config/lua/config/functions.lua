@@ -45,6 +45,21 @@ end
 
 --------------------------------------------------------------------------------
 --                                                                            --
+--                         Move to Center of Selection                        --
+--                                                                            --
+--------------------------------------------------------------------------------
+
+function MoveToCenterOfSelection()
+  local startPos = vim.fn.getpos("'<")
+  local endPos = vim.fn.getpos("'>")
+  local startLine = startPos[2]
+  local endLine = endPos[2]
+  local middleLine = math.floor((startLine + endLine) / 2)
+  vim.api.nvim_win_set_cursor(0, { middleLine, 0 })
+end
+
+--------------------------------------------------------------------------------
+--                                                                            --
 --                                Eval Lua Code                               --
 --                                                                            --
 --------------------------------------------------------------------------------
