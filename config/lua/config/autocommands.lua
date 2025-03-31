@@ -228,11 +228,11 @@ local groups = {
       event = "TextYankPost",
       options = {
         callback = function()
-          local hl_ok, hl = pcall(require, "vim.highlight")
+          local hl_ok, hl = pcall(require, "vim.hl")
           if hl_ok then
             hl.on_yank({ higroup = "Search", timeout = 200 })
           else
-            print("Require error: no vim.highlight")
+            print("Require error: no vim.hl")
           end
         end,
       },
