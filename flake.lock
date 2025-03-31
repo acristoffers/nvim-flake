@@ -110,11 +110,11 @@
         "zen-browser": "zen-browser"
       },
       "locked": {
-        "lastModified": 1743157158,
-        "narHash": "sha256-zqw5KgdXktUO+tOcjVehFolnzh1Js9KrVITYebAs5zw=",
+        "lastModified": 1743382253,
+        "narHash": "sha256-niwG50Julrm5u9QNwHpQ3vVOSqZvHf19ZUNG7s2OABQ=",
         "owner": "arunoruto",
         "repo": "flake",
-        "rev": "fcd16a547a3e451ad1c4303ec4aa8f79f91dfe03",
+        "rev": "2c32e45418e71c35d9c84e3d9030386d37009b84",
         "type": "github"
       },
       "original": {
@@ -126,11 +126,11 @@
     "copilot-lualine-git": {
       "flake": false,
       "locked": {
-        "lastModified": 1737483125,
-        "narHash": "sha256-7FHSSaptU5AQ5nwgB4xOFh1xDQbB3NTqATAvXMr/Shg=",
+        "lastModified": 1743343936,
+        "narHash": "sha256-3QlaRQkZ7ZtnDnfigezZRvb6/KXMYMPZ0I8NE12Ot0o=",
         "owner": "AndreM222",
         "repo": "copilot-lualine",
-        "rev": "dc4b8ed0f75bc2557b3158c526624bf04ad233ea",
+        "rev": "a36398674fa88ba6a90cc4a57a27e411c1c27735",
         "type": "github"
       },
       "original": {
@@ -859,11 +859,11 @@
     },
     "nixpkgs_4": {
       "locked": {
-        "lastModified": 1743076231,
-        "narHash": "sha256-yQugdVfi316qUfqzN8JMaA2vixl+45GxNm4oUfXlbgw=",
+        "lastModified": 1743259260,
+        "narHash": "sha256-ArWLUgRm1tKHiqlhnymyVqi5kLNCK5ghvm06mfCl4QY=",
         "owner": "NixOS",
         "repo": "nixpkgs",
-        "rev": "6c5963357f3c1c840201eda129a99d455074db04",
+        "rev": "eb0e0f21f15c559d2ac7633dc81d079d1caf5f5f",
         "type": "github"
       },
       "original": {
