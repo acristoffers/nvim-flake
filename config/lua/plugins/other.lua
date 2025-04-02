@@ -9,7 +9,6 @@ setup("colorizer")
 setup("git-worktree")
 setup("marks")
 setup("neogit")
-setup("ouroboros")
 
 require("textcase").setup {
   default_keymappings_enabled = true,

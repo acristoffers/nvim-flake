@@ -21,9 +21,6 @@
     lsp-setup-git.url = "github:junnplus/lsp-setup.nvim";
     lsp-setup-git.flake = false;
 
-    ouroboros-git.url = "github:jakemason/ouroboros.nvim";
-    ouroboros-git.flake = false;
-
     copilot-lualine-git.url = "github:AndreM222/copilot-lualine";
     copilot-lualine-git.flake = false;
 
@@ -48,7 +45,6 @@
         };
         git-plugins = with pkgs.vimUtils; with inputs; {
           lsp-setup = buildVimPlugin { name = "lsp-setup"; src = lsp-setup-git; doCheck = false; };
-          ouroboros = buildVimPlugin { name = "ouroboros"; src = ouroboros-git; doCheck = false; };
           git-worktree = buildVimPlugin { name = "git-worktree.nvim"; src = git-worktree-git; doCheck = false; };
           copilot-lualine = buildVimPlugin { name = "copilot-lualine.nvim"; src = copilot-lualine-git; doCheck = false; };
           snacks = buildVimPlugin { name = "snacks.nvim"; src = snacks-git; doCheck = false; };
@@ -140,7 +136,6 @@
                   { "marks", dir = "${pkgs.vimPlugins.marks-nvim}"},
                   { "colorizer", dir = "${pkgs.vimPlugins.nvim-colorizer-lua}" },
                   { "neogit", dir = "${pkgs.vimPlugins.neogit}" },
-                  { "ouroboros", dir = "${git-plugins.ouroboros}" },
 
                   -- Lazy on condition
                   { "nvim-fzf", event = "VeryLazy", dir = "${pkgs.vimPlugins.nvim-fzf}" },

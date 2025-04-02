@@ -98,16 +98,11 @@ local options = {
       nowait = true,
       remap = false,
     },
-    {
-      "<leader>c",
-      group = "Code",
-      nowait = true,
-      remap = false,
-    },
-    { "<leader>ch", ":silent lua require'ouroboros'.switch()<cr>",             desc = "Switch .h/.cpp",          nowait = true, remap = false },
-    { "<leader>ct", ":Trim<cr>",                  desc = "Trim trailling spaces",   nowait = true, remap = false },
-    { "<leader>cf", ":Format<cr>",                desc = "Format (formatter.nvim)", nowait = true, remap = false },
-    { "<leader>l",  group = "LSP",                nowait = true,                    remap = false },
+    { "<leader>c", group = "Code", nowait = true, remap = false },
+    { "<leader>ch", ":ClangdSwitchSourceHeader<cr>", desc = "Switch .h/.cpp", nowait = true, remap = false },
+    { "<leader>ct", ":Trim<cr>", desc = "Trim trailling spaces", nowait = true, remap = false },
+    { "<leader>cf", ":Format<cr>", desc = "Format (formatter.nvim)", nowait = true, remap = false },
+    { "<leader>l", group = "LSP", nowait = true, remap = false },
     {
       "<leader>la",
       ":lua vim.lsp.buf.code_action()<cr>",
@@ -777,10 +772,10 @@ end
 
 local specs = {
   mode = { "v" },
-  { "<leader>",  group = "Text", nowait = true,                    remap = false },
-  { "<leader>s", ":sort<cr>",    desc = "Sort",                    nowait = true, remap = false },
-  { "<leader>S", ":sort i<cr>",  desc = "Sort (Case Insensitive)", nowait = true, remap = false },
-  { "<leader>u", ":!uniq <cr>",  desc = "Unique",                  nowait = true, remap = false },
+  { "<leader>", group = "Text", nowait = true, remap = false },
+  { "<leader>s", ":sort<cr>", desc = "Sort", nowait = true, remap = false },
+  { "<leader>S", ":sort i<cr>", desc = "Sort (Case Insensitive)", nowait = true, remap = false },
+  { "<leader>u", ":!uniq <cr>", desc = "Unique", nowait = true, remap = false },
 }
 
 which_key.add(specs)
