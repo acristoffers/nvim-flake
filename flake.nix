@@ -130,6 +130,7 @@
                     end
                   },
                   { "text-case.nvim", lazy=false, dir = "${pkgs.vimPlugins.text-case-nvim}" },
+                  { "vim-windowswap", lazy=false, dir = "${pkgs.vimPlugins.vim-windowswap}" },
 
                   -- Lazy on require
                   { "plenary", dir = "${pkgs.vimPlugins.plenary-nvim}" },

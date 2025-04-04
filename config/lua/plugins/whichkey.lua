@@ -679,6 +679,13 @@ local options = {
       nowait = true,
       remap = false,
     },
+    {
+      "<leader>ws",
+      ":call WindowSwap#EasyWindowSwap()<cr>",
+      desc = "Swap Windows",
+      nowait = true,
+      remap = false,
+    },
   },
 }
 which_key.setup(options)
