@@ -207,7 +207,6 @@
                     end,
                     dependencies = {
                       { "lspconfig", dir = "${pkgs.vimPlugins.nvim-lspconfig}" },
-                      { "lsp-status", dir = "${pkgs.vimPlugins.lsp-status-nvim}" },
                     }
                   },
                   {
@@ -218,7 +217,6 @@
                       require("plugins.lualine")
                     end,
                     dependencies = {
-                      { "lsp-status", dir = "${pkgs.vimPlugins.lsp-status-nvim}" },
                       { "copilot-lualine", dir = "${git-plugins.copilot-lualine}" },
                       { "lualine-lsp-progress", dir = "${pkgs.vimPlugins.lualine-lsp-progress}" },
                     },

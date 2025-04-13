@@ -57,15 +57,6 @@ local function spaces()
   return "󱁐 " .. vim.api.nvim_get_option_value("shiftwidth", { buf = 0 })
 end
 
-local function lsp_status()
-  local lsp_ok, lsp = pcall(require, "lsp-status")
-  if lsp_ok then
-    return lsp.status()
-  else
-    return ""
-  end
-end
-
 local function ledger_run(Account)
   local ledger_file = os.getenv("HOME") .. "/.org/finances/2025.ledger"
   if vim.fn.executable("ledger") == 1 and vim.fn.filereadable(ledger_file) then
@@ -117,7 +108,7 @@ local function buffer_number()
   return ""
 end
 
-local catppuccin = require "catppuccin.utils.lualine" ()
+local catppuccin = require("catppuccin.utils.lualine")()
 local catppuccin_colors = require("catppuccin.palettes").get_palette()
 catppuccin.normal.c.bg = catppuccin_colors.base
 
@@ -134,7 +125,7 @@ lualine.setup({
     lualine_a = { mode },
     lualine_b = {},
     lualine_c = { branch, diagnostics, buffer_number, "filename" },
-    lualine_x = { ledger, diff, spaces, encoding, "filetype", "copilot", lsp_status, progress, },
+    lualine_x = { ledger, diff, spaces, encoding, "filetype", "copilot", "lsp_status", progress },
     lualine_y = {},
     lualine_z = { "location" },
   },

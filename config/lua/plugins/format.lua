@@ -110,16 +110,3 @@ formatter.setup({
     yaml = yamlfmt,
   },
 })
-
-local ok_lsp_status, lsp_status = pcall(require, "lsp-status")
-if ok_lsp_status then
-  lsp_status.config({
-    indicator_errors = "",
-    indicator_warnings = "",
-    indicator_info = "",
-    indicator_hint = "",
-    indicator_ok = "",
-    status_symbol = "",
-  })
-  lsp_status.register_progress()
-end

@@ -53,10 +53,8 @@ configs["matlab"] = {
 }
 
 local _, blink = pcall(require, "blink.cmp")
-local _, lsp_status = pcall(require, "lsp-status")
 local default_capabilities = vim.lsp.protocol.make_client_capabilities()
 default_capabilities = blink.get_lsp_capabilities(default_capabilities)
-default_capabilities = vim.tbl_extend("keep", default_capabilities, lsp_status.capabilities)
 
 local function on_attach(client, bufnr)
   _ = bufnr
@@ -65,7 +63,6 @@ local function on_attach(client, bufnr)
   if illuminate_ok then
     illuminate.on_attach(client)
   end
-  lsp_status.on_attach(client)
   if virtualtypes_ok and client.server_capabilities.code_lens then
     virtualtypes.on_attach(client)
   end
