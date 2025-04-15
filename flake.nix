@@ -34,7 +34,7 @@
   outputs = inputs@{ self, flake-utils, nixpkgs, ... }:
     flake-utils.lib.eachDefaultSystem (system:
       let
-        pkgs = import nixpkgs { inherit system; };
+        pkgs = import nixpkgs { inherit system; config.allowUnfree = true; };
         personal-config = pkgs.vimUtils.buildVimPlugin {
           name = "personal-config";
           src = ./config;
