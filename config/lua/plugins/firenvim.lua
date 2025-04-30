@@ -13,6 +13,10 @@ vim.g.firenvim_config = {
       takeover = "never",
       priority = 1,
     },
+    [".*mastodon.*"] = {
+      takeover = "never",
+      priority = 1,
+    },
   },
 }
 
