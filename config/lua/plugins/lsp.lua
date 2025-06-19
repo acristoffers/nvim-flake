@@ -1,21 +1,12 @@
 local ok, lspconfig = pcall(require, "lspconfig")
-if not ok then
-  return
-end
-
-local ok_lsp_setup, lsp_setup = pcall(require, "lsp-setup")
-if not ok_lsp_setup then
-  return
-end
+if not ok then return end
 
 require("lspconfig.ui.windows").default_options.border = "rounded"
 
 local ok_copilot, copilot = pcall(require, "copilot")
-if ok_copilot then
-  copilot.setup()
-end
+if ok_copilot then copilot.setup() end
 
-local config = {
+vim.diagnostic.config({
   virtual_text = false,
   signs = true,
   update_in_insert = true,
@@ -25,13 +16,13 @@ local config = {
     focusable = false,
     style = "minimal",
     border = "rounded",
-    source = "always",
+    source = true,
     header = "",
     prefix = "",
   },
-}
-vim.diagnostic.config(config)
+})
 
+-- Rounded borders for hover/signature help
 local orig_util_open_floating_preview = vim.lsp.util.open_floating_preview
 vim.lsp.util.open_floating_preview = function(contents, syntax, opts, ...)
   opts = opts or {}
@@ -39,94 +30,108 @@ vim.lsp.util.open_floating_preview = function(contents, syntax, opts, ...)
   return orig_util_open_floating_preview(contents, syntax, opts, ...)
 end
 
+-- Custom LSPs (e.g., Matlab)
 local configs = require("lspconfig.configs")
 local util = require("lspconfig.util")
-configs["matlab"] = {
-  default_config = {
-    cmd = { "matlab-lsp" },
-    filetypes = { "matlab" },
-    single_file_support = true,
-    root_dir = util.root_pattern(".git", ".projectile"),
-  },
-  docs = {
-    description = [[ MATLAB LSP ]],
+if not configs["matlab"] then
+  configs["matlab"] = {
     default_config = {
-      root_dir = [[ util.root_pattern(".git", ".projectile") ]],
+      cmd = { "matlab-lsp" },
+      filetypes = { "matlab" },
+      single_file_support = true,
+      root_dir = util.root_pattern(".git", ".projectile"),
     },
-  },
-}
+    docs = {
+      description = [[ MATLAB LSP ]],
+      default_config = {
+        root_dir = [[ util.root_pattern(".git", ".projectile") ]],
+      },
+    },
+  }
+end
 
+-- Capabilities
 local _, blink = pcall(require, "blink.cmp")
 local default_capabilities = vim.lsp.protocol.make_client_capabilities()
 default_capabilities = blink.get_lsp_capabilities(default_capabilities)
 
+-- on_attach handler
 local function on_attach(client, bufnr)
   _ = bufnr
   local illuminate_ok, illuminate = pcall(require, "illuminate")
   local virtualtypes_ok, virtualtypes = pcall(require, "virtualtypes")
-  if illuminate_ok then
-    illuminate.on_attach(client)
-  end
+
+  if illuminate_ok then illuminate.on_attach(client) end
   if virtualtypes_ok and client.server_capabilities.code_lens then
     virtualtypes.on_attach(client)
   end
 end
 
-lspconfig.matlab.setup({
-  on_attach = on_attach,
-  capabilities = default_capabilities,
-})
+-- Global keymaps (for all buffers with LSP)
+local function setup_lsp_keymaps()
+  local opts = { noremap = true, silent = true }
+  vim.keymap.set("n", "gd", "<cmd>lua Snacks.picker.lsp_definitions()<CR>", opts)
+  vim.keymap.set("n", "gy", "<cmd>lua Snacks.picker.lsp_type_definitions()<CR>", opts)
+  vim.keymap.set("n", "gi", "<cmd>lua Snacks.picker.lsp_implementations()<CR>", opts)
+  vim.keymap.set("n", "gr", "<cmd>lua Snacks.picker.lsp_references()<CR>", opts)
+  vim.keymap.set("n", "gD", "<cmd>lua vim.lsp.buf.declaration()<CR>", opts)
+  vim.keymap.set("n", "K", "<cmd>lua vim.lsp.buf.hover()<CR>", opts)
+  vim.keymap.set("n", "<C-k>", "<cmd>lua vim.lsp.buf.signature_help()<CR>", opts)
+  vim.keymap.set("n", "[d", "<cmd>lua vim.diagnostic.goto_prev()<CR>", opts)
+  vim.keymap.set("n", "]d", "<cmd>lua vim.diagnostic.goto_next()<CR>", opts)
+end
+setup_lsp_keymaps()
 
-lsp_setup.setup({
-  default_mappings = false,
-  -- Custom mappings, will overwrite the default mappings for the same key
-  mappings = {
-    gd = 'lua Snacks.picker.lsp_definitions()',
-    gy = "lua Snacks.picker.lsp_type_definitions()",
-    gi = 'lua Snacks.picker.lsp_implementations()',
-    gr = 'lua Snacks.picker.lsp_references()',
-    gD = "lua vim.lsp.buf.declaration()",
-    K = "lua vim.lsp.buf.hover()",
-    ["<C-k>"] = "lua vim.lsp.buf.signature_help()",
-    ["[d"] = "lua vim.diagnostic.goto_prev()",
-    ["]d"] = "lua vim.diagnostic.goto_next()",
-  },
-  -- Global on_attach
-  on_attach = on_attach,
-  -- Global capabilities
-  capabilities = default_capabilities,
-  -- Configuration of LSP servers
-  servers = {
-    -- Install LSP servers automatically
-    -- LSP server configuration please see: https://github.com/neovim/nvim-lspconfig/blob/master/doc/server_configurations.md
-    bashls = require("lsp.settings.bashls"),
-    clangd = require("lsp.settings.clangd"),
-    cmake = {},
-    cssls = require("lsp.settings.cssls"),
-    elmls = {},
-    erlangls = {},
-    eslint = {},
-    gopls = {},
-    html = {},
-    jsonls = require("lsp.settings.jsonls"),
-    julials = {},
-    kotlin_language_server = {},
-    lua_ls = require("lsp.settings.sumneko_lua"),
-    marksman = {},
-    nil_ls = {},
-    nushell = {},
-    ocamllsp = {},
-    pyright = require("lsp.settings.pyright"),
-    rust_analyzer = require("lsp.settings.rust_analyzer"),
-    solargraph = {},
-    texlab = {},
-    ts_ls = {},
-    vimls = {},
-    yamlls = require("lsp.settings.yamlls"),
-    zls = {},
-  },
-  inlay_hints = {
-    enabled = true,
-    highlight = 'Comment',
+-- LSP server setup
+local servers = {
+  bashls = "lsp.settings.bashls",
+  clangd = "lsp.settings.clangd",
+  cmake = nil,
+  cssls = "lsp.settings.cssls",
+  elmls = nil,
+  erlangls = nil,
+  eslint = nil,
+  gopls = nil,
+  html = nil,
+  jsonls = "lsp.settings.jsonls",
+  julials = nil,
+  kotlin_language_server = nil,
+  lua_ls = "lsp.settings.sumneko_lua",
+  marksman = nil,
+  matlab = nil,
+  nil_ls = nil,
+  nushell = nil,
+  ocamllsp = nil,
+  pyright = "lsp.settings.pyright",
+  rust_analyzer = "lsp.settings.rust_analyzer",
+  solargraph = nil,
+  texlab = nil,
+  ts_ls = nil,
+  vimls = nil,
+  yamlls = "lsp.settings.yamlls",
+  zls = nil,
+}
+
+for server, config_path in pairs(servers) do
+  local opts = {
+    capabilities = default_capabilities,
   }
+
+  if config_path then
+    local ok_conf, conf = pcall(require, config_path)
+    if ok_conf then
+      opts = vim.tbl_deep_extend("force", opts, conf)
+    end
+  end
+
+  vim.lsp.config(server, opts)
+  vim.lsp.enable(server);
+end
+
+vim.api.nvim_create_autocmd('LspAttach', {
+  group = vim.api.nvim_create_augroup('my.lsp', {}),
+  callback = function(args)
+    local client = assert(vim.lsp.get_client_by_id(args.data.client_id))
+    on_attach(client, nil)
+  end,
 })

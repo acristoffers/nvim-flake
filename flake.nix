@@ -196,15 +196,12 @@
                     end
                   },
                   {
-                    "lsp-setup",
+                    "lspconfig",
                     event = "VeryLazy",
-                    dir = "${git-plugins.lsp-setup}",
+                    dir = "${pkgs.vimPlugins.nvim-lspconfig}",
                     config = function()
                       require("plugins.lsp")
                     end,
-                    dependencies = {
-                      { "lspconfig", dir = "${pkgs.vimPlugins.nvim-lspconfig}" },
-                    }
                   },
                   {
                     "lualine",
