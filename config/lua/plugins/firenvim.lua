@@ -3,7 +3,8 @@ local ignored_urls = {
   ".*search.brave.com",
   ".*www.google.*",
   ".*mastodon.*",
-  ".*instagram.*"
+  ".*instagram.*",
+  "matlab.mathworks.com"
 }
 
 local exceptions = {}
