@@ -1,10 +1,14 @@
-local ok, lspconfig = pcall(require, "lspconfig")
-if not ok then return end
+local ok, _ = pcall(require, "lspconfig")
+if not ok then
+  return
+end
 
 require("lspconfig.ui.windows").default_options.border = "rounded"
 
 local ok_copilot, copilot = pcall(require, "copilot")
-if ok_copilot then copilot.setup() end
+if ok_copilot then
+  copilot.setup()
+end
 
 vim.diagnostic.config({
   virtual_text = false,
@@ -30,26 +34,6 @@ vim.lsp.util.open_floating_preview = function(contents, syntax, opts, ...)
   return orig_util_open_floating_preview(contents, syntax, opts, ...)
 end
 
--- Custom LSPs (e.g., Matlab)
-local configs = require("lspconfig.configs")
-local util = require("lspconfig.util")
-if not configs["matlab"] then
-  configs["matlab"] = {
-    default_config = {
-      cmd = { "matlab-lsp" },
-      filetypes = { "matlab" },
-      single_file_support = true,
-      root_dir = util.root_pattern(".git", ".projectile"),
-    },
-    docs = {
-      description = [[ MATLAB LSP ]],
-      default_config = {
-        root_dir = [[ util.root_pattern(".git", ".projectile") ]],
-      },
-    },
-  }
-end
-
 -- Capabilities
 local _, blink = pcall(require, "blink.cmp")
 local default_capabilities = vim.lsp.protocol.make_client_capabilities()
@@ -61,7 +45,10 @@ local function on_attach(client, bufnr)
   local illuminate_ok, illuminate = pcall(require, "illuminate")
   local virtualtypes_ok, virtualtypes = pcall(require, "virtualtypes")
 
-  if illuminate_ok then illuminate.on_attach(client) end
+  if illuminate_ok then
+    illuminate.on_attach(client)
+  end
+
   if virtualtypes_ok and client.server_capabilities.code_lens then
     virtualtypes.on_attach(client)
   end
@@ -86,50 +73,49 @@ setup_lsp_keymaps()
 local servers = {
   bashls = "lsp.settings.bashls",
   clangd = "lsp.settings.clangd",
-  cmake = nil,
+  cmake = "",
   cssls = "lsp.settings.cssls",
-  elmls = nil,
-  erlangls = nil,
-  eslint = nil,
-  gopls = nil,
-  html = nil,
+  elmls = "",
+  erlangls = "",
+  eslint = "",
+  gopls = "",
+  html = "",
   jsonls = "lsp.settings.jsonls",
-  julials = nil,
-  kotlin_language_server = nil,
+  julials = "",
+  kotlin_language_server = "",
   lua_ls = "lsp.settings.sumneko_lua",
-  marksman = nil,
-  matlab = nil,
-  nil_ls = nil,
-  nushell = nil,
-  ocamllsp = nil,
+  marksman = "",
+  matlab = "",
+  nil_ls = "",
+  nushell = "",
+  ocamllsp = "",
   pyright = "lsp.settings.pyright",
   rust_analyzer = "lsp.settings.rust_analyzer",
-  solargraph = nil,
-  texlab = nil,
-  ts_ls = nil,
-  vimls = nil,
+  solargraph = "",
+  texlab = "",
+  ts_ls = "",
+  vimls = "",
   yamlls = "lsp.settings.yamlls",
-  zls = nil,
+  zls = "",
 }
 
-for server, config_path in pairs(servers) do
-  local opts = {
-    capabilities = default_capabilities,
-  }
+vim.lsp.config("*", {
+  capabilities = default_capabilities,
+})
 
+for server, config_path in pairs(servers) do
   if config_path then
     local ok_conf, conf = pcall(require, config_path)
     if ok_conf then
-      opts = vim.tbl_deep_extend("force", opts, conf)
+      vim.lsp.config(server, conf)
     end
   end
 
-  vim.lsp.config(server, opts)
-  vim.lsp.enable(server);
+  vim.lsp.enable(server)
 end
 
-vim.api.nvim_create_autocmd('LspAttach', {
-  group = vim.api.nvim_create_augroup('my.lsp', {}),
+vim.api.nvim_create_autocmd("LspAttach", {
+  group = vim.api.nvim_create_augroup("my.lsp", {}),
   callback = function(args)
     local client = assert(vim.lsp.get_client_by_id(args.data.client_id))
     on_attach(client, nil)
