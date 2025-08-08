@@ -27,7 +27,7 @@ project.setup({
     exclude_dirs = {},
 
     -- Show hidden files in telescope
-    show_hidden = false,
+    show_hidden = true,
 
     -- When set to false, you will get a message when project.nvim changes your
     -- directory.
@@ -37,7 +37,7 @@ project.setup({
     -- * global (default)
     -- * tab
     -- * win
-    scope_chdir = "global",
+    scope_chdir = "win",
 
     -- Path where project.nvim will store the project history for use in
     -- telescope
