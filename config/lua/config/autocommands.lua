@@ -238,7 +238,7 @@ local groups = {
     },
     {
       event = "BufWinEnter",
-      options = { command = "set formatoptions-=cro" },
+      options = { command = "set formatoptions+=cro" },
     },
     {
       event = "FileType",
