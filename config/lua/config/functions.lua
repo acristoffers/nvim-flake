@@ -510,7 +510,7 @@ function PickProject()
     end,
   }
   local on_choice = function(selected_item)
-    local result = require("project_nvim.project").set_pwd(selected_item, "Snack")
+    local result = require("project_nvim.api").set_pwd(selected_item, "Snack")
     if result then
       require("snacks.picker").files()
     else
