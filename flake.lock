@@ -299,11 +299,11 @@
         "zig-overlay": "zig-overlay"
       },
       "locked": {
-        "lastModified": 1754737528,
-        "narHash": "sha256-jGXCBM5XV+fzXO1+Ej6uVcUzyv6ZKhPRRkiDi7oq3RY=",
+        "lastModified": 1755109507,
+        "narHash": "sha256-4lSI0GBA01UTqz8s7uXFtfDHSa7NRYowmm+CY9d4hTY=",
         "owner": "acristoffers",
         "repo": "zls",
-        "rev": "d2e707ebff046519548e1c5b486810b2384baab1",
+        "rev": "7676c8276d12047e8a3eb69e31db8440105b6128",
         "type": "github"
       },
       "original": {
