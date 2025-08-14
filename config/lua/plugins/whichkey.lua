@@ -589,6 +589,13 @@ local options = {
       remap = false,
     },
     {
+      "<leader>wf",
+      ":fc!<cr>",
+      desc = "Close all floating windows",
+      nowait = true,
+      remap = false,
+    },
+    {
       "<leader>w-",
       "<C-w>_",
       desc = "Resize Horizontal Windows",
