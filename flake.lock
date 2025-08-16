@@ -116,11 +116,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1746088053,
-        "narHash": "sha256-6UtO0gmiJlIJWfnuz+yzbMQT5q3JBVmidsudKO4+qsc=",
+        "lastModified": 1755377764,
+        "narHash": "sha256-Auz+8L3O3m0zkQaIwDpc1pppJFVTln/DRruaZRmOva0=",
         "owner": "acristoffers",
         "repo": "ledger-formatter",
-        "rev": "328c6c2a3ec9fddd27ea3ba9e6ce398b5304e30f",
+        "rev": "34a89453b7c5591ebb97d7b5bdd09a6d2e6e451c",
         "type": "github"
       },
       "original": {
@@ -170,11 +170,11 @@
     },
     "nixpkgs": {
       "locked": {
-        "lastModified": 1755082269,
-        "narHash": "sha256-Ix7ALeaxv9tW4uBKWeJnaKpYZtZiX4H4Q/MhEmj4XYA=",
+        "lastModified": 1755268003,
+        "narHash": "sha256-nNaeJjo861wFR0tjHDyCnHs1rbRtrMgxAKMoig9Sj/w=",
         "owner": "NixOS",
         "repo": "nixpkgs",
-        "rev": "d74de548348c46cf25cb1fcc4b74f38103a4590d",
+        "rev": "32f313e49e42f715491e1ea7b306a87c16fe0388",
         "type": "github"
       },
       "original": {
