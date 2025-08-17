@@ -194,6 +194,7 @@
         "matlab-lsp": "matlab-lsp",
         "nixpkgs": "nixpkgs",
         "snacks-git": "snacks-git",
+        "tree-sitter-matlab": "tree-sitter-matlab",
         "wbproto-beautifier": "wbproto-beautifier",
         "zls": "zls"
       }
@@ -241,6 +242,22 @@
       "original": {
         "owner": "nix-systems",
         "repo": "default",
+        "type": "github"
+      }
+    },
+    "tree-sitter-matlab": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1755414611,
+        "narHash": "sha256-1RFOyZhlcNuJPPHYGYJPocrzXhtM4CclskxaP/2wz5o=",
+        "owner": "acristoffers",
+        "repo": "tree-sitter-matlab",
+        "rev": "93020b226bf341de02336cdf1c19a7ce0b509cf2",
+        "type": "github"
+      },
+      "original": {
+        "owner": "acristoffers",
+        "repo": "tree-sitter-matlab",
         "type": "github"
       }
     },

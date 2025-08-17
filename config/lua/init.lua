@@ -1,5 +1,5 @@
-local nix_config_path = vim.fn.fnamemodify(debug.getinfo(1).source:sub(2), ":p:h")
-vim.opt.rtp:append(nix_config_path)
+vim.g.nix_config_path = vim.fn.fnamemodify(debug.getinfo(1).source:sub(2), ":p:h")
+vim.opt.runtimepath:prepend(vim.g.nix_config_path)
 
 vim.g.windowswap_map_keys = 0
 

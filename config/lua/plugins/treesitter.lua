@@ -1,4 +1,6 @@
-vim.opt.runtimepath:append(vim.fn.expand("~/.local/share/nvim/tree-sitter/parsers"))
+vim.opt.runtimepath:prepend(vim.fn.expand("~/.local/share/nvim/tree-sitter/parsers"))
+-- For the queries folder (add .lua because fnamemodify only operates on files)
+vim.opt.runtimepath:prepend(vim.fn.fnamemodify(vim.g.nix_config_path .. ".lua", ":p:h"))
 
 local ok, ts_configs = pcall(require, "nvim-treesitter.configs")
 if not ok then
@@ -96,8 +98,8 @@ local opts = {
 
 ts_configs.setup(opts)
 
-local ok, ts_context = pcall(require, "treesitter-context")
-if ok then
+local tsc_ok, ts_context = pcall(require, "treesitter-context")
+if tsc_ok then
   ts_context.setup({
     patterns = {
       zig = {
@@ -128,5 +130,15 @@ parser_config.wbproto = {
     generate_requires_npm = false,
     requires_generate_from_grammar = false,
   },
-  filetype = "wbproto",
+}
+
+parser_config.matlab = {
+  install_info = {
+    url = "https://github.com/acristoffers/tree-sitter-matlab",
+    files = { "src/parser.c", "src/scanner.c" },
+    branch = "main",
+    revision = vim.g.tsmatlabrev,
+    generate_requires_npm = false,
+    requires_generate_from_grammar = false,
+  },
 }

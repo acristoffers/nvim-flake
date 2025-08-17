@@ -18,6 +18,9 @@
     ledger-formatter.inputs.nixpkgs.follows = "nixpkgs";
     ledger-formatter.inputs.flake-utils.follows = "flake-utils";
 
+    tree-sitter-matlab.url = "github:acristoffers/tree-sitter-matlab";
+    tree-sitter-matlab.flake = false;
+
     lsp-setup-git.url = "github:junnplus/lsp-setup.nvim";
     lsp-setup-git.flake = false;
 
@@ -56,6 +59,7 @@
           configure = {
             customRC = ''
               lua <<EOF
+              vim.g.tsmatlabrev = '${inputs.tree-sitter-matlab.rev}'
               require("init")
               require("lazy").setup({
                 spec = {
