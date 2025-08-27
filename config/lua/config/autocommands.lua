@@ -1,6 +1,16 @@
 local groups = {
   initialization = {
     {
+      event = "BufWinEnter",
+      options = {
+        callback = function()
+          vim.schedule(function()
+            vim.cmd("redraw!")
+          end)
+        end
+      },
+    },
+    {
       event = { "BufRead", "BufNewFile" },
       options = {
         pattern = "*.zon",
