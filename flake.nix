@@ -200,6 +200,20 @@
                     end
                   },
                   {
+                    "advanced-git-search-nvim",
+                    cmd = { "AdvancedGitSearch" },
+                    dir = "${pkgs.vimPlugins.advanced-git-search-nvim}",
+                    config = function()
+                      require("advanced_git_search.snacks").setup()
+                    end,
+                    dependencies = { "vim-fugitive" },
+                  },
+                  {
+                    "vim-fugitive",
+                    event = "VeryLazy",
+                    dir = "${pkgs.vimPlugins.vim-fugitive}",
+                  },
+                  {
                     "lspconfig",
                     event = "VeryLazy",
                     dir = "${pkgs.vimPlugins.nvim-lspconfig}",

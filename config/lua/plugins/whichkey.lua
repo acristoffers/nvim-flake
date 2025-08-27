@@ -375,13 +375,13 @@ local options = {
       nowait = true,
       remap = false,
     },
-    -- {
-    --   "<leader>gh",
-    --   require("telescope").extensions.git_file_history.git_file_history,
-    --   desc = "Wayback Machine (History)",
-    --   nowait = true,
-    --   remap = false,
-    -- },
+    {
+      "<leader>gh",
+      ":AdvancedGitSearch search_log_content_file<cr>",
+      desc = "Wayback Machine (History)",
+      nowait = true,
+      remap = false,
+    },
     {
       "<leader>gj",
       ":lua require 'gitsigns'.next_hunk()<cr>",
