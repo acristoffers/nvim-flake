@@ -73,7 +73,6 @@ setup_lsp_keymaps()
 local servers = {
   bashls = "lsp.settings.bashls",
   clangd = "lsp.settings.clangd",
-  cmake = "",
   cssls = "lsp.settings.cssls",
   elmls = "",
   erlangls = "",
@@ -86,6 +85,7 @@ local servers = {
   lua_ls = "lsp.settings.sumneko_lua",
   marksman = "",
   matlab = "",
+  neocmake = "lsp.settings.cmake",
   nil_ls = "",
   nushell = "",
   ocamllsp = "",

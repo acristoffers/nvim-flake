@@ -3,7 +3,6 @@
 with pkgs; [
   bat
   black
-  cmake-language-server
   delta
   dune_3
   elmPackages.elm-language-server
@@ -27,6 +26,7 @@ with pkgs; [
   luajitPackages.luarocks
   marksman
   mdformat
+  neocmakelsp
   nil
   nodePackages_latest.bash-language-server
   nodePackages_latest.eslint
