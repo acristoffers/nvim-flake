@@ -267,6 +267,29 @@ local groups = {
             setlocal spell
           ]])
           SetTab(2)
+          local ok, ts_select = pcall(require, "nvim-treesitter.textobjects.select")
+          if not ok then
+            return
+          end
+          local opts = { buffer = true, silent = true, noremap = true }
+          local select = ts_select.select_textobject
+          vim.keymap.set("x", "as", function() select("@section.outer") end, opts)
+          vim.keymap.set("o", "as", function() select("@section.outer") end, opts)
+          vim.keymap.set("x", "is", function() select("@section.inner") end, opts)
+          vim.keymap.set("o", "is", function() select("@section.inner") end, opts)
+
+          vim.keymap.set("x", "ai", function() select("@list_item.outer") end, opts)
+          vim.keymap.set("o", "ai", function() select("@list_item.outer") end, opts)
+          vim.keymap.set("x", "ii", function() select("@list_item.inner") end, opts)
+          vim.keymap.set("o", "ii", function() select("@list_item.inner") end, opts)
+
+          vim.keymap.set("x", "al", function() select("@list.outer") end, opts)
+          vim.keymap.set("o", "al", function() select("@list.outer") end, opts)
+          vim.keymap.set("x", "il", function() select("@list.inner") end, opts)
+          vim.keymap.set("o", "il", function() select("@list.inner") end, opts)
+
+          vim.keymap.set("x", "am", ':lua NamedNodeSnipe({"latex_block"})<cr>', opts)
+          vim.keymap.set("o", "am", ':lua NamedNodeSnipe({"latex_block"})<cr>', opts)
         end,
       },
     },
