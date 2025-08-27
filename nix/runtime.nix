@@ -1,6 +1,15 @@
-{pkgs, inputs}:
+{ pkgs, inputs }:
 
-with pkgs; [
+with pkgs;
+[
+  (pkgs.python313.withPackages (
+    ps: with ps; [
+      mdformat
+      mdformat-gfm
+      mdformat-myst
+      mdformat-tables
+    ]
+  ))
   bat
   black
   delta
@@ -25,7 +34,6 @@ with pkgs; [
   lua-language-server
   luajitPackages.luarocks
   marksman
-  mdformat
   neocmakelsp
   nil
   nodePackages_latest.bash-language-server
