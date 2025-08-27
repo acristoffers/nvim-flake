@@ -229,6 +229,21 @@ local options = {
       remap = false,
     },
     {
+      "<leader>tf",
+      function()
+        if vim.opt_local.foldmethod:get() == "expr" then
+          vim.opt_local.foldmethod = "manual"
+        else
+          vim.opt_local.foldmethod = "expr"
+        end
+        vim.cmd [[ help fdm ]]
+        vim.cmd [[ helpclose ]]
+      end,
+      desc = "Fold method",
+      nowait = true,
+      remap = false,
+    },
+    {
       "<leader>ti",
       function()
         vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled())
