@@ -1,4 +1,4 @@
-local ok, project = pcall(require, "project_nvim")
+local ok, project = pcall(require, "project")
 if not ok then
   return
 end

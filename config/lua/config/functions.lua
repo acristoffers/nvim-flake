@@ -502,7 +502,7 @@ end
 --------------------------------------------------------------------------------
 
 function PickProject()
-  local items = require("project_nvim").get_recent_projects()
+  local items = require("project").get_recent_projects()
   local opts = {
     prompt = "Switch Project",
     format_item = function(item)
@@ -510,7 +510,7 @@ function PickProject()
     end,
   }
   local on_choice = function(selected_item)
-    local result = require("project_nvim.api").set_pwd(selected_item, "Snack")
+    local result = require("project.api").set_pwd(selected_item, "Snack")
     if result then
       require("snacks.picker").files()
     else
