@@ -303,11 +303,46 @@
                     dir = "${pkgs.vimPlugins.which-key-nvim}",
                     config = function()
                       require("plugins.whichkey")
-                   end,
+                    end,
                     dependencies = {
                       { "hop-nvim", dir = "${pkgs.vimPlugins.hop-nvim}" },
                     },
                   },
+                  {
+                    "codecompanion",
+                    event = "VeryLazy",
+                    dir = "${pkgs.vimPlugins.codecompanion-nvim}",
+                    opts = {
+                      strategies = {
+                        chat = {
+                          name = "openai",
+                          model = "gpt-5",
+                        },
+                        inline = {
+                          name = "copilot",
+                          model = "gpt-5",
+                        },
+                      },
+                    },
+                    dependencies = {
+                      "plenary",
+                      "nvim-treesitter",
+                    }
+                  },
+                  {
+                    "markview-nvim",
+                    lazy = false,
+                    priority = 49,
+                    dir = "${pkgs.vimPlugins.markview-nvim}",
+                    config = function ()
+                      require'markview'.setup {
+                        preview = {
+                          filetypes = { "markdown", "codecompanion" },
+                          ignore_buftypes = {}
+                        }
+                      }
+                    end
+                  }
                 },
                 defaults = { lazy = true },
                 checker = { enabled = false },

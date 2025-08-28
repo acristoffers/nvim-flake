@@ -99,6 +99,7 @@ local options = {
       remap = false,
     },
     { "<leader>c", group = "Code", nowait = true, remap = false },
+    { "<leader>cc", ":CodeCompanionChat Toggle<cr>", desc = "Toggle LLM", nowait = true, remap = false },
     { "<leader>ch", ":LspClangdSwitchSourceHeader<cr>", desc = "Switch .h/.cpp", nowait = true, remap = false },
     { "<leader>ct", ":Trim<cr>", desc = "Trim trailling spaces", nowait = true, remap = false },
     { "<leader>cf", ":Format<cr>", desc = "Format (formatter.nvim)", nowait = true, remap = false },
