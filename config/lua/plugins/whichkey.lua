@@ -268,6 +268,13 @@ local options = {
       remap = false,
     },
     {
+      "<leader>tm",
+      ":Markview<CR>",
+      desc = "Markdown preview",
+      nowait = true,
+      remap = false,
+    },
+    {
       "<leader>ts",
       ":nohlsearch<cr>",
       desc = "Highlight",
