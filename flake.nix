@@ -188,7 +188,14 @@
                       require("mini.pairs").setup()
                       require("mini.snippets").setup()
                       require("mini.splitjoin").setup()
-                      require("mini.surround").setup()
+                      require("mini.surround").setup({
+                        custom_surroundings = {
+                          ['m'] = {
+                            input = { '\\%(().-()\\%)' },
+                            output = { left = '\\( ', right = ' \\)' }
+                          }
+                        }
+                      })
                     end
                   },
                   {
