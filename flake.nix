@@ -18,6 +18,9 @@
     ledger-formatter.inputs.nixpkgs.follows = "nixpkgs";
     ledger-formatter.inputs.flake-utils.follows = "flake-utils";
 
+    project-nvim.url = "github:acristoffers/project.nvim";
+    project-nvim.flake = false;
+
     tree-sitter-matlab.url = "github:acristoffers/tree-sitter-matlab";
     tree-sitter-matlab.flake = false;
 
@@ -48,6 +51,7 @@
           git-worktree = buildVimPlugin { name = "git-worktree.nvim"; src = git-worktree-git; doCheck = false; };
           copilot-lualine = buildVimPlugin { name = "copilot-lualine.nvim"; src = copilot-lualine-git; doCheck = false; };
           snacks = buildVimPlugin { name = "snacks.nvim"; src = snacks-git; doCheck = false; };
+          project-nvim = buildVimPlugin { name = "project.nvim"; src = project-nvim; doCheck = false; };
         };
         neovim = pkgs.neovim.override {
           viAlias = true;
@@ -275,7 +279,8 @@
                   {
                     "project-nvim",
                     event = "VeryLazy",
-                    dir = "${pkgs.vimPlugins.project-nvim}",
+                    dir = "${git-plugins.project-nvim}",
+                    -- dir = "${pkgs.vimPlugins.project-nvim}",
                     config = function()
                      require("plugins.project")
                     end
