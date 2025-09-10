@@ -512,7 +512,7 @@ function PickProject()
   local on_choice = function(selected_item)
     local result = require("project.api").set_pwd(selected_item, "Snack")
     if result then
-      require("snacks.picker").files()
+      require("snacks.picker").files({ cwd = selected_item })
     else
       vim.notify("Failed to changed PWD to " .. selected_item)
     end
