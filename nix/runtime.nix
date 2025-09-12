@@ -38,6 +38,7 @@ with pkgs;
   nil
   nodePackages_latest.bash-language-server
   nodePackages_latest.eslint
+  nodePackages_latest.nodejs
   nodePackages_latest.typescript-language-server
   nodePackages_latest.vim-language-server
   nushell
