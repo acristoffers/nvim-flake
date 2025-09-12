@@ -84,7 +84,7 @@
                     "copilot",
                     dir = "${pkgs.vimPlugins.copilot-lua}",
                     opts = {
-                      lsp_binary = "${pkgs.copilot-language-server-fhs}/bin/copilot-language-server",
+                      lsp_binary = "${pkgs.copilot-language-server}/bin/copilot-language-server",
                     },
                     lazy = false,
                     priority = 1000,
