@@ -10,6 +10,7 @@ local options = {
   encoding = "utf-8",                      -- the encoding used for the editor
   expandtab = true,                        -- convert tabs to spaces
   fileencoding = "utf-8",                  -- the encoding written to a file
+  guifont= "JetBrainsMonoNL Nerd Font",
   hlsearch = true,                         -- highlight all matches on previous search pattern
   ignorecase = true,                       -- ignore case in search patterns
   inccommand = "split",                    -- show substitutions in a split window
