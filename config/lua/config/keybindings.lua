@@ -18,7 +18,7 @@ vim.g.maplocalleader = " "
 
 -- Normal --
 
-keymap("n", "gp", "`<v`>", opts)
+keymap("n", "gp", "`[v`]", opts)
 
 keymap("n", "<A-p>", function()
   vim.fn.setreg("+", vim.api.nvim_buf_get_name(0))
