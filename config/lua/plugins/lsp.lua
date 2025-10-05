@@ -75,7 +75,6 @@ local servers = {
   clangd = "lsp.settings.clangd",
   cssls = "lsp.settings.cssls",
   elmls = "",
-  erlangls = "",
   eslint = "",
   gopls = "",
   html = "",

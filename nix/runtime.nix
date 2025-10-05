@@ -16,7 +16,6 @@ with pkgs;
   dune_3
   elmPackages.elm-language-server
   emmet-ls
-  erlang-ls
   fd
   flutter
   fzf
