@@ -273,10 +273,10 @@ local groups = {
           end
           local opts = { buffer = true, silent = true, noremap = true }
           local select = ts_select.select_textobject
-          vim.keymap.set("x", "as", function() select("@section.outer") end, opts)
-          vim.keymap.set("o", "as", function() select("@section.outer") end, opts)
-          vim.keymap.set("x", "is", function() select("@section.inner") end, opts)
-          vim.keymap.set("o", "is", function() select("@section.inner") end, opts)
+          vim.keymap.set("x", "aS", function() select("@section.outer") end, opts)
+          vim.keymap.set("o", "aS", function() select("@section.outer") end, opts)
+          vim.keymap.set("x", "iS", function() select("@section.inner") end, opts)
+          vim.keymap.set("o", "iS", function() select("@section.inner") end, opts)
 
           vim.keymap.set("x", "ai", function() select("@list_item.outer") end, opts)
           vim.keymap.set("o", "ai", function() select("@list_item.outer") end, opts)
