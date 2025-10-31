@@ -113,8 +113,6 @@
 
 (handle_operator (identifier) @function)
 
-(validation_functions (property_name (identifier) @function))
-
 (command (command_name) @function.call)
 (command_argument) @parameter
 
@@ -136,7 +134,6 @@
 (escape_sequence) @string.escape
 (formatting_sequence) @string.special
 (number) @number
-(boolean) @boolean
 
 ; Comments
 
