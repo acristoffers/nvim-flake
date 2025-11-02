@@ -3,11 +3,11 @@
     "copilot-lualine-git": {
       "flake": false,
       "locked": {
-        "lastModified": 1743877497,
-        "narHash": "sha256-Fit4M+BfxNbUAK0RBJAy5G9DR8LqZR7UEVsN+92Heho=",
+        "lastModified": 1762080230,
+        "narHash": "sha256-KpOSsTTp3aoECf8kDYk5aFXZqHb2lxVhvDTHdjcqq14=",
         "owner": "AndreM222",
         "repo": "copilot-lualine",
-        "rev": "6bc29ba1fcf8f0f9ba1f0eacec2f178d9be49333",
+        "rev": "b2a926e0943ba959e611a4342f7a737b5bfade60",
         "type": "github"
       },
       "original": {
@@ -219,11 +219,11 @@
     "snacks-git": {
       "flake": false,
       "locked": {
-        "lastModified": 1761892878,
-        "narHash": "sha256-u3nVUpimeUBmqbd2YhOEqRXUUpn8oa6OKKu8DeQ7FHU=",
+        "lastModified": 1762110281,
+        "narHash": "sha256-E+yHXNfdErCB3x+PJ7xBWfA4BlpTFadtubU1LWF8Pqc=",
         "owner": "folke",
         "repo": "snacks.nvim",
-        "rev": "76160be5d38cd67e46557cb5d0b3e36ececdfa3c",
+        "rev": "50436373c277906cf40e47380f3dc1bd7769a885",
         "type": "github"
       },
       "original": {
@@ -265,11 +265,11 @@
     "tree-sitter-matlab": {
       "flake": false,
       "locked": {
-        "lastModified": 1761756997,
-        "narHash": "sha256-rMpB5Utf3MGFOkR0LrHT7cwKYap9ffP4Z6Ydbow5Tds=",
+        "lastModified": 1761923694,
+        "narHash": "sha256-yojuQsBzDyYS8E1Z1FyzGh6kGKg+2Kn79c1Momv1+Oo=",
         "owner": "acristoffers",
         "repo": "tree-sitter-matlab",
-        "rev": "0289abfa58f706ac1e00a1c5d611edd6828d32c5",
+        "rev": "05bf45a948246fb703cb9e5096ac7d1098df8f59",
         "type": "github"
       },
       "original": {
