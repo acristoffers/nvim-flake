@@ -72,6 +72,7 @@ local groups = {
           vim.cmd([[nmap <Leader>ml {cil]])
           vim.keymap.set("n", "<leader>ma", ":lua InsertLedgerEntry()<cr>", opts)
           vim.keymap.set("n", "<leader>mnv", ":lua SelectLedgerEntriesByDate(LedgerDateAtPoint())<cr>", opts)
+          vim.keymap.set("n", "<leader>ms", ":lua LedgerShowStats()<cr>", opts)
           SetTab(4)
           vim.bo.commentstring = "; %s"
         end,

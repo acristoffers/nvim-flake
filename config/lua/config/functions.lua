@@ -331,6 +331,122 @@ function SelectLedgerEntriesByDate(target_date)
   end
 end
 
+function LedgerChangeAtDate(date)
+  local command =
+      [[hledger register --period "daily" -O json Bank:Checking: --begin ]] ..
+      date ..
+      [[ | jq -c '.[] | {date: .[0], account: .[3].paccount, amount: .[3].pamount[0].aquantity.floatingPoint, commodity: .[3].pamount[0].acommodity}']]
+
+  local handle = io.popen(command)
+  if not handle then return {} end
+  local output = handle:read("*a")
+  handle:close()
+
+  local result = {}
+  local first_date = nil
+  for line in output:gmatch("[^\r\n]+") do
+    local ok, entry = pcall(vim.fn.json_decode, line)
+    if ok and entry then
+      if not first_date then
+        first_date = entry.date
+      end
+      if entry.date == vim.NIL then
+        entry.date = first_date
+      end
+      if entry.date ~= first_date then
+        return result
+      end
+      table.insert(result, {
+        account = entry.account or "",
+        amount = entry.amount or 0.0,
+        commodity = entry.commodity or ""
+      })
+    end
+  end
+  return result
+end
+
+local function next_day(date_str)
+  local y, m, d = date_str:match("(%d+)/(%d+)/(%d+)")
+  local timestamp = os.time({ year = y, month = m, day = d })
+  return os.date("%Y/%m/%d", timestamp + 24 * 60 * 60)
+end
+
+function LedgerTotalAtDate(date)
+  local command = "hledger balance Bank:Checking: --end " .. next_day(date)
+  local handle = io.popen(command)
+  if not handle then return {} end
+  local output = handle:read("*a")
+  handle:close()
+
+  local result = {}
+  for line in output:gmatch("[^\r\n]+") do
+    if line:find("^%-") then
+      goto continue
+    end
+    local amount, commodity, account = line:match("^%s*([%d%.%-]+)%s*([%a]+)%s+(Bank:Checking:[%w:]+)")
+    if amount and commodity and account then
+      table.insert(result, {
+        account = account,
+        amount = tonumber(amount) or 0.0,
+        commodity = commodity
+      })
+    end
+  end
+  ::continue::
+  return result
+end
+
+function LedgerShowStats()
+  local date = LedgerDateAtPoint()
+  if not date then
+    vim.notify("No date found at cursor", vim.log.levels.ERROR)
+    return
+  end
+  local deltas = LedgerChangeAtDate(date)
+  local totals = LedgerTotalAtDate(date)
+
+  -- Format markdown tables
+  local function format_table(title, rows)
+    local lines = {}
+    table.insert(lines, "### " .. title)
+    table.insert(lines, "")
+    table.insert(lines, "| Account | Commodity | Amount |")
+    table.insert(lines, "|---------|----------|--------|")
+    for _, row in ipairs(rows) do
+      table.insert(lines, string.format("| %s | %s | %.2f |", row.account, row.commodity, row.amount))
+    end
+    table.insert(lines, "") -- blank line after table
+    return lines
+  end
+
+  local content = {}
+  vim.list_extend(content, format_table("Changes", deltas))
+  vim.list_extend(content, format_table("Totals", totals))
+
+  -- Create scratch buffer
+  local buf = vim.api.nvim_create_buf(false, true)
+  vim.api.nvim_buf_set_lines(buf, 0, -1, false, content)
+  vim.api.nvim_buf_set_keymap(buf, 'n', 'q', '<cmd>bd!<CR>', { noremap = true, silent = true })
+  vim.bo[buf].filetype = 'markdown'
+  vim.bo[buf].modifiable = false
+  vim.bo[buf].readonly = true
+
+  -- Floating window config
+  local width = 60
+  local height = math.max(10, #content)
+  local opts = {
+    relative = 'editor',
+    width = width,
+    height = height,
+    row = (vim.o.lines - height) / 2,
+    col = (vim.o.columns - width) / 2,
+    style = 'minimal',
+    border = 'rounded',
+  }
+  vim.api.nvim_open_win(buf, true, opts)
+end
+
 --------------------------------------------------------------------------------
 --                                                                            --
 --                            Unicode Normalization                           --
