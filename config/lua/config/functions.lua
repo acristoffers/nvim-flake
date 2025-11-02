@@ -269,6 +269,68 @@ function InsertLedgerEntry()
   vim.cmd([[normal! Gvipozz0]])
 end
 
+function LedgerDateAtPoint()
+  local orig_pos = vim.api.nvim_win_get_cursor(0)
+  vim.cmd([[normal {]])
+  local node = NamedNodeAroundCursor({ "date" })
+  if node == nil then
+    node = NamedNodeAfterCursor({ "date" })
+  end
+  vim.api.nvim_win_set_cursor(0, orig_pos)
+  if node == nil then
+    return nil
+  end
+  local bufnr = vim.api.nvim_get_current_buf()
+  return vim.treesitter.get_node_text(node, bufnr)
+end
+
+local function find_date_in_journal_item(node, bufnr)
+  for child in node:iter_children() do
+    if child:type() == "date" then
+      return vim.treesitter.get_node_text(child, bufnr)
+    else
+      local date = find_date_in_journal_item(child, bufnr)
+      if date then return date end
+    end
+  end
+  return nil
+end
+
+function SelectLedgerEntriesByDate(target_date)
+  local bufnr = vim.api.nvim_get_current_buf()
+  local parser = vim.treesitter.get_parser(bufnr, 'ledger')
+  local tree = parser:parse()[1]
+  local root = tree:root()
+
+  local min_row, min_col = nil, nil
+  local max_row, max_col = nil, nil
+
+  local function traverse(node)
+    for child in node:iter_children() do
+      local date = find_date_in_journal_item(child, bufnr)
+      if date == target_date then
+        local sr, sc, er, ec = child:range()
+        if not min_row or sr < min_row or (sr == min_row and sc < min_col) then
+          min_row, min_col = sr, sc
+        end
+        if not max_row or er > max_row or (er == max_row and ec > max_col) then
+          max_row, max_col = er, ec
+        end
+      end
+    end
+  end
+
+  traverse(root)
+
+  if min_row and max_row then
+    vim.api.nvim_win_set_cursor(0, { min_row + 1, min_col })
+    vim.cmd('normal! V')
+    vim.api.nvim_win_set_cursor(0, { max_row, max_col })
+  else
+    print("No entries found for date: " .. target_date)
+  end
+end
+
 --------------------------------------------------------------------------------
 --                                                                            --
 --                            Unicode Normalization                           --
@@ -451,29 +513,29 @@ if ok_telescope then
 
       if #flat_results > 0 then
         pickers
-          .new({}, {
-            prompt_title = "Code Actions",
-            finder = finders.new_table({
-              results = flat_results,
-              entry_maker = function(entry)
-                return {
-                  value = entry,
-                  display = entry.title or "Unnamed action",
-                  ordinal = entry.title or "",
-                }
+            .new({}, {
+              prompt_title = "Code Actions",
+              finder = finders.new_table({
+                results = flat_results,
+                entry_maker = function(entry)
+                  return {
+                    value = entry,
+                    display = entry.title or "Unnamed action",
+                    ordinal = entry.title or "",
+                  }
+                end,
+              }),
+              sorter = conf.generic_sorter({}),
+              attach_mappings = function(prompt_bufnr, _)
+                actions.select_default:replace(function()
+                  local selection = action_state.get_selected_entry()
+                  actions.close(prompt_bufnr)
+                  apply_action_in_document(selection.value)
+                end)
+                return true
               end,
-            }),
-            sorter = conf.generic_sorter({}),
-            attach_mappings = function(prompt_bufnr, _)
-              actions.select_default:replace(function()
-                local selection = action_state.get_selected_entry()
-                actions.close(prompt_bufnr)
-                apply_action_in_document(selection.value)
-              end)
-              return true
-            end,
-          })
-          :find()
+            })
+            :find()
       else
         print("No code actions available")
       end
