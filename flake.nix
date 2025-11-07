@@ -148,7 +148,7 @@
                   { "targets-vim", event = "VeryLazy", dir = "${pkgs.vimPlugins.targets-vim}" },
                   { "trouble-nvim", event = "VeryLazy", dir = "${pkgs.vimPlugins.trouble-nvim}" },
                   { "undotree", event = "VeryLazy", dir = "${pkgs.vimPlugins.undotree}" },
-                  { "rust-tools-nvim", ft = {"rust"} , dir = "${pkgs.vimPlugins.rust-tools-nvim}" },
+                  { "rustaceanvim", ft = {"rust"} , dir = "${pkgs.vimPlugins.rustaceanvim}" },
                   { "vim-fish", ft = {"fish"}, dir = "${pkgs.vimPlugins.vim-fish}" },
                   { "vim-illuminate", event = "VeryLazy", dir = "${pkgs.vimPlugins.vim-illuminate}" },
                   { "vim-sneak", event = "VeryLazy", dir = "${pkgs.vimPlugins.vim-sneak}" },
