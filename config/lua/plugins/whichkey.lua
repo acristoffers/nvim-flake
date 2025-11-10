@@ -421,7 +421,7 @@ local options = {
     },
     {
       "<leader>gl",
-      ":lua require 'gitsigns'.blame_line()<cr>",
+      ":lua require 'gitsigns'.blame_line({full=true})<cr>",
       desc = "Blame",
       nowait = true,
       remap = false,
