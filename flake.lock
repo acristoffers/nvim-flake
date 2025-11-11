@@ -155,11 +155,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1752432743,
-        "narHash": "sha256-85LSNbj2e7kDYsgD9WribmjYZJlzNHqh1mObGW7hWs8=",
+        "lastModified": 1762864037,
+        "narHash": "sha256-8m4A64iPYjLyt93lYS7llNoLNbsuRmw/3JY7IXm9Wmk=",
         "owner": "acristoffers",
         "repo": "matlab-lsp",
-        "rev": "835e75693edaef9557a0afee53c33517d6c5ed55",
+        "rev": "07e856f58c71b91b306597ad7ab13b91149a0345",
         "type": "github"
       },
       "original": {
@@ -265,11 +265,11 @@
     "tree-sitter-matlab": {
       "flake": false,
       "locked": {
-        "lastModified": 1762523908,
-        "narHash": "sha256-lE8AMG8OoAUwtY4pfRQfJu3PETbQo7G/ccJ5m+kO5G0=",
+        "lastModified": 1762850420,
+        "narHash": "sha256-BNeICrzFhtZHPnePaJbXHMKZBkAIVpVTArg0/NcLipg=",
         "owner": "acristoffers",
         "repo": "tree-sitter-matlab",
-        "rev": "281a0ad48db1ed06e2699d2b32b58198a72c82b2",
+        "rev": "faf19da2a2a661033833aa43057f1a9a30c2c0f4",
         "type": "github"
       },
       "original": {
