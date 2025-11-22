@@ -103,6 +103,7 @@ local options = {
     { "<leader>ch", ":LspClangdSwitchSourceHeader<cr>", desc = "Switch .h/.cpp", nowait = true, remap = false },
     { "<leader>ct", ":Trim<cr>", desc = "Trim trailling spaces", nowait = true, remap = false },
     { "<leader>cf", ":Format<cr>", desc = "Format (formatter.nvim)", nowait = true, remap = false },
+    { '<leader>co', function() require('codex').toggle() end, desc = 'Toggle Codex', nowait = true, remap = false },
     { "<leader>l", group = "LSP", nowait = true, remap = false },
     {
       "<leader>la",
