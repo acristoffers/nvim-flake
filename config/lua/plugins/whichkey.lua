@@ -318,7 +318,7 @@ local options = {
     },
     {
       "<leader>fL",
-      ":e /home/alan/.org/finances/2025.ledger<cr>",
+      ":e /home/alan/.org/finances/2026.ledger<cr>",
       desc = "Open Ledger",
       nowait = true,
       remap = false,

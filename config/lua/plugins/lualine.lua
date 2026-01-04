@@ -58,7 +58,7 @@ local function spaces()
 end
 
 local function ledger_run(Account)
-  local ledger_file = os.getenv("HOME") .. "/.org/finances/2025.ledger"
+  local ledger_file = os.getenv("HOME") .. "/.org/finances/2026.ledger"
   if vim.fn.executable("ledger") == 1 and vim.fn.filereadable(ledger_file) then
     local cmd = string.format("ledger -f %s bal %s", ledger_file, Account)
     local handle = io.popen(cmd)
