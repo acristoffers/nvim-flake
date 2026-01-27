@@ -127,3 +127,6 @@ if SelectXmlAttribute ~= nil then
   vim.api.nvim_set_keymap("v", "aX", ":lua SelectXmlAttributeName()<CR>", opts)
   vim.api.nvim_set_keymap("o", "aX", ":<C-u>lua SelectXmlAttributeName()<CR>", opts)
 end
+
+--- Gitsigns Select Hunk
+vim.keymap.set({'o', 'x'}, 'ih', '<Cmd>Gitsigns select_hunk<CR>')
