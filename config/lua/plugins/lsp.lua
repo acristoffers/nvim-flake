@@ -57,15 +57,19 @@ end
 -- Global keymaps (for all buffers with LSP)
 local function setup_lsp_keymaps()
   local opts = { noremap = true, silent = true }
-  vim.keymap.set("n", "gd", "<cmd>lua Snacks.picker.lsp_definitions()<CR>", opts)
-  vim.keymap.set("n", "gy", "<cmd>lua Snacks.picker.lsp_type_definitions()<CR>", opts)
-  vim.keymap.set("n", "gi", "<cmd>lua Snacks.picker.lsp_implementations()<CR>", opts)
-  vim.keymap.set("n", "gr", "<cmd>lua Snacks.picker.lsp_references()<CR>", opts)
-  vim.keymap.set("n", "gD", "<cmd>lua vim.lsp.buf.declaration()<CR>", opts)
-  vim.keymap.set("n", "K", "<cmd>lua vim.lsp.buf.hover()<CR>", opts)
-  vim.keymap.set("n", "<C-k>", "<cmd>lua vim.lsp.buf.signature_help()<CR>", opts)
-  vim.keymap.set("n", "[d", "<cmd>lua vim.diagnostic.goto_prev()<CR>", opts)
-  vim.keymap.set("n", "]d", "<cmd>lua vim.diagnostic.goto_next()<CR>", opts)
+  local function map(mode, lhs, rhs, desc)
+    vim.keymap.set(mode, lhs, rhs, vim.tbl_extend("force", opts, { desc = desc }))
+  end
+
+  map("n", "gd", "<cmd>lua Snacks.picker.lsp_definitions()<CR>", "Go to definition (picker)")
+  map("n", "gy", "<cmd>lua Snacks.picker.lsp_type_definitions()<CR>", "Go to type definition (picker)")
+  map("n", "gi", "<cmd>lua Snacks.picker.lsp_implementations()<CR>", "Go to implementation (picker)")
+  map("n", "gr", "<cmd>lua Snacks.picker.lsp_references()<CR>", "Go to references (picker)")
+  map("n", "gD", "<cmd>lua vim.lsp.buf.declaration()<CR>", "Go to declaration")
+  map("n", "K", "<cmd>lua vim.lsp.buf.hover()<CR>", "Hover documentation")
+  map("n", "<C-k>", "<cmd>lua vim.lsp.buf.signature_help()<CR>", "Signature help")
+  map("n", "[d", "<cmd>lua vim.diagnostic.goto_prev()<CR>", "Previous diagnostic")
+  map("n", "]d", "<cmd>lua vim.diagnostic.goto_next()<CR>", "Next diagnostic")
 end
 setup_lsp_keymaps()
 

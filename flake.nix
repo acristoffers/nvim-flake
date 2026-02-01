@@ -18,6 +18,8 @@
     ledger-formatter.inputs.nixpkgs.follows = "nixpkgs";
     ledger-formatter.inputs.flake-utils.follows = "flake-utils";
 
+    ledger-nvim.url = "github:acristoffers/ledger.nvim";
+
     project-nvim.url = "github:acristoffers/project.nvim";
     project-nvim.flake = false;
 
@@ -44,6 +46,7 @@
     flake-utils.lib.eachDefaultSystem (system:
       let
         pkgs = import nixpkgs { inherit system; config.allowUnfree = true; };
+        ledger-nvim = inputs.ledger-nvim.packages.${system}.default;
         personal-config = pkgs.vimUtils.buildVimPlugin {
           name = "personal-config";
           src = ./config;
@@ -177,6 +180,16 @@
                   { "vim-sneak", event = "VeryLazy", dir = "${pkgs.vimPlugins.vim-sneak}" },
                   { "vim-tridactyl", event = "VeryLazy", dir = "${pkgs.vimPlugins.vim-tridactyl}" },
                   { "virtual-types-nvim", event = "VeryLazy", dir = "${pkgs.vimPlugins.virtual-types-nvim}" },
+                  {
+                    "ledger-nvim",
+                    ft = { "ledger" },
+                    dir = "${ledger-nvim}",
+                    config = function()
+                      require("ledger").setup({
+                        bank_accounts = {"Bank:Checking:BNP", "Bank:Checking:Revolut", "Bank:Checking:NuBank", "Bank:Checking:Wise"},
+                      })
+                    end
+                  },
                   {
                     "snacks.nvim",
                     priority = 999,

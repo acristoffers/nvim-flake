@@ -71,6 +71,24 @@
         "systems": "systems_2"
       },
       "locked": {
+        "lastModified": 1731533236,
+        "narHash": "sha256-l0KFg5HjrsfsO/JpG+r7fRrqm12kzFHyUHqHCVpMMbI=",
+        "owner": "numtide",
+        "repo": "flake-utils",
+        "rev": "11707dc2f618dd54ca8739b309ec4fc024de578b",
+        "type": "github"
+      },
+      "original": {
+        "owner": "numtide",
+        "repo": "flake-utils",
+        "type": "github"
+      }
+    },
+    "flake-utils_3": {
+      "inputs": {
+        "systems": "systems_3"
+      },
+      "locked": {
         "lastModified": 1705309234,
         "narHash": "sha256-uNRRNRKmJyCRC/8y1RqBkqWBLM034y4qN7EprSdmgyA=",
         "owner": "numtide",
@@ -124,6 +142,25 @@
         "type": "github"
       }
     },
+    "ledger-nvim": {
+      "inputs": {
+        "flake-utils": "flake-utils_2",
+        "nixpkgs": "nixpkgs"
+      },
+      "locked": {
+        "lastModified": 1769978943,
+        "narHash": "sha256-LQD9PD7zY09Mv/XKGlemeeQuHAkDg0WCwuQzV7sSyFE=",
+        "owner": "acristoffers",
+        "repo": "ledger.nvim",
+        "rev": "438edcefeae79c08362d4a1151046a341ae9480d",
+        "type": "github"
+      },
+      "original": {
+        "owner": "acristoffers",
+        "repo": "ledger.nvim",
+        "type": "github"
+      }
+    },
     "lsp-setup-git": {
       "flake": false,
       "locked": {
@@ -165,11 +202,27 @@
     },
     "nixpkgs": {
       "locked": {
-        "lastModified": 1769741972,
-        "narHash": "sha256-RxSg1EioTWNpoLaykiT1UQKTo/K0PPdLqCyQgNjNqWs=",
+        "lastModified": 1769740369,
+        "narHash": "sha256-xKPyJoMoXfXpDM5DFDZDsi9PHArf2k5BJjvReYXoFpM=",
         "owner": "NixOS",
         "repo": "nixpkgs",
-        "rev": "63590ac958a8af30ebd52c7a0309d8c52a94dd77",
+        "rev": "6308c3b21396534d8aaeac46179c14c439a89b8a",
+        "type": "github"
+      },
+      "original": {
+        "owner": "NixOS",
+        "ref": "nixpkgs-unstable",
+        "repo": "nixpkgs",
+        "type": "github"
+      }
+    },
+    "nixpkgs_2": {
+      "locked": {
+        "lastModified": 1769900590,
+        "narHash": "sha256-I7Lmgj3owOTBGuauy9FL6qdpeK2umDoe07lM4V+PnyA=",
+        "owner": "NixOS",
+        "repo": "nixpkgs",
+        "rev": "41e216c0ca66c83b12ab7a98cc326b5db01db646",
         "type": "github"
       },
       "original": {
@@ -202,9 +255,10 @@
         "flake-utils": "flake-utils",
         "git-worktree-git": "git-worktree-git",
         "ledger-formatter": "ledger-formatter",
+        "ledger-nvim": "ledger-nvim",
         "lsp-setup-git": "lsp-setup-git",
         "matlab-lsp": "matlab-lsp",
-        "nixpkgs": "nixpkgs",
+        "nixpkgs": "nixpkgs_2",
         "project-nvim": "project-nvim",
         "snacks-git": "snacks-git",
         "tree-sitter-matlab": "tree-sitter-matlab",
@@ -258,14 +312,29 @@
         "type": "github"
       }
     },
+    "systems_3": {
+      "locked": {
+        "lastModified": 1681028828,
+        "narHash": "sha256-Vy1rq5AaRuLzOxct8nz4T6wlgyUR7zLU309k9mBC768=",
+        "owner": "nix-systems",
+        "repo": "default",
+        "rev": "da67096a3b9bf56a91d16901293e51ba5b49a27e",
+        "type": "github"
+      },
+      "original": {
+        "owner": "nix-systems",
+        "repo": "default",
+        "type": "github"
+      }
+    },
     "tree-sitter-matlab": {
       "flake": false,
       "locked": {
-        "lastModified": 1769862480,
-        "narHash": "sha256-EbGuQx4FRsNTnLkR4+N8qQAKKWPViBHnoK1RY7EHXhg=",
+        "lastModified": 1769961195,
+        "narHash": "sha256-946j40nbFHb/FgmtGv/NQDV6RIgkp2VuvC24tWViYUI=",
         "owner": "acristoffers",
         "repo": "tree-sitter-matlab",
-        "rev": "59a0afde2646a8f52bac5e947a0ce55f470d9a7f",
+        "rev": "897b66e70ab3c2f6e6f4e3e0ac13c736650bbbfc",
         "type": "github"
       },
       "original": {
@@ -300,7 +369,7 @@
     "zig-overlay": {
       "inputs": {
         "flake-compat": "flake-compat",
-        "flake-utils": "flake-utils_2",
+        "flake-utils": "flake-utils_3",
         "nixpkgs": [
           "zls",
           "nixpkgs"

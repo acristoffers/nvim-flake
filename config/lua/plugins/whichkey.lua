@@ -28,12 +28,14 @@ local options = {
     {
       "<leader>o",
       group = "Org",
+      desc = "Org",
       nowait = true,
       remap = false,
     },
     {
       "<leader>b",
       group = "Buffers",
+      desc = "Buffers",
       nowait = true,
       remap = false,
     },
@@ -47,6 +49,7 @@ local options = {
     {
       "<leader>bc",
       group = "Close",
+      desc = "Close",
       nowait = true,
       remap = false,
     },
@@ -95,16 +98,17 @@ local options = {
     {
       "<leader>bs",
       group = "Sort",
+      desc = "Sort",
       nowait = true,
       remap = false,
     },
-    { "<leader>c", group = "Code", nowait = true, remap = false },
+    { "<leader>c", group = "Code", desc = "Code", nowait = true, remap = false },
     { "<leader>cc", ":CodeCompanionChat Toggle<cr>", desc = "Toggle LLM", nowait = true, remap = false },
     { "<leader>ch", ":LspClangdSwitchSourceHeader<cr>", desc = "Switch .h/.cpp", nowait = true, remap = false },
     { "<leader>ct", ":Trim<cr>", desc = "Trim trailling spaces", nowait = true, remap = false },
     { "<leader>cf", ":Format<cr>", desc = "Format (formatter.nvim)", nowait = true, remap = false },
     { '<leader>co', function() require('codex').toggle() end, desc = 'Toggle Codex', nowait = true, remap = false },
-    { "<leader>l", group = "LSP", nowait = true, remap = false },
+    { "<leader>l", group = "LSP", desc = "LSP", nowait = true, remap = false },
     {
       "<leader>la",
       ":lua vim.lsp.buf.code_action()<cr>",
@@ -220,6 +224,7 @@ local options = {
     {
       "<leader>t",
       group = "Toggle",
+      desc = "Toggle",
       nowait = true,
       remap = false,
     },
@@ -285,6 +290,7 @@ local options = {
     {
       "<leader>f",
       group = "File",
+      desc = "File",
       nowait = true,
       remap = false,
     },
@@ -361,6 +367,7 @@ local options = {
     {
       "<leader>g",
       group = "Git",
+      desc = "Git",
       nowait = true,
       remap = false,
     },
@@ -465,12 +472,14 @@ local options = {
     {
       "<leader>gw",
       group = "Worktrees",
+      desc = "Worktrees",
       nowait = true,
       remap = false,
     },
     {
       "<leader>p",
       group = "Projects",
+      desc = "Projects",
       nowait = true,
       remap = false,
     },
@@ -486,6 +495,7 @@ local options = {
     {
       "<leader>q",
       group = "Quit",
+      desc = "Quit",
       nowait = true,
       remap = false,
     },
@@ -534,6 +544,7 @@ local options = {
     {
       "<leader>h",
       group = "Help",
+      desc = "Help",
       nowait = true,
       remap = false,
     },
@@ -596,6 +607,7 @@ local options = {
     {
       "<leader>s",
       group = "Search",
+      desc = "Search",
       nowait = true,
       remap = false,
     },
@@ -609,6 +621,7 @@ local options = {
     {
       "<leader>w",
       group = "Windows",
+      desc = "Windows",
       nowait = true,
       remap = false,
     },
@@ -728,6 +741,7 @@ if ok_hop then
     {
       "gs",
       group = "Hop (Easymotion)",
+      desc = "Hop (Easymotion)",
       nowait = true,
       remap = false,
     },
@@ -810,7 +824,7 @@ end
 
 local specs = {
   mode = { "v" },
-  { "<leader>", group = "Text", nowait = true, remap = false },
+  { "<leader>", group = "Text", desc = "Text", nowait = true, remap = false },
   { "<leader>s", ":sort<cr>", desc = "Sort", nowait = true, remap = false },
   { "<leader>S", ":sort i<cr>", desc = "Sort (Case Insensitive)", nowait = true, remap = false },
   { "<leader>u", ":!uniq <cr>", desc = "Unique", nowait = true, remap = false },

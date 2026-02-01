@@ -17,12 +17,15 @@ markdown.setup({
     go_prev_heading = "[[",                     -- (string|boolean) set cursor to previous section heading
   },
   on_attach = function(bufnr)
-    local map = vim.keymap.set
     local opts = { buffer = bufnr }
-    map({ "n", "i" }, "<M-o>", "<cmd>MDListItemBelow<CR>", opts)
-    map({ "n", "i" }, "<M-O>", "<cmd>MDListItemAbove<CR>", opts)
-    map("n", "<leader>mx", "<cmd>MDTaskToggle<CR>", opts)
-    map("x", "<leader>mx", "<cmd>MDTaskToggle<CR>", opts)
-    map("n", "<leader>mt", "<cmd>MDToc<CR>", opts)
+    local function map(mode, lhs, rhs, desc)
+      vim.keymap.set(mode, lhs, rhs, vim.tbl_extend("force", opts, { desc = desc }))
+    end
+
+    map({ "n", "i" }, "<M-o>", "<cmd>MDListItemBelow<CR>", "Insert list item below")
+    map({ "n", "i" }, "<M-O>", "<cmd>MDListItemAbove<CR>", "Insert list item above")
+    map("n", "<leader>mx", "<cmd>MDTaskToggle<CR>", "Toggle task")
+    map("x", "<leader>mx", "<cmd>MDTaskToggle<CR>", "Toggle task")
+    map("n", "<leader>mt", "<cmd>MDToc<CR>", "Insert table of contents")
   end,
 })
