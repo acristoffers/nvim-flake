@@ -165,16 +165,16 @@
     },
     "nixpkgs": {
       "locked": {
-        "lastModified": 1769740369,
-        "narHash": "sha256-xKPyJoMoXfXpDM5DFDZDsi9PHArf2k5BJjvReYXoFpM=",
+        "lastModified": 1769741972,
+        "narHash": "sha256-RxSg1EioTWNpoLaykiT1UQKTo/K0PPdLqCyQgNjNqWs=",
         "owner": "NixOS",
         "repo": "nixpkgs",
-        "rev": "6308c3b21396534d8aaeac46179c14c439a89b8a",
+        "rev": "63590ac958a8af30ebd52c7a0309d8c52a94dd77",
         "type": "github"
       },
       "original": {
         "owner": "NixOS",
-        "ref": "nixpkgs-unstable",
+        "ref": "nixos-25.11",
         "repo": "nixpkgs",
         "type": "github"
       }
@@ -261,11 +261,11 @@
     "tree-sitter-matlab": {
       "flake": false,
       "locked": {
-        "lastModified": 1769847347,
-        "narHash": "sha256-f9jo5WHUnqBOdNSOcOA34iZoaTf9zllhNUiTY6vDlOQ=",
+        "lastModified": 1769862480,
+        "narHash": "sha256-EbGuQx4FRsNTnLkR4+N8qQAKKWPViBHnoK1RY7EHXhg=",
         "owner": "acristoffers",
         "repo": "tree-sitter-matlab",
-        "rev": "c235d22712c790b146b0b8f6c8ac7c486724f413",
+        "rev": "59a0afde2646a8f52bac5e947a0ce55f470d9a7f",
         "type": "github"
       },
       "original": {
