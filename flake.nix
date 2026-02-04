@@ -180,6 +180,78 @@
                   { "vim-sneak", event = "VeryLazy", dir = "${pkgs.vimPlugins.vim-sneak}" },
                   { "vim-tridactyl", event = "VeryLazy", dir = "${pkgs.vimPlugins.vim-tridactyl}" },
                   { "virtual-types-nvim", event = "VeryLazy", dir = "${pkgs.vimPlugins.virtual-types-nvim}" },
+                  { "nvim-nio", event = "VeryLazy", dir = "${pkgs.vimPlugins.nvim-nio}" },
+                  {
+                    "nvim-dap",
+                    event = "VeryLazy",
+                    dir = "${pkgs.vimPlugins.nvim-dap}",
+                    config = function()
+                      local dap = require("dap")
+                      dap.adapters.gdb = { type = "executable", command = "gdb", args = { "--quiet", "--interpreter=dap" } }
+                      dap.configurations.c = {
+                        {
+                          name = "Attach to process",
+                          type = "gdb",
+                          request = "attach",
+                          pid = require("dap.utils").pick_process,
+                        },
+                        {
+                          name = 'Run executable (GDB)',
+                          type = 'gdb',
+                          request = 'launch',
+                          program = function()
+                              local path = vim.fn.input({
+                                prompt = 'Path to executable: ',
+                                default = vim.fn.getcwd() .. '/',
+                                completion = 'file',
+                              })
+                              return (path and path ~= "") and path or dap.ABORT
+                          end,
+                        },
+                        {
+                          name = 'Run executable with arguments (GDB)',
+                          type = 'gdb',
+                          request = 'launch',
+                          program = function()
+                            local path = vim.fn.input({
+                              prompt = 'Path to executable: ',
+                              default = vim.fn.getcwd() .. '/',
+                              completion = 'file',
+                            })
+                            return (path and path ~= "") and path or dap.ABORT
+                          end,
+                          args = function()
+                            local args_str = vim.fn.input({ prompt = 'Arguments: ' })
+                            return vim.split(args_str, ' +')
+                          end,
+                        },
+                      }
+                      dap.configurations.cpp = dap.configurations.c
+                    end
+                  },
+                  {
+                    "nvim-nvim-dap-virtual-text",
+                    event = "VeryLazy",
+                    dir = "${pkgs.vimPlugins.nvim-dap-virtual-text}",
+                    dependencies = { "nvim-dap" },
+                    config = function()
+                      require"nvim-dap-virtual-text".setup()
+                    end
+                  },
+                  {
+                    "nvim-dap-ui",
+                    event = "VeryLazy",
+                    dir = "${pkgs.vimPlugins.nvim-dap-ui}",
+                    dependencies = {"nvim-dap", "nvim-nio"},
+                    config = function()
+                      local dap, dapui = require("dap"), require("dapui")
+                      dapui.setup()
+                      dap.listeners.before.attach.dapui_config = dapui.open
+                      dap.listeners.before.launch.dapui_config = dapui.open
+                      dap.listeners.before.event_terminated.dapui_config = dapui.close
+                      dap.listeners.before.event_exited.dapui_config = dapui.close
+                    end
+                    },
                   {
                     "ledger-nvim",
                     ft = { "ledger" },

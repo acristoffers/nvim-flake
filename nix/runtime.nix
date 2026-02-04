@@ -19,6 +19,7 @@ with pkgs;
   fd
   flutter
   fzf
+  gdb
   git
   gopls
   html-tidy

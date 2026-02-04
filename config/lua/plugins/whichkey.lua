@@ -102,13 +102,66 @@ local options = {
       nowait = true,
       remap = false,
     },
-    { "<leader>c", group = "Code", desc = "Code", nowait = true, remap = false },
-    { "<leader>cc", ":CodeCompanionChat Toggle<cr>", desc = "Toggle LLM", nowait = true, remap = false },
-    { "<leader>ch", ":LspClangdSwitchSourceHeader<cr>", desc = "Switch .h/.cpp", nowait = true, remap = false },
-    { "<leader>ct", ":Trim<cr>", desc = "Trim trailling spaces", nowait = true, remap = false },
-    { "<leader>cf", ":Format<cr>", desc = "Format (formatter.nvim)", nowait = true, remap = false },
-    { '<leader>co', function() require('codex').toggle() end, desc = 'Toggle Codex', nowait = true, remap = false },
-    { "<leader>l", group = "LSP", desc = "LSP", nowait = true, remap = false },
+    { "<leader>c",  group = "Code",                           desc = "Code",                    nowait = true, remap = false },
+    { "<leader>cc", ":CodeCompanionChat Toggle<cr>",          desc = "Toggle LLM",              nowait = true, remap = false },
+    { "<leader>ch", ":LspClangdSwitchSourceHeader<cr>",       desc = "Switch .h/.cpp",          nowait = true, remap = false },
+    { "<leader>ct", ":Trim<cr>",                              desc = "Trim trailling spaces",   nowait = true, remap = false },
+    { "<leader>cf", ":Format<cr>",                            desc = "Format (formatter.nvim)", nowait = true, remap = false },
+    { '<leader>co', function() require('codex').toggle() end, desc = 'Toggle Codex',            nowait = true, remap = false },
+    { "<leader>d",  group = "Debug",                          desc = "Debug",                   nowait = true, remap = false },
+    { "<leader>du", function() require 'dapui'.toggle() end,  desc = "Toggle UI",               nowait = true, remap = false },
+    {
+      "<leader>da",
+      function()
+        local dap = require("dap")
+        local ft = vim.bo.filetype
+        local configs = dap.configurations[ft]
+        if not configs then
+          vim.notify("No DAP configurations for filetype: " .. ft, vim.log.levels.WARN)
+          return
+        end
+        vim.ui.select(
+          configs,
+          {
+            prompt = "Select config:",
+            format_item = function(config) return config.name end
+          },
+          function(config)
+            if config then
+              dap.run(config)
+            end
+          end
+        )
+      end,
+      desc = "Run: Select Configuration",
+      mode = { "n", "x" },
+      nowait = true,
+      remap = false
+    },
+    { "<leader>de",  function() require("dapui").eval() end,                                                      desc = "Eval",                                               mode = { "n", "x" }, nowait = true, remap = false },
+    { "<leader>dw",  function() require("dap.ui.widgets").hover() end,                                            desc = "Hover Widget",                                       nowait = true,       remap = false },
+    { "<leader>dS",  function() require("dapui").float_element("stacks", { enter = true }) end,                   desc = "Backtrace (Stacks)",                                 nowait = true,       remap = false },
+    { "<leader>dc",  function() require("dap").continue() end,                                                    desc = "Run / Continue",                                     nowait = true,       remap = false },
+    { "<leader>dr",  function() require("dap").run_last() end,                                                    desc = "Run Last",                                           nowait = true,       remap = false },
+    { "<leader>dq",  function() require("dap").terminate() end,                                                   desc = "Stop: Terminate",                                    nowait = true,       remap = false },
+    { "<leader>dD",  function() require("dap").disconnect() end,                                                  desc = "Stop: Disconnect",                                   nowait = true,       remap = false },
+    { "<leader>dp",  function() require("dap").pause() end,                                                       desc = "Pause",                                              nowait = true,       remap = false },
+    { "<leader>dC",  function() require("dap").run_to_cursor() end,                                               desc = "Run to Cursor",                                      nowait = true,       remap = false },
+    { "<leader>dg",  function() require("dap").goto_() end,                                                       desc = "Go to Line (No Execute)",                            nowait = true,       remap = false },
+    { "<leader>dn",  function() require("dap").step_over() end,                                                   desc = "Step Over",                                          nowait = true,       remap = false },
+    { "<leader>di",  function() require("dap").step_into() end,                                                   desc = "Step Into",                                          nowait = true,       remap = false },
+    { "<leader>do",  function() require("dap").step_out() end,                                                    desc = "Step Out / Finish Function",                         nowait = true,       remap = false },
+    { "<leader>dj",  function() require("dap").down() end,                                                        desc = "Down (Stack Frame)",                                 nowait = true,       remap = false },
+    { "<leader>dk",  function() require("dap").up() end,                                                          desc = "Up (Stack Frame)",                                   nowait = true,       remap = false },
+    { "<leader>dR",  function() require("dap").repl.toggle() end,                                                 desc = "Toggle REPL",                                        nowait = true,       remap = false },
+    { "<leader>ds",  function() require("dap").session() end,                                                     desc = "Session",                                            nowait = true,       remap = false },
+    { "<leader>db",  group = "Breakpoints",                                                                       desc = "Breakpoints",                                        nowait = true,       remap = false },
+    { "<leader>dt",  function() require("dap").toggle_breakpoint() end,                                           desc = "Toggle Breakpoint",                                  nowait = true,       remap = false },
+    { "<leader>dbB", function() require("dap").set_breakpoint(vim.fn.input("Breakpoint condition: ")) end,        desc = "Conditional Breakpoint",                             nowait = true,       remap = false },
+    { "<leader>dbL", function() require("dap").set_breakpoint(nil, nil, vim.fn.input("Log point message: ")) end, desc = "Log Point",                                          nowait = true,       remap = false },
+    { "<leader>dbC", function() require("dap").clear_breakpoints() end,                                           desc = "Clear All Breakpoints",                              nowait = true,       remap = false },
+    { "<leader>dbu", function() require("dapui").float_element("breakpoints", { enter = true }) end,              desc = "UI: Breakpoints List (toggle enable/disable there)", nowait = true,       remap = false },
+    { "<leader>l",   group = "LSP",                                                                               desc = "LSP",                                                nowait = true,       remap = false },
     {
       "<leader>la",
       ":lua vim.lsp.buf.code_action()<cr>",
@@ -824,10 +877,10 @@ end
 
 local specs = {
   mode = { "v" },
-  { "<leader>", group = "Text", desc = "Text", nowait = true, remap = false },
-  { "<leader>s", ":sort<cr>", desc = "Sort", nowait = true, remap = false },
-  { "<leader>S", ":sort i<cr>", desc = "Sort (Case Insensitive)", nowait = true, remap = false },
-  { "<leader>u", ":!uniq <cr>", desc = "Unique", nowait = true, remap = false },
+  { "<leader>",  group = "Text", desc = "Text",                    nowait = true, remap = false },
+  { "<leader>s", ":sort<cr>",    desc = "Sort",                    nowait = true, remap = false },
+  { "<leader>S", ":sort i<cr>",  desc = "Sort (Case Insensitive)", nowait = true, remap = false },
+  { "<leader>u", ":!uniq <cr>",  desc = "Unique",                  nowait = true, remap = false },
 }
 
 which_key.add(specs)
