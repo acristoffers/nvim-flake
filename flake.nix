@@ -301,11 +301,20 @@
                       require("mini.snippets").setup()
                       require("mini.splitjoin").setup()
                       require("mini.surround").setup({
+                        respect_selection_type = true,
                         custom_surroundings = {
+                          ['c'] = {
+                            input = { '`().-()`' },
+                            output = { left = '`', right = '`' }
+                          },
+                          ['C'] = {
+                            input = { '```().-()```' },
+                            output = { left = '```', right = '```' }
+                          },
                           ['m'] = {
                             input = { '\\%(().-()\\%)' },
                             output = { left = '\\( ', right = ' \\)' }
-                          }
+                          },
                         }
                       })
                     end
