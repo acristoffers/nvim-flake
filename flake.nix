@@ -180,6 +180,7 @@
                   { "vim-sneak", event = "VeryLazy", dir = "${pkgs.vimPlugins.vim-sneak}" },
                   { "vim-tridactyl", event = "VeryLazy", dir = "${pkgs.vimPlugins.vim-tridactyl}" },
                   { "virtual-types-nvim", event = "VeryLazy", dir = "${pkgs.vimPlugins.virtual-types-nvim}" },
+                  { "nvim-web-devicons", event = "VeryLazy", dir = "${pkgs.vimPlugins.nvim-web-devicons}" },
                   { "nvim-nio", event = "VeryLazy", dir = "${pkgs.vimPlugins.nvim-nio}" },
                   {
                     "nvim-dap",
