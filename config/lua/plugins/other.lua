@@ -1,16 +1,13 @@
-local function setup(name)
+local function setup(name, opts)
+  opts = opts == nil and {} or opts
   local ok, plugin = pcall(require, name)
   if ok then
-    plugin.setup({})
+    plugin.setup(opts)
   end
 end
 
 setup("colorizer")
 setup("git-worktree")
-setup("marks")
+setup("marks", { default_mappings = false })
 setup("neogit")
-
-require("textcase").setup {
-  default_keymappings_enabled = true,
-  prefix = "gb",
-}
+setup("textcase", { default_keymappings_enabled = true, prefix = "gb" })

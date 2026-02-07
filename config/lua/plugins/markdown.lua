@@ -30,14 +30,17 @@ markdown.setup({
 
     local whichkey_ok, whichkey = pcall(require, "which-key")
     if whichkey_ok then
-      whichkey.register(
+      whichkey.add({
         {
+          nowait = true,
+          remap = false,
+          { "<leader>m",  group = "Markdown" },
           { "<leader>mh", group = "Header" },
           { "<leader>ml", group = "Link" },
           { "<leader>ms", group = "Surround" },
           { "<leader>mt", group = "TOC" },
-        }
-      )
+        },
+      })
     end
   end,
 })

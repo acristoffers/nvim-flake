@@ -18,9 +18,11 @@ vim.g.maplocalleader = " "
 --   term_mode = 't',
 --   command_mode = 'c',
 
--- Normal --
-
 map("n", "gp", "`[v`]", "Select last change", opts)
+map("v", "gp", "p", "Normal paste", opts)
+
+-- Do not yank on paste
+map("v", "p", '"_dP', "Paste without yanking", opts)
 
 map("n", "<A-p>", function()
   vim.fn.setreg("+", vim.api.nvim_buf_get_name(0))
@@ -33,21 +35,15 @@ map("n", "<C-Down>", ":resize -2<cr>", "Resize window shorter", opts)
 map("n", "<C-Left>", ":vertical resize -2<cr>", "Resize window narrower", opts)
 map("n", "<C-Right>", ":vertical resize +2<cr>", "Resize window wider", opts)
 
--- "Tabs" navigation
-map("n", "gt", ":bn<cr>", "Next buffer", opts)
-map("n", "gT", ":bp<cr>", "Previous buffer", opts)
-
 -- Snipe first
 map("n", "<A-f>", "0;", "Snipe first char", opts)
 
 -- Snipe last
 map("n", "<A-g>", "$,", "Snipe last char", opts)
 
--- Insert --
 -- Press jk fast to exit insert mode
 map("i", "jk", "<ESC>", "Exit insert mode", opts)
 
--- Visual --
 -- Stay in indent mode
 map("v", "<", "<gv", "Indent left (keep selection)", opts)
 map("v", ">", ">gv", "Indent right (keep selection)", opts)
@@ -62,10 +58,6 @@ map("n", "<A-k>", ":m .-2<cr>==", "Move line up", opts)
 map("n", "g[", ":pop<cr>", "Pop tag stack", opts)
 map("n", "g]", ":tag<cr>", "Jump to tag", opts)
 
--- Do not yank on paste
-map("v", "p", '"_dP', "Paste without yanking", opts)
-
--- Visual Block --
 -- Move text up and down
 map("x", "<A-j>", ":move '>+1<cr>gv-gv", "Move block down", opts)
 map("x", "<A-k>", ":move '<-2<cr>gv-gv", "Move block up", opts)
