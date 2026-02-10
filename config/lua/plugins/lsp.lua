@@ -80,6 +80,7 @@ local servers = {
   cssls = "lsp.settings.cssls",
   elmls = "",
   eslint = "",
+  fish_lsp = "lsp.settings.fish_lsp",
   gopls = "",
   html = "",
   jsonls = "lsp.settings.jsonls",

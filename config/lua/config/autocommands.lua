@@ -45,18 +45,6 @@ local groups = {
     {
       event = "FileType",
       options = {
-        pattern = { "fish" },
-        callback = function()
-          vim.cmd([[
-            compiler fish
-            setlocal foldmethod=expr
-          ]])
-        end,
-      },
-    },
-    {
-      event = "FileType",
-      options = {
         pattern = { "ledger" },
         callback = function()
           local opts = { buffer = true, silent = true }

@@ -1,15 +1,17 @@
 { pkgs, inputs }:
 
-with pkgs;
-[
-  (pkgs.python313.withPackages (
+let
+  python = pkgs.python313.withPackages (
     ps: with ps; [
       mdformat
       mdformat-gfm
       mdformat-myst
       mdformat-tables
     ]
-  ))
+  );
+in
+with pkgs;
+[
   bat
   black
   delta
@@ -17,6 +19,7 @@ with pkgs;
   elmPackages.elm-language-server
   emmet-ls
   fd
+  fish-lsp
   flutter
   fzf
   gdb
@@ -45,6 +48,7 @@ with pkgs;
   ocamlPackages.ocaml-lsp
   ocamlPackages.ocamlformat
   pyright
+  python
   ripgrep
   rubyPackages.solargraph
   rust-analyzer
