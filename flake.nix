@@ -32,6 +32,8 @@
     codex-nvim.url = "github:johnseth97/codex.nvim";
     codex-nvim.flake = false;
 
+    gitlab-nvim.url = "github:acristoffers/gitlab.nvim?ref=feature/nix-and-configurable-server-path";
+
     copilot-lualine-git.url = "github:AndreM222/copilot-lualine";
     copilot-lualine-git.flake = false;
 
@@ -47,6 +49,8 @@
       let
         pkgs = import nixpkgs { inherit system; config.allowUnfree = true; };
         ledger-nvim = inputs.ledger-nvim.packages.${system}.default;
+        gitlab-nvim = inputs.gitlab-nvim.packages.${system}.default;
+        gitlab-nvim-server = inputs.gitlab-nvim.packages.${system}.gitlab-nvim-server;
         personal-config = pkgs.vimUtils.buildVimPlugin {
           name = "personal-config";
           src = ./config;
@@ -146,6 +150,8 @@
 
                   -- Lazy on require
                   { "plenary", dir = "${pkgs.vimPlugins.plenary-nvim}" },
+                  { "diffview.nvim", dir = "${pkgs.vimPlugins.diffview-nvim}" },
+                  { "nui.nvim", dir = "${pkgs.vimPlugins.nui-nvim}" },
                   { "marks", dir = "${pkgs.vimPlugins.marks-nvim}"},
                   { "colorizer", dir = "${pkgs.vimPlugins.nvim-colorizer-lua}" },
                   { "neogit", dir = "${pkgs.vimPlugins.neogit}" },
@@ -392,6 +398,24 @@
                     config = function()
                       require("plugins.gitsigns")
                     end
+                  },
+                  {
+                    "gitlab.nvim",
+                    dir = "${gitlab-nvim}",
+                    event = "VeryLazy",
+                    dependencies = {
+                      "nui.nvim",
+                      "plenary",
+                      "diffview.nvim",
+                      "nvim-web-devicons",
+                    },
+                    config = function()
+                      require("gitlab").setup({
+                        server = {
+                          binary = "${gitlab-nvim-server}/bin/gitlab.nvim",
+                        }
+                      })
+                    end,
                   },
                   {
                     "project-nvim",

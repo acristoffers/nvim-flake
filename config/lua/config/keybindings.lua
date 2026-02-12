@@ -124,3 +124,8 @@ end
 
 --- Gitsigns Select Hunk
 map({ "o", "x" }, "ih", "<Cmd>Gitsigns select_hunk<CR>", "Select hunk", {})
+
+--- GitLab close review window
+map({ "n" }, "glq", function()
+  require("gitlab").close_review()
+end, "Close the review window", {})

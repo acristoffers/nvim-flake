@@ -89,6 +89,24 @@
         "systems": "systems_3"
       },
       "locked": {
+        "lastModified": 1731533236,
+        "narHash": "sha256-l0KFg5HjrsfsO/JpG+r7fRrqm12kzFHyUHqHCVpMMbI=",
+        "owner": "numtide",
+        "repo": "flake-utils",
+        "rev": "11707dc2f618dd54ca8739b309ec4fc024de578b",
+        "type": "github"
+      },
+      "original": {
+        "owner": "numtide",
+        "repo": "flake-utils",
+        "type": "github"
+      }
+    },
+    "flake-utils_4": {
+      "inputs": {
+        "systems": "systems_4"
+      },
+      "locked": {
         "lastModified": 1705309234,
         "narHash": "sha256-uNRRNRKmJyCRC/8y1RqBkqWBLM034y4qN7EprSdmgyA=",
         "owner": "numtide",
@@ -119,6 +137,26 @@
         "type": "github"
       }
     },
+    "gitlab-nvim": {
+      "inputs": {
+        "flake-utils": "flake-utils_2",
+        "nixpkgs": "nixpkgs"
+      },
+      "locked": {
+        "lastModified": 1770909060,
+        "narHash": "sha256-WC/ZMazbrP0J3w0mDJSXeJfZdn6wjAJ/tjsVxd0n2Vw=",
+        "owner": "acristoffers",
+        "repo": "gitlab.nvim",
+        "rev": "8756cd4a79b372d7f114a946b009962defcc9249",
+        "type": "github"
+      },
+      "original": {
+        "owner": "acristoffers",
+        "ref": "feature/nix-and-configurable-server-path",
+        "repo": "gitlab.nvim",
+        "type": "github"
+      }
+    },
     "ledger-formatter": {
       "inputs": {
         "flake-utils": [
@@ -144,8 +182,8 @@
     },
     "ledger-nvim": {
       "inputs": {
-        "flake-utils": "flake-utils_2",
-        "nixpkgs": "nixpkgs"
+        "flake-utils": "flake-utils_3",
+        "nixpkgs": "nixpkgs_2"
       },
       "locked": {
         "lastModified": 1770132102,
@@ -202,6 +240,22 @@
     },
     "nixpkgs": {
       "locked": {
+        "lastModified": 1770770419,
+        "narHash": "sha256-iKZMkr6Cm9JzWlRYW/VPoL0A9jVKtZYiU4zSrVeetIs=",
+        "owner": "NixOS",
+        "repo": "nixpkgs",
+        "rev": "6c5e707c6b5339359a9a9e215c5e66d6d802fd7a",
+        "type": "github"
+      },
+      "original": {
+        "owner": "NixOS",
+        "ref": "nixos-25.11",
+        "repo": "nixpkgs",
+        "type": "github"
+      }
+    },
+    "nixpkgs_2": {
+      "locked": {
         "lastModified": 1770073757,
         "narHash": "sha256-Vy+G+F+3E/Tl+GMNgiHl9Pah2DgShmIUBJXmbiQPHbI=",
         "owner": "NixOS",
@@ -216,13 +270,13 @@
         "type": "github"
       }
     },
-    "nixpkgs_2": {
+    "nixpkgs_3": {
       "locked": {
-        "lastModified": 1770056022,
-        "narHash": "sha256-yvCz+Qmci1bVucXEyac3TdoSPMtjqVJmVy5wro6j/70=",
+        "lastModified": 1770770419,
+        "narHash": "sha256-iKZMkr6Cm9JzWlRYW/VPoL0A9jVKtZYiU4zSrVeetIs=",
         "owner": "NixOS",
         "repo": "nixpkgs",
-        "rev": "d04d8548aed39902419f14a8537006426dc1e4fa",
+        "rev": "6c5e707c6b5339359a9a9e215c5e66d6d802fd7a",
         "type": "github"
       },
       "original": {
@@ -254,11 +308,12 @@
         "copilot-lualine-git": "copilot-lualine-git",
         "flake-utils": "flake-utils",
         "git-worktree-git": "git-worktree-git",
+        "gitlab-nvim": "gitlab-nvim",
         "ledger-formatter": "ledger-formatter",
         "ledger-nvim": "ledger-nvim",
         "lsp-setup-git": "lsp-setup-git",
         "matlab-lsp": "matlab-lsp",
-        "nixpkgs": "nixpkgs_2",
+        "nixpkgs": "nixpkgs_3",
         "project-nvim": "project-nvim",
         "snacks-git": "snacks-git",
         "tree-sitter-matlab": "tree-sitter-matlab",
@@ -327,14 +382,29 @@
         "type": "github"
       }
     },
+    "systems_4": {
+      "locked": {
+        "lastModified": 1681028828,
+        "narHash": "sha256-Vy1rq5AaRuLzOxct8nz4T6wlgyUR7zLU309k9mBC768=",
+        "owner": "nix-systems",
+        "repo": "default",
+        "rev": "da67096a3b9bf56a91d16901293e51ba5b49a27e",
+        "type": "github"
+      },
+      "original": {
+        "owner": "nix-systems",
+        "repo": "default",
+        "type": "github"
+      }
+    },
     "tree-sitter-matlab": {
       "flake": false,
       "locked": {
-        "lastModified": 1769961195,
-        "narHash": "sha256-946j40nbFHb/FgmtGv/NQDV6RIgkp2VuvC24tWViYUI=",
+        "lastModified": 1770192063,
+        "narHash": "sha256-gDecX1QrM6VhR/bIcHMtm7qBcmKq9KPu1OPbo0zCO1A=",
         "owner": "acristoffers",
         "repo": "tree-sitter-matlab",
-        "rev": "897b66e70ab3c2f6e6f4e3e0ac13c736650bbbfc",
+        "rev": "574dde565caddf8cf44eec7df3cb89eb96053ed7",
         "type": "github"
       },
       "original": {
@@ -369,18 +439,18 @@
     "zig-overlay": {
       "inputs": {
         "flake-compat": "flake-compat",
-        "flake-utils": "flake-utils_3",
+        "flake-utils": "flake-utils_4",
         "nixpkgs": [
           "zls",
           "nixpkgs"
         ]
       },
       "locked": {
-        "lastModified": 1768869426,
-        "narHash": "sha256-uy2O/9ySmh/QscqXE0td4maP+wjMBKPs7NKOU8LxSdA=",
+        "lastModified": 1770598090,
+        "narHash": "sha256-k+82IDgTd9o5sxHIqGlvfwseKln3Ejx1edGtDltuPXo=",
         "owner": "mitchellh",
         "repo": "zig-overlay",
-        "rev": "8010aa8a404e933ec1c74ed7673e14569ef5cfc8",
+        "rev": "142495696982c88edddc8e17e4da90d8164acadf",
         "type": "github"
       },
       "original": {
@@ -397,11 +467,11 @@
         "zig-overlay": "zig-overlay"
       },
       "locked": {
-        "lastModified": 1769369943,
-        "narHash": "sha256-RIFZnaWOYejhtdMZuIiS7XKT430B7D8jIdmljNIo6IE=",
+        "lastModified": 1770669724,
+        "narHash": "sha256-LTW82mozAvlC6KK5JYYp7aEsNVpkEFoLDA/cMkVHF0o=",
         "owner": "acristoffers",
         "repo": "zls",
-        "rev": "f6d2476552e616e093d3713364bc0295dcd64641",
+        "rev": "3de57dd10be7c4ab6e4b518b10e21bf7116e79af",
         "type": "github"
       },
       "original": {
