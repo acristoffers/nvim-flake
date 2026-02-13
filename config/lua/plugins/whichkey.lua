@@ -468,7 +468,7 @@ if ok_hop then
   which_key.add(specs)
 end
 
-local specs = {
+which_key.add({
   mode = { "v" },
   nowait = true,
   remap = false,
@@ -476,9 +476,15 @@ local specs = {
   { "<leader>s", ":sort<cr>", desc = "Sort" },
   { "<leader>S", ":sort i<cr>", desc = "Sort (Case Insensitive)" },
   { "<leader>u", ":!uniq <cr>", desc = "Unique" },
-}
+})
 
-which_key.add(specs)
+which_key.add({
+  mode = { "n" },
+  nowait = true,
+  remap = false,
+  { "gl", group = "GitLab" },
+  { "glt", group = "Templates" },
+})
 
 local marks_ok, marks = pcall(require, "marks")
 if marks_ok then

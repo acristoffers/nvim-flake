@@ -129,3 +129,8 @@ map({ "o", "x" }, "ih", "<Cmd>Gitsigns select_hunk<CR>", "Select hunk", {})
 map({ "n" }, "glq", function()
   require("gitlab").close_review()
 end, "Close the review window", {})
+
+map({ "n" }, "glta", GitLabTemplateApprove, "Approve", {})
+map({ "n" }, "gltc", GitLabTemplateComment, "Comment", {})
+map({ "n" }, "glts", GitLabTemplateStartReview, "Start Review", {})
+map({ "n" }, "gltr", GitLabTemplateRequestChanges, "Request Changes", {})

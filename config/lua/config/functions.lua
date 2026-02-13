@@ -408,29 +408,29 @@ if ok_telescope then
 
       if #flat_results > 0 then
         pickers
-            .new({}, {
-              prompt_title = "Code Actions",
-              finder = finders.new_table({
-                results = flat_results,
-                entry_maker = function(entry)
-                  return {
-                    value = entry,
-                    display = entry.title or "Unnamed action",
-                    ordinal = entry.title or "",
-                  }
-                end,
-              }),
-              sorter = conf.generic_sorter({}),
-              attach_mappings = function(prompt_bufnr, _)
-                actions.select_default:replace(function()
-                  local selection = action_state.get_selected_entry()
-                  actions.close(prompt_bufnr)
-                  apply_action_in_document(selection.value)
-                end)
-                return true
+          .new({}, {
+            prompt_title = "Code Actions",
+            finder = finders.new_table({
+              results = flat_results,
+              entry_maker = function(entry)
+                return {
+                  value = entry,
+                  display = entry.title or "Unnamed action",
+                  ordinal = entry.title or "",
+                }
               end,
-            })
-            :find()
+            }),
+            sorter = conf.generic_sorter({}),
+            attach_mappings = function(prompt_bufnr, _)
+              actions.select_default:replace(function()
+                local selection = action_state.get_selected_entry()
+                actions.close(prompt_bufnr)
+                apply_action_in_document(selection.value)
+              end)
+              return true
+            end,
+          })
+          :find()
       else
         print("No code actions available")
       end
@@ -475,4 +475,60 @@ function PickProject()
     end
   end
   require("snacks.picker").select(items, opts, on_choice):show()
+end
+
+--------------------------------------------------------------------------------
+--                                                                            --
+--                              GitLab Templates                              --
+--                                                                            --
+--------------------------------------------------------------------------------
+
+function GitLabTemplateApprove()
+  local template = {
+    "/approve",
+    '/unlabel ~"Status::Ready"',
+    '/unlabel ~"Status::Reviewing"',
+    '/unlabel ~"Status::ChangesRequested"',
+  }
+  local row, col = unpack(vim.api.nvim_win_get_cursor(0))
+  vim.api.nvim_buf_set_text(0, row - 1, col, row - 1, col, template)
+end
+
+function GitLabTemplateComment()
+  require("gitlab").data({ type = "info", refresh = true }, function(data)
+    local reviewer = data.info.reviewers[1].username
+    local template = {
+      "Done @" .. reviewer,
+      "/request_review @" .. reviewer,
+      '/unlabel ~"Status::ChangesRequested"',
+      '/label ~"Status::Ready"',
+      "/submit_review reviewed",
+    }
+    local row, col = unpack(vim.api.nvim_win_get_cursor(0))
+    vim.api.nvim_buf_set_text(0, row - 1, col, row - 1, col, template)
+  end)
+end
+
+function GitLabTemplateStartReview()
+  local template = {
+    '/unlabel ~"Status::Ready"',
+    '/label ~"Status::Reviewing"',
+  }
+  local row, col = unpack(vim.api.nvim_win_get_cursor(0))
+  vim.api.nvim_buf_set_text(0, row - 1, col, row - 1, col, template)
+end
+
+function GitLabTemplateRequestChanges()
+  require("gitlab").data({ type = "info", refresh = true }, function(data)
+    local assignee = data.info.assignee.username
+    local template = {
+      "Review done @" .. assignee,
+      "/submit_review requested_changes",
+      '/unlabel ~"Status::Ready"',
+      '/unlabel ~"Status::Reviewing"',
+      '/label ~"Status::ChangesRequested"',
+    }
+    local row, col = unpack(vim.api.nvim_win_get_cursor(0))
+    vim.api.nvim_buf_set_text(0, row - 1, col, row - 1, col, template)
+  end)
 end
