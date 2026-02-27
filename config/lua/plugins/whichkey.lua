@@ -354,20 +354,49 @@ local options = {
     { "<leader>qQ", ":qa!<cr>", desc = "Quit Anyway (without saving)" },
     { "<leader>qq", ":qa<cr>", desc = "Quit Neovim" },
     { "<leader>qa", ":xa<cr>", desc = "Quit Saving Everything" },
+    { "<leader>ql", group = "Sessions" },
+    { "<leader>qll", ":source ~/.local/share/nvim/session.vim<cr>", desc = "Load default session" },
+    { "<leader>qlL", ":source ~/.local/share/nvim/sessions/$HOSTNAME/session.vim<cr>", desc = "Load host session" },
+    { "<leader>qlS", ":mksession! ~/.local/share/nvim/session.vim<cr>", desc = "Save default session" },
     {
-      "<leader>ql",
-      ":source ~/.local/share/nvim/session.vim<cr>",
-      desc = "Load default session",
+      "<leader>qld",
+      function()
+        require("mini.sessions").delete()
+      end,
+      desc = "Delete",
     },
     {
-      "<leader>qL",
-      ":source ~/.local/share/nvim/sessions/$HOSTNAME/session.vim<cr>",
-      desc = "Load host session",
+      "<leader>qlo",
+      function()
+        require("mini.sessions").select()
+      end,
+      desc = "Open",
     },
     {
-      "<leader>qw",
-      ":mksession! ~/.local/share/nvim/session.vim<cr>",
-      desc = "Save default session",
+      "<leader>qls",
+      function()
+        if vim.v.this_session == nil or vim.v.this_session == "" then
+          vim.ui.input({ prompt = "Session name: " }, function(name)
+            if name ~= nil and name ~= "" then
+              require("mini.sessions").write(name)
+            end
+          end)
+        else
+          require("mini.sessions").write()
+        end
+      end,
+      desc = "Save",
+    },
+    {
+      "<leader>qln",
+      function()
+        vim.ui.input({ prompt = "Session name: " }, function(name)
+          if name ~= nil and name ~= "" then
+            require("mini.sessions").write(name)
+          end
+        end)
+      end,
+      desc = "Save with new name",
     },
     { "<leader>h", group = "Help" },
     { "<leader>hC", ":lua Snacks.picker.commands()<cr>", desc = "Commands" },

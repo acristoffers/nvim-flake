@@ -306,6 +306,9 @@
                       require("mini.pairs").setup()
                       require("mini.snippets").setup()
                       require("mini.splitjoin").setup()
+                      require("mini.sessions").setup({
+                        autowrite = false,
+                      })
                       require("mini.surround").setup({
                         respect_selection_type = true,
                         custom_surroundings = {
