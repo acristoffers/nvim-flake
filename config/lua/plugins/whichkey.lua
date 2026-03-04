@@ -361,7 +361,19 @@ local options = {
     {
       "<leader>qld",
       function()
-        require("mini.sessions").delete()
+        local sessions = {}
+        for _, session in pairs(require("mini.sessions").detected) do
+          table.insert(sessions, 1, session.name)
+        end
+        local opts = {
+          prompt = "Delete Session",
+        }
+        local on_choice = function(selected_item)
+          if selected_item ~= nil then
+            require("mini.sessions").delete(selected_item)
+          end
+        end
+        require("snacks.picker").select(sessions, opts, on_choice):show()
       end,
       desc = "Delete",
     },
