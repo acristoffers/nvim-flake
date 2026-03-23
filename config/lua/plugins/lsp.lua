@@ -97,6 +97,7 @@ local servers = {
   rust_analyzer = "lsp.settings.rust_analyzer",
   solargraph = "",
   texlab = "",
+  tinymist = "lsp.settings.typst",
   ts_ls = "",
   vimls = "",
   yamlls = "lsp.settings.yamlls",

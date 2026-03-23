@@ -143,11 +143,11 @@
         "nixpkgs": "nixpkgs"
       },
       "locked": {
-        "lastModified": 1770969425,
-        "narHash": "sha256-IeYiOW5Hz8kM+E+VdHAcyLOOFl3go1ksd+Scf1zyXFg=",
+        "lastModified": 1774080056,
+        "narHash": "sha256-3Y+6XKC8iNULHWo27pVZFulLY7i/6SRk6wPl72MTIow=",
         "owner": "acristoffers",
         "repo": "gitlab.nvim",
-        "rev": "bbcb640d3b1f9d65085f197fbd0324488bb93b61",
+        "rev": "829cefd0ac014af22d4afc9f3f9afad7d66b59f1",
         "type": "github"
       },
       "original": {
@@ -225,11 +225,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1762864037,
-        "narHash": "sha256-8m4A64iPYjLyt93lYS7llNoLNbsuRmw/3JY7IXm9Wmk=",
+        "lastModified": 1773510069,
+        "narHash": "sha256-0SQM9q2IfvDTYUNMmW3R7BEqbEGY/tVRZFtCv9pmOs8=",
         "owner": "acristoffers",
         "repo": "matlab-lsp",
-        "rev": "07e856f58c71b91b306597ad7ab13b91149a0345",
+        "rev": "1db4238c52df844df8c047be75b6f492a7c99f66",
         "type": "github"
       },
       "original": {
@@ -272,11 +272,11 @@
     },
     "nixpkgs_3": {
       "locked": {
-        "lastModified": 1771043024,
-        "narHash": "sha256-O1XDr7EWbRp+kHrNNgLWgIrB0/US5wvw9K6RERWAj6I=",
+        "lastModified": 1773964973,
+        "narHash": "sha256-NV/J+tTER0P5iJhUDL/8HO5MDjDceLQPRUYgdmy5wXw=",
         "owner": "NixOS",
         "repo": "nixpkgs",
-        "rev": "3aadb7ca9eac2891d52a9dec199d9580a6e2bf44",
+        "rev": "812b3986fd1568f7a858f97fcf425ad996ba7d25",
         "type": "github"
       },
       "original": {
@@ -324,11 +324,11 @@
     "snacks-git": {
       "flake": false,
       "locked": {
-        "lastModified": 1763464072,
-        "narHash": "sha256-vRedYg29QGPGW0hOX9qbRSIImh1d/SoDZHImDF2oqKM=",
+        "lastModified": 1774083139,
+        "narHash": "sha256-7lDH1JlTM+H/LWjMlAQPNY6A+xmS/cp+wChy4buGYIU=",
         "owner": "folke",
         "repo": "snacks.nvim",
-        "rev": "fe7cfe9800a182274d0f868a74b7263b8c0c020b",
+        "rev": "ad9ede6a9cddf16cedbd31b8932d6dcdee9b716e",
         "type": "github"
       },
       "original": {
@@ -400,11 +400,11 @@
     "tree-sitter-matlab": {
       "flake": false,
       "locked": {
-        "lastModified": 1770192063,
-        "narHash": "sha256-gDecX1QrM6VhR/bIcHMtm7qBcmKq9KPu1OPbo0zCO1A=",
+        "lastModified": 1772607405,
+        "narHash": "sha256-WgyWvItbysSqeD/LdBr233NYlKF1HaxIDtHIr6BQOjw=",
         "owner": "acristoffers",
         "repo": "tree-sitter-matlab",
-        "rev": "574dde565caddf8cf44eec7df3cb89eb96053ed7",
+        "rev": "c2390a59016f74e7d5f75ef09510768b4f30217e",
         "type": "github"
       },
       "original": {

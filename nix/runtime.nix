@@ -57,6 +57,7 @@ with pkgs;
   stylua
   taplo
   texlab
+  tinymist
   tree-sitter
   typescript
   vscode-langservers-extracted
