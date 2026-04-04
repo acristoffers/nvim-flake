@@ -94,7 +94,6 @@ local servers = {
   nushell = "",
   ocamllsp = "",
   pyright = "lsp.settings.pyright",
-  rust_analyzer = "lsp.settings.rust_analyzer",
   solargraph = "",
   texlab = "",
   tinymist = "lsp.settings.typst",
