@@ -5,6 +5,7 @@ local ignored_urls = {
   ".*mastodon.*",
   ".*instagram.*",
   ".*chatgpt.*",
+  ".*youtube.*",
   "matlab.mathworks.com"
 }
 
