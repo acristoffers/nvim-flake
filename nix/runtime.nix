@@ -15,6 +15,7 @@ with pkgs;
   bat
   black
   claude-code-acp
+  cursor-cli
   claude-code
   delta
   dune_3
