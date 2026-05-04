@@ -42,13 +42,6 @@ local options = {
     { "<leader>ch", ":LspClangdSwitchSourceHeader<cr>", desc = "Switch .h/.cpp" },
     { "<leader>ct", ":Trim<cr>", desc = "Trim trailling spaces" },
     { "<leader>cf", ":Format<cr>", desc = "Format (formatter.nvim)" },
-    {
-      "<leader>co",
-      function()
-        require("codex").toggle()
-      end,
-      desc = "Toggle Codex",
-    },
     { "<leader>d", group = "Debug" },
     {
       "<leader>du",

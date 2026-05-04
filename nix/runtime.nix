@@ -14,6 +14,8 @@ with pkgs;
 [
   bat
   black
+  claude-code-acp
+  claude-code
   delta
   dune_3
   elmPackages.elm-language-server

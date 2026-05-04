@@ -5,11 +5,6 @@ end
 
 require("lspconfig.ui.windows").default_options.border = "rounded"
 
-local ok_copilot, copilot = pcall(require, "copilot")
-if ok_copilot then
-  copilot.setup({ suggestion = { auto_trigger = true } })
-end
-
 vim.diagnostic.config({
   virtual_text = false,
   signs = true,

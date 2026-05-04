@@ -125,7 +125,7 @@ lualine.setup({
     lualine_a = { mode },
     lualine_b = {},
     lualine_c = { branch, diagnostics, buffer_number, "filename" },
-    lualine_x = { ledger, diff, spaces, encoding, "filetype", "copilot", "lsp_status", progress },
+    lualine_x = { ledger, diff, spaces, encoding, "filetype", "lsp_status", progress },
     lualine_y = {},
     lualine_z = { "location" },
   },

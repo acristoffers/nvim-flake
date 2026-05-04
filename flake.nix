@@ -29,13 +29,7 @@
     lsp-setup-git.url = "github:junnplus/lsp-setup.nvim";
     lsp-setup-git.flake = false;
 
-    codex-nvim.url = "github:johnseth97/codex.nvim";
-    codex-nvim.flake = false;
-
     gitlab-nvim.url = "github:acristoffers/gitlab.nvim?ref=feature/nix-and-configurable-server-path";
-
-    copilot-lualine-git.url = "github:AndreM222/copilot-lualine";
-    copilot-lualine-git.flake = false;
 
     git-worktree-git.url = "github:awerebea/git-worktree.nvim/handle_changes_in_telescope_api";
     git-worktree-git.flake = false;
@@ -59,10 +53,8 @@
         git-plugins = with pkgs.vimUtils; with inputs; {
           lsp-setup = buildVimPlugin { name = "lsp-setup"; src = lsp-setup-git; doCheck = false; };
           git-worktree = buildVimPlugin { name = "git-worktree.nvim"; src = git-worktree-git; doCheck = false; };
-          copilot-lualine = buildVimPlugin { name = "copilot-lualine.nvim"; src = copilot-lualine-git; doCheck = false; };
           snacks = buildVimPlugin { name = "snacks.nvim"; src = snacks-git; doCheck = false; };
           project-nvim = buildVimPlugin { name = "project.nvim"; src = project-nvim; doCheck = false; };
-          codex-nvim = buildVimPlugin { name = "codex.nvim"; src = codex-nvim; doCheck = false; };
         };
         neovim = pkgs.neovim.override {
           viAlias = true;
@@ -91,16 +83,6 @@
                       require("config.options")
                     end,
                   },
-                  {
-                    "copilot",
-                    dir = "${pkgs.vimPlugins.copilot-lua}",
-                    opts = {
-                      lsp_binary = "${pkgs.copilot-language-server}/bin/copilot-language-server",
-                    },
-                    lazy = false,
-                    priority = 1000,
-                  },
-
                   -- Not lazy
                   {
                     "catppuccin",
@@ -157,25 +139,6 @@
                   { "neogit", dir = "${pkgs.vimPlugins.neogit}" },
 
                   -- Lazy on condition
-                  {
-                    "codex-nvim",
-                    cmd = { 'Codex', 'CodexToggle' },
-                    dir = "${git-plugins.codex-nvim}",
-                    keys = {},
-                    opts = {
-                      keymaps     = {
-                        toggle = nil, -- Keybind to toggle Codex window (Disabled by default, watch out for conflicts)
-                        quit = '<C-c>', -- Keybind to close the Codex window (default: Ctrl + q)
-                      },         -- Disable internal default keymap (<leader>cc -> :CodexToggle)
-                      border      = 'rounded',  -- Options: 'single', 'double', or 'rounded'
-                      width       = 0.8,        -- Width of the floating window (0.0 to 1.0)
-                      height      = 0.8,        -- Height of the floating window (0.0 to 1.0)
-                      model       = nil,        -- Optional: pass a string to use a specific model (e.g., 'o3-mini')
-                      autoinstall = true,       -- Automatically install the Codex CLI if not found
-                      panel       = true,       -- Open Codex in a side-panel (vertical split) instead of floating window
-                      use_buffer  = false,      -- Capture Codex stdout into a normal buffer instead of a terminal buffer
-                    },
-                  },
                   { "nvim-fzf", event = "VeryLazy", dir = "${pkgs.vimPlugins.nvim-fzf}" },
                   { "targets-vim", event = "VeryLazy", dir = "${pkgs.vimPlugins.targets-vim}" },
                   { "trouble-nvim", event = "VeryLazy", dir = "${pkgs.vimPlugins.trouble-nvim}" },
@@ -366,7 +329,6 @@
                       require("plugins.lualine")
                     end,
                     dependencies = {
-                      { "copilot-lualine", dir = "${git-plugins.copilot-lualine}" },
                       { "lualine-lsp-progress", dir = "${pkgs.vimPlugins.lualine-lsp-progress}" },
                     },
                   },
@@ -471,12 +433,13 @@
                     opts = {
                       strategies = {
                         chat = {
-                          name = "openai",
-                          model = "gpt-5",
+                          adapter = "claude_code",
                         },
                         inline = {
-                          name = "copilot",
-                          model = "gpt-5",
+                          adapter = "claude_code",
+                        },
+                        agent = {
+                          adapter = "claude_code",
                         },
                       },
                     },

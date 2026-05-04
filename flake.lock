@@ -1,37 +1,5 @@
 {
   "nodes": {
-    "codex-nvim": {
-      "flake": false,
-      "locked": {
-        "lastModified": 1763603761,
-        "narHash": "sha256-hvBsqLzV3oCVWK4Ll/YDrDhZSTjpvUjTpDQz6SFbtVo=",
-        "owner": "johnseth97",
-        "repo": "codex.nvim",
-        "rev": "e1149cbc875ff71ee21f8832b9fe815a270442b3",
-        "type": "github"
-      },
-      "original": {
-        "owner": "johnseth97",
-        "repo": "codex.nvim",
-        "type": "github"
-      }
-    },
-    "copilot-lualine-git": {
-      "flake": false,
-      "locked": {
-        "lastModified": 1762302740,
-        "narHash": "sha256-HYNqPdwatrNTNUGo6I2SzmNxSI4iqX+Ls7GHQcU8+Fk=",
-        "owner": "AndreM222",
-        "repo": "copilot-lualine",
-        "rev": "222e90bd8dcdf16ca1efc4e784416afb5f011c31",
-        "type": "github"
-      },
-      "original": {
-        "owner": "AndreM222",
-        "repo": "copilot-lualine",
-        "type": "github"
-      }
-    },
     "flake-compat": {
       "flake": false,
       "locked": {
@@ -345,8 +313,6 @@
     },
     "root": {
       "inputs": {
-        "codex-nvim": "codex-nvim",
-        "copilot-lualine-git": "copilot-lualine-git",
         "flake-utils": "flake-utils",
         "git-worktree-git": "git-worktree-git",
         "gitlab-nvim": "gitlab-nvim",
