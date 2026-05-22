@@ -67,7 +67,6 @@ vim.cmd([[
 vim.api.nvim_set_hl(0, "@variable.matlab", { link = "Identifier" })
 
 vim.g.mapleader = " "
-vim.g.gitblame_virtual_text_column = 102
 vim.g.lion_squeeze_spaces = 1
 vim.g.vimtex_view_general_options = "--unique file:@pdf#src:@line@tex"
 vim.g.vimtex_view_general_viewer = "okular"
