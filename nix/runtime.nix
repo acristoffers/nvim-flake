@@ -12,15 +12,17 @@ let
 in
 with pkgs;
 [
+  bash-language-server
   bat
   black
+  claude-code
   claude-code-acp
   cursor-cli
-  claude-code
   delta
   dune_3
   elmPackages.elm-language-server
   emmet-ls
+  eslint
   fd
   fish-lsp
   flutter
@@ -33,7 +35,7 @@ with pkgs;
   inputs.ledger-formatter.packages.${system}.default
   inputs.matlab-lsp.packages.${system}.default
   inputs.wbproto-beautifier.packages.${system}.default
-  inputs.zls.inputs.zig-overlay.packages.${system}.master
+  inputs.zls.inputs.zig-flake.packages.${system}.default
   inputs.zls.packages.${system}.default
   kotlin-language-server
   llvmPackages_19.clang-tools
@@ -42,11 +44,7 @@ with pkgs;
   marksman
   neocmakelsp
   nil
-  nodePackages_latest.bash-language-server
-  nodePackages_latest.eslint
-  nodePackages_latest.nodejs
-  nodePackages_latest.typescript-language-server
-  nodePackages_latest.vim-language-server
+  nodejs
   nushell
   ocamlPackages.ocaml-lsp
   ocamlPackages.ocamlformat
@@ -63,6 +61,8 @@ with pkgs;
   tinymist
   tree-sitter
   typescript
+  typescript-language-server
+  vim-language-server
   vscode-langservers-extracted
   yaml-language-server
 ]
