@@ -15,8 +15,8 @@ with pkgs;
   bash-language-server
   bat
   black
+  claude-agent-acp
   claude-code
-  claude-code-acp
   cursor-cli
   delta
   dune_3
