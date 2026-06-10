@@ -21,3 +21,8 @@ catppuccin.setup({
     which_key = true,
   }
 })
+
+vim.cmd([[
+  colorscheme catppuccin
+  highlight CursorLine guibg=#21222C
+]])

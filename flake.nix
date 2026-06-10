@@ -23,16 +23,16 @@
     project-nvim.url = "github:acristoffers/project.nvim";
     project-nvim.flake = false;
 
-    tree-sitter-matlab.url = "github:acristoffers/tree-sitter-matlab";
-    tree-sitter-matlab.flake = false;
-
     lsp-setup-git.url = "github:junnplus/lsp-setup.nvim";
     lsp-setup-git.flake = false;
 
-    gitlab-nvim.url = "github:acristoffers/gitlab.nvim?ref=feature/nix-and-configurable-server-path";
+    wbproto.url = "github:acristoffers/tree-sitter-wbproto";
+    wbproto.flake = false;
 
     git-worktree-git.url = "github:awerebea/git-worktree.nvim/handle_changes_in_telescope_api";
     git-worktree-git.flake = false;
+
+    gitlab-nvim.url = "github:acristoffers/gitlab.nvim?ref=feature/nix-and-configurable-server-path";
 
     snacks-git.url = "github:folke/snacks.nvim";
     snacks-git.flake = false;
@@ -45,16 +45,16 @@
         ledger-nvim = inputs.ledger-nvim.packages.${system}.default;
         gitlab-nvim = inputs.gitlab-nvim.packages.${system}.default;
         gitlab-nvim-server = inputs.gitlab-nvim.packages.${system}.gitlab-nvim-server;
-        personal-config = pkgs.vimUtils.buildVimPlugin {
-          name = "personal-config";
-          src = ./config;
-          doCheck = false;
-        };
         git-plugins = with pkgs.vimUtils; with inputs; {
           lsp-setup = buildVimPlugin { name = "lsp-setup"; src = lsp-setup-git; doCheck = false; };
           git-worktree = buildVimPlugin { name = "git-worktree.nvim"; src = git-worktree-git; doCheck = false; };
           snacks = buildVimPlugin { name = "snacks.nvim"; src = snacks-git; doCheck = false; };
           project-nvim = buildVimPlugin { name = "project.nvim"; src = project-nvim; doCheck = false; };
+        };
+        personal-config = pkgs.vimUtils.buildVimPlugin {
+          name = "personal-config";
+          src = ./config;
+          doCheck = false;
         };
         neovim = pkgs.neovim.override {
           viAlias = true;
@@ -66,450 +66,63 @@
           configure = {
             customRC = ''
               lua <<EOF
-              vim.g.tsmatlabrev = '${inputs.tree-sitter-matlab.rev}'
-              require("init")
-              require("lazy").setup({
-                spec = {
-                  -- lazy changes the rtp, so we have to add it again
-                  {
-                    "init",
-                    dir = "${personal-config}",
-                    lazy = false,
-                    priority = 1000,
-                    config = function()
-                      require("config.autocommands")
-                      require("config.functions")
-                      require("config.keybindings")
-                      require("config.options")
-                    end,
-                  },
-                  -- Not lazy
-                  {
-                    "catppuccin",
-                    dir = "${pkgs.vimPlugins.catppuccin-nvim}",
-                    lazy = false, -- make sure we load this during startup if it is your main colorscheme
-                    priority = 1000, -- make sure to load this before all the other start plugins
-                    config = function()
-                      require("plugins.catppuccin")
-                      vim.cmd([[
-                        call setenv("FULL_NIX_SHELL", 1)
-                        se nu rnu tabstop=2 shiftwidth=2 smarttab expandtab
-                        colorscheme catppuccin
-                        highlight CursorLine guibg=#21222C
-                      ]])
-                    end,
-                  },
-                  {
-                    "nvim-treesitter",
-                    lazy = false,
-                    dir = "${pkgs.vimPlugins.nvim-treesitter.withAllGrammars}",
-                    config = function() require("plugins.treesitter") end,
-                    dependencies = {
-                      { "nvim-treesitter-context", dir = "${pkgs.vimPlugins.nvim-treesitter-context}" },
-                      { "nvim-treesitter-textobjects", dir = "${pkgs.vimPlugins.nvim-treesitter-textobjects}" },
-                      { "nvim-ts-context-commentstring", dir = "${pkgs.vimPlugins.nvim-ts-context-commentstring}" },
-                    }
-                  },
-                  {
-                    "rainbow-delimiters-nvim",
-                    lazy = false,
-                    dir = "${pkgs.vimPlugins.rainbow-delimiters-nvim}",
-                    config = function()
-                      require("plugins.rainbow")
-                    end,
-                    dependencies = { "nvim-treesitter" }
-                  },
-                  {
-                    "firenvim",
-                    lazy = false,
-                    dir = "${pkgs.vimPlugins.firenvim}",
-                    config = function()
-                      require("plugins.firenvim")
-                    end
-                  },
-                  { "text-case.nvim", lazy=false, dir = "${pkgs.vimPlugins.text-case-nvim}" },
-                  { "vim-windowswap", lazy=false, dir = "${pkgs.vimPlugins.vim-windowswap}" },
-
-                  -- Lazy on require
-                  { "plenary", dir = "${pkgs.vimPlugins.plenary-nvim}" },
-                  { "diffview.nvim", dir = "${pkgs.vimPlugins.diffview-nvim}" },
-                  { "nui.nvim", dir = "${pkgs.vimPlugins.nui-nvim}" },
-                  { "marks", dir = "${pkgs.vimPlugins.marks-nvim}"},
-                  { "colorizer", dir = "${pkgs.vimPlugins.nvim-colorizer-lua}" },
-                  { "neogit", dir = "${pkgs.vimPlugins.neogit}" },
-
-                  -- Lazy on condition
-                  { "nvim-fzf", event = "VeryLazy", dir = "${pkgs.vimPlugins.nvim-fzf}" },
-                  { "targets-vim", event = "VeryLazy", dir = "${pkgs.vimPlugins.targets-vim}" },
-                  { "trouble-nvim", event = "VeryLazy", dir = "${pkgs.vimPlugins.trouble-nvim}" },
-                  { "undotree", event = "VeryLazy", dir = "${pkgs.vimPlugins.undotree}" },
-                  { "rustaceanvim", ft = {"rust"} , dir = "${pkgs.vimPlugins.rustaceanvim}" },
-                  { "vim-illuminate", event = "VeryLazy", dir = "${pkgs.vimPlugins.vim-illuminate}" },
-                  { "vim-sneak", event = "VeryLazy", dir = "${pkgs.vimPlugins.vim-sneak}" },
-                  { "vim-tridactyl", event = "VeryLazy", dir = "${pkgs.vimPlugins.vim-tridactyl}" },
-                  { "virtual-types-nvim", event = "VeryLazy", dir = "${pkgs.vimPlugins.virtual-types-nvim}" },
-                  { "nvim-web-devicons", event = "VeryLazy", dir = "${pkgs.vimPlugins.nvim-web-devicons}" },
-                  { "nvim-nio", event = "VeryLazy", dir = "${pkgs.vimPlugins.nvim-nio}" },
-                  {
-                    "nvim-dap",
-                    event = "VeryLazy",
-                    dir = "${pkgs.vimPlugins.nvim-dap}",
-                    config = function()
-                      local dap = require("dap")
-                      dap.adapters.gdb = { type = "executable", command = "gdb", args = { "--quiet", "--interpreter=dap" } }
-                      dap.configurations.c = {
-                        {
-                          name = "Attach to process",
-                          type = "gdb",
-                          request = "attach",
-                          pid = require("dap.utils").pick_process,
-                        },
-                        {
-                          name = 'Run executable (GDB)',
-                          type = 'gdb',
-                          request = 'launch',
-                          program = function()
-                              local path = vim.fn.input({
-                                prompt = 'Path to executable: ',
-                                default = vim.fn.getcwd() .. '/',
-                                completion = 'file',
-                              })
-                              return (path and path ~= "") and path or dap.ABORT
-                          end,
-                        },
-                        {
-                          name = 'Run executable with arguments (GDB)',
-                          type = 'gdb',
-                          request = 'launch',
-                          program = function()
-                            local path = vim.fn.input({
-                              prompt = 'Path to executable: ',
-                              default = vim.fn.getcwd() .. '/',
-                              completion = 'file',
-                            })
-                            return (path and path ~= "") and path or dap.ABORT
-                          end,
-                          args = function()
-                            local args_str = vim.fn.input({ prompt = 'Arguments: ' })
-                            return vim.split(args_str, ' +')
-                          end,
-                        },
-                      }
-                      dap.configurations.cpp = dap.configurations.c
-                    end
-                  },
-                  {
-                    "nvim-nvim-dap-virtual-text",
-                    event = "VeryLazy",
-                    dir = "${pkgs.vimPlugins.nvim-dap-virtual-text}",
-                    dependencies = { "nvim-dap" },
-                    config = function()
-                      require"nvim-dap-virtual-text".setup()
-                    end
-                  },
-                  {
-                    "nvim-dap-ui",
-                    event = "VeryLazy",
-                    dir = "${pkgs.vimPlugins.nvim-dap-ui}",
-                    dependencies = {"nvim-dap", "nvim-nio"},
-                    config = function()
-                      local dap, dapui = require("dap"), require("dapui")
-                      dapui.setup()
-                      dap.listeners.before.attach.dapui_config = dapui.open
-                      dap.listeners.before.launch.dapui_config = dapui.open
-                      dap.listeners.before.event_terminated.dapui_config = dapui.close
-                      dap.listeners.before.event_exited.dapui_config = dapui.close
-                    end
-                    },
-                  {
-                    "ledger-nvim",
-                    ft = { "ledger" },
-                    dir = "${ledger-nvim}",
-                    config = function()
-                      require("ledger").setup({
-                        bank_accounts = {"Bank:Checking:BNP", "Bank:Checking:Revolut", "Bank:Checking:NuBank", "Bank:Checking:Wise"},
-                      })
-                    end
-                  },
-                  {
-                    "snacks.nvim",
-                    priority = 999,
-                    lazy = false,
-                    dir = "${git-plugins.snacks}",
-                    opts = {
-                      bigfile      = { enabled = true },
-                      bufdelete    = { enabled = true },
-                      dashboard    = { enabled = true, example = "doom" },
-                      explorer     = { enabled = true, replace_netrw = true },
-                      git          = { enabled = true },
-                      indent       = { enabled = true },
-                      input        = { enabled = true },
-                      notifier     = { enabled = true },
-                      notify       = { enabled = true },
-                      picker       = { enabled = true, layout = { preset = "telescope" } },
-                      quickfile    = { enabled = true },
-                      scope        = { enabled = true },
-                      scroll       = { enabled = false },
-                      statuscolumn = { enabled = true },
-                      toggle       = { enabled = true },
-                      words        = { enabled = true },
-                    },
-                  },
-                  {
-                    "mini.nvim",
-                    priority = 1000,
-                    lazy = false,
-                    dir = "${pkgs.vimPlugins.mini-nvim}",
-                    config = function()
-                      require("mini.ai").setup({ n_lines = 500 })
-                      require("mini.align").setup()
-                      require("mini.comment").setup()
-                      require("mini.icons").setup()
-                      require("mini.move").setup()
-                      require("mini.pairs").setup()
-                      require("mini.snippets").setup()
-                      require("mini.splitjoin").setup()
-                      require("mini.sessions").setup({
-                        autowrite = false,
-                      })
-                      require("mini.surround").setup({
-                        respect_selection_type = true,
-                        custom_surroundings = {
-                          ['c'] = {
-                            input = { '`().-()`' },
-                            output = { left = '`', right = '`' }
-                          },
-                          ['C'] = {
-                            input = { '```().-()```' },
-                            output = { left = '```', right = '```' }
-                          },
-                          ['m'] = {
-                            input = { '\\%(().-()\\%)' },
-                            output = { left = '\\( ', right = ' \\)' }
-                          },
-                        }
-                      })
-                    end
-                  },
-                  {
-                    "blink.cmp",
-                    event = "VeryLazy",
-                    dir = "${pkgs.vimPlugins.blink-cmp}",
-                    config = function()
-                      require("plugins.blink")
-                    end
-                  },
-                  {
-                    "advanced-git-search-nvim",
-                    cmd = { "AdvancedGitSearch" },
-                    dir = "${pkgs.vimPlugins.advanced-git-search-nvim}",
-                    config = function()
-                      require("advanced_git_search.snacks").setup()
-                    end,
-                    dependencies = { "vim-fugitive" },
-                  },
-                  {
-                    "vim-fugitive",
-                    event = "VeryLazy",
-                    dir = "${pkgs.vimPlugins.vim-fugitive}",
-                  },
-                  {
-                    "lspconfig",
-                    event = "VeryLazy",
-                    dir = "${pkgs.vimPlugins.nvim-lspconfig}",
-                    config = function()
-                      require("plugins.lsp")
-                    end,
-                  },
-                  {
-                    "lualine",
-                    event = "VeryLazy",
-                    dir = "${pkgs.vimPlugins.lualine-nvim}",
-                    config = function()
-                      require("plugins.lualine")
-                    end,
-                    dependencies = {
-                      { "lualine-lsp-progress", dir = "${pkgs.vimPlugins.lualine-lsp-progress}" },
-                    },
-                  },
-                  {
-                    "formatter-nvim",
-                    event = "VeryLazy",
-                    dir = "${pkgs.vimPlugins.formatter-nvim}",
-                    config = function()
-                      require("plugins.format")
-                    end
-                  },
-                  {
-                    "git-conflict-nvim",
-                    event = "VeryLazy",
-                    dir = "${pkgs.vimPlugins.git-conflict-nvim}",
-                    config = function()
-                      require("plugins.git-conflict")
-                    end
-                  },
-                  {
-                    "git-worktree",
-                    event = "VeryLazy",
-                    dir = "${git-plugins.git-worktree}",
-                    config = function()
-                      require("plugins.other")
-                    end
-                  },
-                  {
-                    "gitsigns-nvim",
-                    event = "VeryLazy",
-                    dir = "${pkgs.vimPlugins.gitsigns-nvim}",
-                    config = function()
-                      require("plugins.gitsigns")
-                    end
-                  },
-                  {
-                    "gitlab.nvim",
-                    dir = "${gitlab-nvim}",
-                    event = "VeryLazy",
-                    dependencies = {
-                      "nui.nvim",
-                      "plenary",
-                      "diffview.nvim",
-                      "nvim-web-devicons",
-                    },
-                    config = function()
-                      require("gitlab").setup({
-                        server = {
-                          binary = "${gitlab-nvim-server}/bin/gitlab.nvim",
-                        }
-                      })
-                    end,
-                  },
-                  {
-                    "project-nvim",
-                    event = "VeryLazy",
-                    dir = "${git-plugins.project-nvim}",
-                    -- dir = "${pkgs.vimPlugins.project-nvim}",
-                    config = function()
-                     require("plugins.project")
-                    end
-                  },
-                  {
-                    "orgmode",
-                    ft = "org",
-                    dir = "${pkgs.vimPlugins.orgmode}",
-                    config = function()
-                      require("plugins.orgmode")
-                    end
-                  },
-                  {
-                    "trim-nvim",
-                    event = "VeryLazy",
-                    dir = "${pkgs.vimPlugins.trim-nvim}",
-                    config = function()
-                      require("plugins.trim")
-                    end
-                  },
-                  {
-                    "markdown-nvim",
-                    ft = { "markdown" },
-                    dir = "${pkgs.vimPlugins.markdown-nvim}",
-                    config = function()
-                      require("plugins.markdown")
-                    end
-                  },
-                  {
-                    "which-key",
-                    event = "VeryLazy",
-                    dir = "${pkgs.vimPlugins.which-key-nvim}",
-                    config = function()
-                      require("plugins.whichkey")
-                    end,
-                    dependencies = {
-                      { "hop-nvim", dir = "${pkgs.vimPlugins.hop-nvim}" },
-                    },
-                  },
-                  {
-                    "codecompanion",
-                    event = "VeryLazy",
-                    dir = "${pkgs.vimPlugins.codecompanion-nvim}",
-                    config = function()
-                      local helpers = require("codecompanion.adapters.acp.helpers")
-                      require("codecompanion").setup({
-                        adapters = {
-                          acp = {
-                            cursor_cli = function()
-                              return {
-                                name = "cursor_cli",
-                                formatted_name = "Cursor",
-                                type = "acp",
-                                roles = { llm = "assistant", user = "user" },
-                                opts = { vision = true },
-                                commands = {
-                                  default = { "cursor-agent", "acp" },
-                                },
-                                defaults = { mcpServers = {}, timeout = 20000 },
-                                parameters = {
-                                  protocolVersion = 1,
-                                  clientCapabilities = {
-                                    fs = { readTextFile = true, writeTextFile = true },
-                                  },
-                                  clientInfo = {
-                                    name = "CodeCompanion.nvim",
-                                    version = "1.0.0",
-                                  },
-                                },
-                                handlers = {
-                                  setup = function(self) return true end,
-                                  auth = function(self) return true end,
-                                  form_messages = function(self, messages, capabilities)
-                                    return helpers.form_messages(self, messages, capabilities)
-                                  end,
-                                  on_exit = function(self, code) end,
-                                },
-                              }
-                            end,
-                          },
-                        },
-                        strategies = {
-                          chat = { adapter = "claude_code" },
-                          inline = { adapter = "claude_code" },
-                          agent = { adapter = "claude_code" },
-                        },
-                      })
-                    end,
-                    dependencies = {
-                      "plenary",
-                      "nvim-treesitter",
-                    }
-                  },
-                  {
-                    "markview-nvim",
-                    lazy = false,
-                    priority = 49,
-                    dir = "${pkgs.vimPlugins.markview-nvim}",
-                    config = function ()
-                      require'markview'.setup {
-                        preview = {
-                          edit_range = { 0, 0 },
-                          filetypes = { "markdown", "codecompanion" },
-                          hybrid_modes = { "n", "i" },
-                          icon_provider = "mini",
-                          ignore_buftypes = {},
-                          linewise_hybrid_mode = true,
-                          modes = { "n", "i" },
-                        }
-                      }
-                    end
-                  }
-                },
-                defaults = { lazy = true },
-                checker = { enabled = false },
-              })
+                vim.g.gitlab_server_bin = "${gitlab-nvim-server}/bin/gitlab.nvim"
+                dofile("${import ./nix/treesitter.nix { inherit pkgs; inherit inputs; }}")
+                require("alan")
               EOF
             '';
-            packages.all = with pkgs.vimPlugins; {
+            packages.all = {
               start = [
+                git-plugins.snacks
+                gitlab-nvim
+                ledger-nvim
                 personal-config
-                lazy-nvim
-                copilot-lua
+                pkgs.vimPlugins.advanced-git-search-nvim
+                pkgs.vimPlugins.blink-cmp
+                pkgs.vimPlugins.catppuccin-nvim
+                pkgs.vimPlugins.codecompanion-nvim
+                pkgs.vimPlugins.diffview-nvim
+                pkgs.vimPlugins.firenvim
+                pkgs.vimPlugins.formatter-nvim
+                pkgs.vimPlugins.git-conflict-nvim
+                pkgs.vimPlugins.gitsigns-nvim
+                pkgs.vimPlugins.hop-nvim
+                pkgs.vimPlugins.lualine-lsp-progress
+                pkgs.vimPlugins.lualine-nvim
+                pkgs.vimPlugins.markdown-nvim
+                pkgs.vimPlugins.marks-nvim
+                pkgs.vimPlugins.markview-nvim
+                pkgs.vimPlugins.mini-nvim
+                pkgs.vimPlugins.neogit
+                pkgs.vimPlugins.nui-nvim
+                pkgs.vimPlugins.nvim-colorizer-lua
+                pkgs.vimPlugins.nvim-dap
+                pkgs.vimPlugins.nvim-dap-ui
+                pkgs.vimPlugins.nvim-dap-virtual-text
+                pkgs.vimPlugins.nvim-fzf
+                pkgs.vimPlugins.nvim-lspconfig
+                pkgs.vimPlugins.nvim-nio
+                pkgs.vimPlugins.nvim-treesitter-context
+                pkgs.vimPlugins.nvim-treesitter-textobjects
+                pkgs.vimPlugins.nvim-ts-context-commentstring
+                pkgs.vimPlugins.nvim-web-devicons
+                pkgs.vimPlugins.orgmode
+                pkgs.vimPlugins.plenary-nvim
+                pkgs.vimPlugins.project-nvim
+                pkgs.vimPlugins.rainbow-delimiters-nvim
+                pkgs.vimPlugins.rustaceanvim
+                pkgs.vimPlugins.targets-vim
+                pkgs.vimPlugins.text-case-nvim
+                pkgs.vimPlugins.trim-nvim
+                pkgs.vimPlugins.trouble-nvim
+                pkgs.vimPlugins.undotree
+                pkgs.vimPlugins.vim-fugitive
+                pkgs.vimPlugins.vim-illuminate
+                pkgs.vimPlugins.vim-sneak
+                pkgs.vimPlugins.vim-tridactyl
+                pkgs.vimPlugins.vim-windowswap
+                pkgs.vimPlugins.virtual-types-nvim
+                pkgs.vimPlugins.which-key-nvim
               ];
             };
           };

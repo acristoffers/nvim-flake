@@ -4,16 +4,23 @@
 
 (function_call
   (arguments)? @call.inner) @call.outer
-((arguments ","? @_start . (_) @parameter.inner . )
- (#make-range! "parameter.outer" @_start @parameter.inner))
-((arguments (_) @parameter.inner . "," @_end)
- (#make-range! "parameter.outer" @parameter.inner @_end))
+
+(arguments
+  .
+  (_) @parameter.inner @parameter.outer
+  .
+  ","? @parameter.outer)
+(arguments
+  "," @parameter.outer
+  .
+  (_) @parameter.inner @parameter.outer)
 
 (command) @call.outer
 (command (command_argument) @parameter.inner @parameter.outer)
 (command
-  (command_argument) @_start (command_argument)* @_end .
-  (#make-range! "call.inner" @_start @_end))
+  .
+  (command_argument)+ @call.inner
+  .)
 
 (if_statement
   (block) @conditional.inner) @conditional.outer
@@ -49,15 +56,25 @@
 
 (function_output (identifier) @parameter.inner @parameter.outer)
 
-((function_arguments ","? @_start . (_) @parameter.inner . )
- (#make-range! "parameter.outer" @_start @parameter.inner))
-((function_arguments (_) @parameter.inner . "," @_end)
- (#make-range! "parameter.outer" @parameter.inner @_end))
+(function_arguments
+  .
+  (_) @parameter.inner @parameter.outer
+  .
+  ","? @parameter.outer)
+(function_arguments
+  "," @parameter.outer
+  .
+  (_) @parameter.inner @parameter.outer)
 
-((multioutput_variable ","? @_start . (_) @parameter.inner . )
- (#make-range! "parameter.outer" @_start @parameter.inner))
-((multioutput_variable (_) @parameter.inner . "," @_end)
- (#make-range! "parameter.outer" @parameter.inner @_end))
+(multioutput_variable
+  .
+  (_) @parameter.inner @parameter.outer
+  .
+  ","? @parameter.outer)
+(multioutput_variable
+  "," @parameter.outer
+  .
+  (_) @parameter.inner @parameter.outer)
 
 (try_statement
   (block) @conditional.inner) @conditional.outer
@@ -80,31 +97,56 @@
   left: (_) @assignment.lhs
   (_) @assignment.rhs) @assignment.outer
 
-((superclasses "&"? @_start . (_) @parameter.inner . )
- (#make-range! "parameter.outer" @_start @parameter.inner))
-((superclasses (_) @parameter.inner . "&" @_end)
- (#make-range! "parameter.outer" @parameter.inner @_end))
+(superclasses
+  .
+  (_) @parameter.inner @parameter.outer
+  .
+  "&"? @parameter.outer)
+(superclasses
+  "&" @parameter.outer
+  .
+  (_) @parameter.inner @parameter.outer)
 
 (enum (identifier) @parameter.inner @parameter.outer)
 
 (property name: (_) @parameter.outer @parameter.inner)
 
-((enum ","? @_start . (_) @parameter.inner . )
- (#make-range! "parameter.outer" @_start @parameter.inner))
-((enum (_) @parameter.inner . "," @_end)
- (#make-range! "parameter.outer" @parameter.inner @_end))
+(enum
+  .
+  (_) @parameter.inner @parameter.outer
+  .
+  ","? @parameter.outer)
+(enum
+  "," @parameter.outer
+  .
+  (_) @parameter.inner @parameter.outer)
 
-((validation_functions ","? @_start . (_) @parameter.inner . )
- (#make-range! "parameter.outer" @_start @parameter.inner))
-((validation_functions (_) @parameter.inner . "," @_end)
- (#make-range! "parameter.outer" @parameter.inner @_end))
+(validation_functions
+  .
+  (_) @parameter.inner @parameter.outer
+  .
+  ","? @parameter.outer)
+(validation_functions
+  "," @parameter.outer
+  .
+  (_) @parameter.inner @parameter.outer)
 
-((dimensions ","? @_start . (_) @parameter.inner . )
- (#make-range! "parameter.outer" @_start @parameter.inner))
-((dimensions (_) @parameter.inner . "," @_end)
- (#make-range! "parameter.outer" @parameter.inner @_end))
+(dimensions
+  .
+  (_) @parameter.inner @parameter.outer
+  .
+  ","? @parameter.outer)
+(dimensions
+  "," @parameter.outer
+  .
+  (_) @parameter.inner @parameter.outer)
 
-((attributes ","? @_start . (_) @parameter.inner . )
- (#make-range! "parameter.outer" @_start @parameter.inner))
-((attributes (_) @parameter.inner . "," @_end)
- (#make-range! "parameter.outer" @parameter.inner @_end))
+(attributes
+  .
+  (_) @parameter.inner @parameter.outer
+  .
+  ","? @parameter.outer)
+(attributes
+  "," @parameter.outer
+  .
+  (_) @parameter.inner @parameter.outer)

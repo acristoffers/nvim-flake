@@ -1,0 +1,18 @@
+require("snacks").setup({
+  bigfile = { enabled = true },
+  bufdelete = { enabled = true },
+  dashboard = { enabled = false, example = "doom" },
+  explorer = { enabled = true, replace_netrw = true },
+  git = { enabled = true },
+  indent = { enabled = true },
+  input = { enabled = true },
+  notifier = { enabled = true },
+  notify = { enabled = true },
+  picker = { enabled = true, layout = { preset = "telescope" } },
+  quickfile = { enabled = true },
+  scope = { enabled = true },
+  scroll = { enabled = false },
+  statuscolumn = { enabled = true },
+  toggle = { enabled = true },
+  words = { enabled = true },
+})

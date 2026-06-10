@@ -1,6 +1,8 @@
 (section
-  (atx_heading) (_) @_start (_)* @_end .
-  (#make-range! "section.inner" @_start @_end)) @section.outer
+  (atx_heading)
+  .
+  (_)+ @section.inner
+  .) @section.outer
 
 (list) @list.outer @list.inner
 

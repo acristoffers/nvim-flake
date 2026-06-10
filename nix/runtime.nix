@@ -1,7 +1,7 @@
 { pkgs, inputs }:
 
 let
-  python = pkgs.python313.withPackages (
+  python = pkgs.python314.withPackages (
     ps: with ps; [
       mdformat
       mdformat-gfm
@@ -15,6 +15,7 @@ with pkgs;
   bash-language-server
   bat
   black
+  clang-tools
   claude-agent-acp
   claude-code
   cursor-cli
@@ -38,7 +39,6 @@ with pkgs;
   inputs.zls.inputs.zig-flake.packages.${system}.default
   inputs.zls.packages.${system}.default
   kotlin-language-server
-  llvmPackages_19.clang-tools
   lua-language-server
   luajitPackages.luarocks
   marksman

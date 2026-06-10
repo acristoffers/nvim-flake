@@ -1,7 +1,12 @@
+vim.g.mapleader = " "
+
+vim.opt.whichwrap:append("<,>,[,],h,l")
+vim.opt.iskeyword:append("-")
+
 local options = {
-  backup = false,            -- creates a backup file
-  clipboard = "unnamedplus", -- allows neovim to access the system clipboard
-  cmdheight = 1,             -- more space in the neovim command line for displaying messages
+  backup = false,                          -- creates a backup file
+  clipboard = "unnamedplus",               -- allows neovim to access the system clipboard
+  cmdheight = 1,                           -- more space in the neovim command line for displaying messages
   colorcolumn = "121",
   commentstring = "",
   completeopt = { "menuone", "noselect" }, -- mostly just for cmp
@@ -9,12 +14,19 @@ local options = {
   cursorline = true,                       -- highlight the current line
   encoding = "utf-8",                      -- the encoding used for the editor
   expandtab = true,                        -- convert tabs to spaces
+  indentexpr = "v:lua.vim.treesitter.indentexpr()",
   fileencoding = "utf-8",                  -- the encoding written to a file
-  guifont= "JetBrainsMonoNL Nerd Font",
+  foldenable = false,
+  foldexpr = "v:lua.vim.treesitter.foldexpr()",
+  foldmethod = "expr",
+  guifont = "JetBrainsMonoNL Nerd Font",
   hlsearch = true,                         -- highlight all matches on previous search pattern
   ignorecase = true,                       -- ignore case in search patterns
   inccommand = "split",                    -- show substitutions in a split window
+  laststatus = 3,
   mouse = "a",                             -- allow the mouse to be used in neovim
+  mousemoveevent = true,
+  nrformats = "bin,octal,hex,alpha",
   number = true,                           -- set numbered lines
   numberwidth = 4,                         -- set number column width to 2 {default 4}
   pumheight = 10,                          -- pop up menu height
@@ -44,35 +56,5 @@ local options = {
 for k, v in pairs(options) do
   vim.opt[k] = v
 end
-
-vim.cmd([[
-  highlight rainbowcol1 guifg=#bd93f9
-  set whichwrap+=<,>,[,],h,l
-  set iskeyword+=-
-  set laststatus=3
-  set nrformats=bin,octal,hex,alpha
-  set foldmethod=expr
-  set foldexpr=nvim_treesitter#foldexpr()
-  set nofoldenable
-  set mousemoveevent
-  let g:sneak#label = 1
-  let g:sneak#s_next = 1
-  map gS <Plug>Sneak_,
-  map gs <Plug>Sneak_;
-  highlight Sneak guifg=black guibg=#00C7DF ctermfg=black ctermbg=cyan
-  highlight SneakScope guifg=red guibg=yellow ctermfg=red ctermbg=yellow
-  let g:sneak#prompt = '🔎  '
-]])
-
-vim.api.nvim_set_hl(0, "@variable.matlab", { link = "Identifier" })
-
-vim.g.mapleader = " "
-vim.g.lion_squeeze_spaces = 1
-vim.g.vimtex_view_general_options = "--unique file:@pdf#src:@line@tex"
-vim.g.vimtex_view_general_viewer = "okular"
-vim.g.vimtex_syntax_enabled = 0
-vim.g.Tex_FoldedEnvironments = ""
-vim.g.Tex_FoldedMisc = ""
-vim.g.Tex_FoldedSections = ""
 
 vim.opt.runtimepath:prepend(vim.fn.expand("~/.local/share/nvim"))

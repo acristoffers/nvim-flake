@@ -20,7 +20,9 @@ project.setup({
 
   -- Table of lsp clients to ignore by name
   -- eg: { "efm", ... }
-  ignore_lsp = {},
+  lsp = {
+    ignore = {}
+  },
 
   -- Don't calculate root dir on specific directories
   -- Ex: { "~/.cargo/*", ... }
@@ -41,7 +43,8 @@ project.setup({
 
   -- Path where project.nvim will store the project history for use in
   -- telescope
-  datapath = vim.fn.stdpath("data"),
-
-  historysize = 0,
+  history = {
+    save_dir = vim.fn.stdpath("data"),
+    size = 0,
+  },
 })

@@ -289,7 +289,7 @@
         "nixpkgs": "nixpkgs_3",
         "project-nvim": "project-nvim",
         "snacks-git": "snacks-git",
-        "tree-sitter-matlab": "tree-sitter-matlab",
+        "wbproto": "wbproto",
         "wbproto-beautifier": "wbproto-beautifier",
         "zls": "zls"
       }
@@ -370,19 +370,19 @@
         "type": "github"
       }
     },
-    "tree-sitter-matlab": {
+    "wbproto": {
       "flake": false,
       "locked": {
-        "lastModified": 1772607405,
-        "narHash": "sha256-WgyWvItbysSqeD/LdBr233NYlKF1HaxIDtHIr6BQOjw=",
+        "lastModified": 1721672918,
+        "narHash": "sha256-oBo41rvptzQzsyD6chjbvOfiH9+SVVX+s3+yDvSXWk4=",
         "owner": "acristoffers",
-        "repo": "tree-sitter-matlab",
-        "rev": "c2390a59016f74e7d5f75ef09510768b4f30217e",
+        "repo": "tree-sitter-wbproto",
+        "rev": "fd7c99b141635d9e046a829d78961dcdcfdd3c59",
         "type": "github"
       },
       "original": {
         "owner": "acristoffers",
-        "repo": "tree-sitter-matlab",
+        "repo": "tree-sitter-wbproto",
         "type": "github"
       }
     },

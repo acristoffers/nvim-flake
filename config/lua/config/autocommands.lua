@@ -72,9 +72,18 @@ local groups = {
     {
       event = "FileType",
       options = {
+        pattern = { "yaml" },
+        callback = function()
+          vim.bo.indentexpr = ""
+        end,
+      },
+    },
+    {
+      event = "FileType",
+      options = {
         pattern = { "tex" },
         callback = function()
-          local ok, ts_select = pcall(require, "nvim-treesitter.textobjects.select")
+          local ok, ts_select = pcall(require, "nvim-treesitter-textobjects.select")
           if not ok then
             return
           end
@@ -84,10 +93,10 @@ local groups = {
             vim.keymap.set(mode, lhs, rhs, vim.tbl_extend("force", opts, { desc = desc }))
           end
 
-          map("x", "am", function() select("@math.outer") end, "Select math (outer)")
-          map("o", "am", function() select("@math.outer") end, "Select math (outer)")
-          map("x", "im", function() select("@math.inner") end, "Select math (inner)")
-          map("o", "im", function() select("@math.inner") end, "Select math (inner)")
+          map("x", "am", function() select("@math.outer", "textobjects") end, "Select math (outer)")
+          map("o", "am", function() select("@math.outer", "textobjects") end, "Select math (outer)")
+          map("x", "im", function() select("@math.inner", "textobjects") end, "Select math (inner)")
+          map("o", "im", function() select("@math.inner", "textobjects") end, "Select math (inner)")
 
           map("x", "aS", function() select("@class.outer") end, "Select class (outer)")
           map("o", "aS", function() select("@class.outer") end, "Select class (outer)")
@@ -192,7 +201,7 @@ local groups = {
             setlocal spell
           ]])
           SetTab(2)
-          local ok, ts_select = pcall(require, "nvim-treesitter.textobjects.select")
+          local ok, ts_select = pcall(require, "nvim-treesitter-textobjects.select")
           if not ok then
             return
           end
@@ -202,20 +211,20 @@ local groups = {
             vim.keymap.set(mode, lhs, rhs, vim.tbl_extend("force", opts, { desc = desc }))
           end
 
-          map("x", "aS", function() select("@section.outer") end, "Select section (outer)")
-          map("o", "aS", function() select("@section.outer") end, "Select section (outer)")
-          map("x", "iS", function() select("@section.inner") end, "Select section (inner)")
-          map("o", "iS", function() select("@section.inner") end, "Select section (inner)")
+          map("x", "aS", function() select("@section.outer", "textobjects") end, "Select section (outer)")
+          map("o", "aS", function() select("@section.outer", "textobjects") end, "Select section (outer)")
+          map("x", "iS", function() select("@section.inner", "textobjects") end, "Select section (inner)")
+          map("o", "iS", function() select("@section.inner", "textobjects") end, "Select section (inner)")
 
-          map("x", "ai", function() select("@list_item.outer") end, "Select list item (outer)")
-          map("o", "ai", function() select("@list_item.outer") end, "Select list item (outer)")
-          map("x", "ii", function() select("@list_item.inner") end, "Select list item (inner)")
-          map("o", "ii", function() select("@list_item.inner") end, "Select list item (inner)")
+          map("x", "ai", function() select("@list_item.outer", "textobjects") end, "Select list item (outer)")
+          map("o", "ai", function() select("@list_item.outer", "textobjects") end, "Select list item (outer)")
+          map("x", "ii", function() select("@list_item.inner", "textobjects") end, "Select list item (inner)")
+          map("o", "ii", function() select("@list_item.inner", "textobjects") end, "Select list item (inner)")
 
-          map("x", "al", function() select("@list.outer") end, "Select list (outer)")
-          map("o", "al", function() select("@list.outer") end, "Select list (outer)")
-          map("x", "il", function() select("@list.inner") end, "Select list (inner)")
-          map("o", "il", function() select("@list.inner") end, "Select list (inner)")
+          map("x", "al", function() select("@list.outer", "textobjects") end, "Select list (outer)")
+          map("o", "al", function() select("@list.outer", "textobjects") end, "Select list (outer)")
+          map("x", "il", function() select("@list.inner", "textobjects") end, "Select list (inner)")
+          map("o", "il", function() select("@list.inner", "textobjects") end, "Select list (inner)")
 
           map("x", "am", ':lua NamedNodeSnipe({"latex_block"})<cr>', "Select LaTeX block")
           map("o", "am", ':lua NamedNodeSnipe({"latex_block"})<cr>', "Select LaTeX block")
