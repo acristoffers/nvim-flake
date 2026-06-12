@@ -477,6 +477,25 @@ function PickProject()
   require("snacks.picker").select(items, opts, on_choice):show()
 end
 
+function ChangeGitsignsBaseWithPicker()
+  local has_snacks, snacks = pcall(require, "snacks")
+  local has_gitsigns, gitsigns = pcall(require, "gitsigns")
+  if not has_snacks or not has_gitsigns then
+    vim.notify("Snacks or Gitsigns not found", vim.log.levels.ERROR)
+    return
+  end
+  snacks.picker.git_log({
+    confirm = function(picker, item)
+      picker:close()
+      if item and item.commit then
+        gitsigns.change_base(item.commit, true)
+      else
+        vim.notify("No commit selected", vim.log.levels.WARN)
+      end
+    end,
+  })
+end
+
 --------------------------------------------------------------------------------
 --                                                                            --
 --                              GitLab Templates                              --
