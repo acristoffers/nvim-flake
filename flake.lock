@@ -174,22 +174,6 @@
         "type": "github"
       }
     },
-    "lsp-setup-git": {
-      "flake": false,
-      "locked": {
-        "lastModified": 1747271058,
-        "narHash": "sha256-IRWvT4uSyyuV1Gm9l0PW3itzYHntP6kLvXztNcUNsnA=",
-        "owner": "junnplus",
-        "repo": "lsp-setup.nvim",
-        "rev": "f3acd127ca0f6bf5516622aafd87de7290ca8159",
-        "type": "github"
-      },
-      "original": {
-        "owner": "junnplus",
-        "repo": "lsp-setup.nvim",
-        "type": "github"
-      }
-    },
     "matlab-lsp": {
       "inputs": {
         "flake-utils": [
@@ -261,22 +245,6 @@
         "type": "github"
       }
     },
-    "project-nvim": {
-      "flake": false,
-      "locked": {
-        "lastModified": 1757465854,
-        "narHash": "sha256-5XgVvpYQv9e4ZEu1gD6hJlzjOEswYF53yM2a/Y4+tzc=",
-        "owner": "acristoffers",
-        "repo": "project.nvim",
-        "rev": "dc4999fa208011950f47a5cb39a477ab91302db9",
-        "type": "github"
-      },
-      "original": {
-        "owner": "acristoffers",
-        "repo": "project.nvim",
-        "type": "github"
-      }
-    },
     "root": {
       "inputs": {
         "flake-utils": "flake-utils",
@@ -284,10 +252,8 @@
         "gitlab-nvim": "gitlab-nvim",
         "ledger-formatter": "ledger-formatter",
         "ledger-nvim": "ledger-nvim",
-        "lsp-setup-git": "lsp-setup-git",
         "matlab-lsp": "matlab-lsp",
         "nixpkgs": "nixpkgs_3",
-        "project-nvim": "project-nvim",
         "snacks-git": "snacks-git",
         "wbproto": "wbproto",
         "wbproto-beautifier": "wbproto-beautifier",

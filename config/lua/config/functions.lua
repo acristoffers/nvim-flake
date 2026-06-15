@@ -158,6 +158,9 @@ end
 
 function NamedNodeAroundCursor(node_names)
   local parser = vim.treesitter.get_parser()
+  if parser == nil then
+    return
+  end
   local tree = parser:trees()[1]
   local root = tree:root()
 
@@ -179,6 +182,9 @@ end
 
 function NamedNodeAfterCursor(node_names)
   local parser = vim.treesitter.get_parser()
+  if parser == nil then
+    return
+  end
   local tree = parser:trees()[1]
   local root = tree:root()
 
@@ -376,8 +382,12 @@ if ok_telescope then
                   return apply_action_in_document(selected_action)
                 end
                 if action.command then
-                  vim.lsp.buf.execute_command(action.command)
-                  return apply_action_in_document(selected_action)
+                  local clients = vim.lsp.get_clients({ bufnr = 0, id = client_id })
+                  if #clients > 0 then
+                    local client = clients[0]
+                    client:exec_cmd(action.command)
+                    return apply_action_in_document(selected_action)
+                  end
                 end
               end
             end
@@ -408,29 +418,29 @@ if ok_telescope then
 
       if #flat_results > 0 then
         pickers
-          .new({}, {
-            prompt_title = "Code Actions",
-            finder = finders.new_table({
-              results = flat_results,
-              entry_maker = function(entry)
-                return {
-                  value = entry,
-                  display = entry.title or "Unnamed action",
-                  ordinal = entry.title or "",
-                }
+            .new({}, {
+              prompt_title = "Code Actions",
+              finder = finders.new_table({
+                results = flat_results,
+                entry_maker = function(entry)
+                  return {
+                    value = entry,
+                    display = entry.title or "Unnamed action",
+                    ordinal = entry.title or "",
+                  }
+                end,
+              }),
+              sorter = conf.generic_sorter({}),
+              attach_mappings = function(prompt_bufnr, _)
+                actions.select_default:replace(function()
+                  local selection = action_state.get_selected_entry()
+                  actions.close(prompt_bufnr)
+                  apply_action_in_document(selection.value)
+                end)
+                return true
               end,
-            }),
-            sorter = conf.generic_sorter({}),
-            attach_mappings = function(prompt_bufnr, _)
-              actions.select_default:replace(function()
-                local selection = action_state.get_selected_entry()
-                actions.close(prompt_bufnr)
-                apply_action_in_document(selection.value)
-              end)
-              return true
-            end,
-          })
-          :find()
+            })
+            :find()
       else
         print("No code actions available")
       end
@@ -463,15 +473,19 @@ function PickProject()
   local opts = {
     prompt = "Switch Project",
     format_item = function(item)
-      return vim.fn.fnamemodify(item, ":t") .. " (" .. item .. ")"
+      return vim.fn.fnamemodify(item.name, ":t") .. " (" .. item.path .. ")"
     end,
   }
   local on_choice = function(selected_item)
-    local result = require("project.api").set_pwd(selected_item, "Snack")
+    if selected_item == nil then
+      return
+    end
+    local path = selected_item.path
+    local result = require("project.core").set_pwd(path, "snacks")
     if result then
-      require("snacks.picker").files({ cwd = selected_item })
+      require("snacks.picker").files({ cwd = path })
     else
-      vim.notify("Failed to changed PWD to " .. selected_item)
+      vim.notify("Failed to changed PWD to " .. path)
     end
   end
   require("snacks.picker").select(items, opts, on_choice):show()

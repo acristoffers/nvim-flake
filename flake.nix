@@ -20,12 +20,6 @@
 
     ledger-nvim.url = "github:acristoffers/ledger.nvim";
 
-    project-nvim.url = "github:acristoffers/project.nvim";
-    project-nvim.flake = false;
-
-    lsp-setup-git.url = "github:junnplus/lsp-setup.nvim";
-    lsp-setup-git.flake = false;
-
     wbproto.url = "github:acristoffers/tree-sitter-wbproto";
     wbproto.flake = false;
 
@@ -46,10 +40,8 @@
         gitlab-nvim = inputs.gitlab-nvim.packages.${system}.default;
         gitlab-nvim-server = inputs.gitlab-nvim.packages.${system}.gitlab-nvim-server;
         git-plugins = with pkgs.vimUtils; with inputs; {
-          lsp-setup = buildVimPlugin { name = "lsp-setup"; src = lsp-setup-git; doCheck = false; };
           git-worktree = buildVimPlugin { name = "git-worktree.nvim"; src = git-worktree-git; doCheck = false; };
           snacks = buildVimPlugin { name = "snacks.nvim"; src = snacks-git; doCheck = false; };
-          project-nvim = buildVimPlugin { name = "project.nvim"; src = project-nvim; doCheck = false; };
         };
         personal-config = pkgs.vimUtils.buildVimPlugin {
           name = "personal-config";
@@ -73,6 +65,7 @@
             '';
             packages.all = {
               start = [
+                git-plugins.git-worktree
                 git-plugins.snacks
                 gitlab-nvim
                 ledger-nvim
