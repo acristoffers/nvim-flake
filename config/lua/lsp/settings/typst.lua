@@ -1,8 +1,8 @@
 return {
-  root_dir = require('lspconfig.util').root_pattern('.projectile', 'Makefile', '.git'),
+  root_markers = { '.projectile', 'Makefile', '.git' },
   settings = {
-    rootPath = ".", -- interpreted relative to the chosen root_dir
     formatterMode = "typstyle",
+    systemFonts = false,
     fontPaths = { "./fonts" },
   }
 }

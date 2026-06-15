@@ -1,8 +1,3 @@
-local ok, _ = pcall(require, "lspconfig")
-if not ok then
-  return
-end
-
 require("lspconfig.ui.windows").default_options.border = "rounded"
 
 vim.diagnostic.config({
