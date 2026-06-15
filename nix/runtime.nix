@@ -39,9 +39,12 @@ with pkgs;
   inputs.zls.inputs.zig-flake.packages.${system}.default
   inputs.zls.packages.${system}.default
   kotlin-language-server
+  lldb
   lua-language-server
   luajitPackages.luarocks
   marksman
+  mercurial
+  mermaid-cli
   neocmakelsp
   nil
   nodejs
@@ -59,6 +62,7 @@ with pkgs;
   taplo
   texlab
   tinymist
+  tmux
   tree-sitter
   typescript
   typescript-language-server

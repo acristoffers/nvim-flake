@@ -75,6 +75,7 @@
                 pkgs.vimPlugins.catppuccin-nvim
                 pkgs.vimPlugins.codecompanion-nvim
                 pkgs.vimPlugins.diffview-nvim
+                pkgs.vimPlugins.dressing-nvim
                 pkgs.vimPlugins.firenvim
                 pkgs.vimPlugins.formatter-nvim
                 pkgs.vimPlugins.git-conflict-nvim

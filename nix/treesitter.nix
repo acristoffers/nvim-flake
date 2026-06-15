@@ -83,6 +83,7 @@ pkgs.writeText "treesitter.lua" ''
   add_language("nginx", nil, "${pkgs.tree-sitter-grammars.tree-sitter-nginx}/parser")
   add_language("nim", nil, "${pkgs.tree-sitter-grammars.tree-sitter-nim}/parser")
   add_language("nix", nil, "${pkgs.tree-sitter-grammars.tree-sitter-nix}/parser")
+  add_language("norg", nil, "${pkgs.tree-sitter-grammars.tree-sitter-norg}/parser")
   add_language("nu", nil, "${pkgs.tree-sitter-grammars.tree-sitter-nu}/parser")
   add_language("ocaml", nil, "${pkgs.tree-sitter-grammars.tree-sitter-ocaml}/parser")
   add_language("ocamllex", nil, "${pkgs.tree-sitter-grammars.tree-sitter-ocamllex}/parser")
