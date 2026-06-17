@@ -17,7 +17,7 @@
 (while condition: (_) @loop.inner (content)? @loop.inner (group)? @loop.inne (block)? @loop.innerr) @loop.outer
 
 (item . _ _+ @_start @_end _* @_end (#make-range! @_start @_end "list_item.inner")) @list_item.outer
-(item)+ @list.inner @list.outer
+((item) (parbreak)?)+ @list.inner @list.outer
 
 (math . (_)+ @_start @_end (_)* @_end (#make-range! @_start @_end "math.inner")) @math.outer
 
