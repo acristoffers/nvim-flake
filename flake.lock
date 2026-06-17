@@ -142,11 +142,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1755377764,
-        "narHash": "sha256-Auz+8L3O3m0zkQaIwDpc1pppJFVTln/DRruaZRmOva0=",
+        "lastModified": 1781614795,
+        "narHash": "sha256-k3VYbhWpFWq5zWSdzx4pbjw3+dFxWGF/f8VUozQNeio=",
         "owner": "acristoffers",
         "repo": "ledger-formatter",
-        "rev": "34a89453b7c5591ebb97d7b5bdd09a6d2e6e451c",
+        "rev": "614c9ac2cc7a5f27afbef4030de24f3db68a4cee",
         "type": "github"
       },
       "original": {
@@ -231,11 +231,11 @@
     },
     "nixpkgs_3": {
       "locked": {
-        "lastModified": 1780902259,
-        "narHash": "sha256-q8yYEC5f1mFlQO9RGna4LTc9QrcvWunX6FYp83munkQ=",
+        "lastModified": 1781216227,
+        "narHash": "sha256-9mUW6gNwoN2SWc/l0fW4svPNOulXLl8ijqKyeSOGgJE=",
         "owner": "NixOS",
         "repo": "nixpkgs",
-        "rev": "bd0ff2d3eac24699c3664d5966b9ef36f388e2ca",
+        "rev": "a0374025a863d007d98e3297f6aa46cc3141c2f0",
         "type": "github"
       },
       "original": {
@@ -362,11 +362,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1727006011,
-        "narHash": "sha256-E558f/0Okkt/Er/n2PWYvpPbIrwCN8e9VycHNzBR/eI=",
+        "lastModified": 1781614962,
+        "narHash": "sha256-yQhU5GUAurEKKDrbkjhQszWAei9PuWf2mCrRc9XcPIU=",
         "owner": "acristoffers",
         "repo": "wbproto-beautifier",
-        "rev": "6b92dd7eac725238292eb8b8059b519d1eb0bb95",
+        "rev": "0ad507478443fc3e8c7979c20864a1b9d2e822b8",
         "type": "github"
       },
       "original": {

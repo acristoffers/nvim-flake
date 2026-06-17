@@ -565,3 +565,33 @@ function GitLabTemplateRequestChanges()
     vim.api.nvim_buf_set_text(0, row - 1, col, row - 1, col, template)
   end)
 end
+
+--------------------------------------------------------------------------------
+--                                                                            --
+--                      tree-sitter make-range! directive                     --
+--                                                                            --
+--------------------------------------------------------------------------------
+
+---@diagnostic disable-next-line: unused-local
+local function make_range(match, _pattern, _bufnr, predicate, metadata)
+  local capture_id = predicate[2] -- @_start
+  local end_id     = predicate[3] -- @_end
+  local name       = predicate[4] -- "block.inner"
+
+  local start_node = match[capture_id] and match[capture_id][1]
+  local end_node   = match[end_id] and match[end_id][#match[end_id]]
+
+  if not start_node or not end_node then
+    return
+  end
+
+  local sr, sc, sb = start_node:start()
+  local er, ec, eb = end_node:end_()
+
+  metadata.range = {
+    sr, sc, sb,
+    er, ec, eb,
+    name,
+  }
+end
+vim.treesitter.query.add_directive("make-range!", make_range, {})

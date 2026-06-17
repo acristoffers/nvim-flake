@@ -231,6 +231,56 @@ local groups = {
         end,
       },
     },
+    {
+      event = "FileType",
+      options = {
+        pattern = { "typst" },
+        callback = function()
+          vim.cmd([[
+            setlocal wrap
+            setlocal spell
+          ]])
+          SetTab(2)
+          local ok, ts_select = pcall(require, "nvim-treesitter-textobjects.select")
+          if not ok then
+            return
+          end
+          local opts = { buffer = true, silent = true, noremap = true }
+          local select = ts_select.select_textobject
+          local function map(mode, lhs, rhs, desc)
+            vim.keymap.set(mode, lhs, rhs, vim.tbl_extend("force", opts, { desc = desc }))
+          end
+
+          map("x", "aS", function() select("@section.outer", "textobjects") end, "Select section (outer)")
+          map("o", "aS", function() select("@section.outer", "textobjects") end, "Select section (outer)")
+          map("x", "iS", function() select("@section.inner", "textobjects") end, "Select section (inner)")
+          map("o", "iS", function() select("@section.inner", "textobjects") end, "Select section (inner)")
+
+          map("x", "ai", function() select("@list_item.outer", "textobjects") end, "Select list item (outer)")
+          map("o", "ai", function() select("@list_item.outer", "textobjects") end, "Select list item (outer)")
+          map("x", "ii", function() select("@list_item.inner", "textobjects") end, "Select list item (inner)")
+          map("o", "ii", function() select("@list_item.inner", "textobjects") end, "Select list item (inner)")
+
+          map("x", "aL", function() select("@list.outer", "textobjects") end, "Select list (outer)")
+          map("o", "aL", function() select("@list.outer", "textobjects") end, "Select list (outer)")
+
+          map("x", "am", function() select("@math.outer", "textobjects") end, "Select math (outer)")
+          map("o", "am", function() select("@math.outer", "textobjects") end, "Select math (outer)")
+          map("x", "im", function() select("@math.inner", "textobjects") end, "Select math (inner)")
+          map("o", "im", function() select("@math.inner", "textobjects") end, "Select math (inner)")
+
+          map("x", "a^", function() select("@superscript.outer") end, "Select superscript (outer)")
+          map("o", "a^", function() select("@superscript.outer") end, "Select superscript (outer)")
+          map("x", "i^", function() select("@superscript.inner") end, "Select superscript (inner)")
+          map("o", "i^", function() select("@superscript.inner") end, "Select superscript (inner)")
+
+          map("x", "a_", function() select("@subscript.outer") end, "Select subscript (outer)")
+          map("o", "a_", function() select("@subscript.outer") end, "Select subscript (outer)")
+          map("x", "i_", function() select("@subscript.inner") end, "Select subscript (inner)")
+          map("o", "i_", function() select("@subscript.inner") end, "Select subscript (inner)")
+        end,
+      },
+    },
   },
   autoresize = {
     {
