@@ -4,6 +4,7 @@ vim.opt.whichwrap:append("<,>,[,],h,l")
 vim.opt.iskeyword:append("-")
 
 local options = {
+  autoindent = true,
   backup = false,                          -- creates a backup file
   clipboard = "unnamedplus",               -- allows neovim to access the system clipboard
   cmdheight = 1,                           -- more space in the neovim command line for displaying messages
@@ -14,7 +15,6 @@ local options = {
   cursorline = true,                       -- highlight the current line
   encoding = "utf-8",                      -- the encoding used for the editor
   expandtab = true,                        -- convert tabs to spaces
-  indentexpr = "v:lua.vim.treesitter.indentexpr()",
   fileencoding = "utf-8",                  -- the encoding written to a file
   foldenable = false,
   foldexpr = "v:lua.vim.treesitter.foldexpr()",
@@ -39,6 +39,7 @@ local options = {
   sidescrolloff = 0,
   signcolumn = "yes",                      -- always show the sign column, otherwise it would shift the text each time
   smartcase = true,                        -- smart case
+  smartindent = true,
   softtabstop = 2,
   splitbelow = true,                       -- force all horizontal splits to go below current window
   splitright = true,                       -- force all vertical splits to go to the right of current window
