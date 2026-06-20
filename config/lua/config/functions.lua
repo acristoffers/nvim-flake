@@ -595,3 +595,47 @@ local function make_range(match, _pattern, _bufnr, predicate, metadata)
   }
 end
 vim.treesitter.query.add_directive("make-range!", make_range, {})
+
+--------------------------------------------------------------------------------
+--                                                                            --
+--                        Tinymist main file selection                        --
+--                                                                            --
+--------------------------------------------------------------------------------
+
+function PickTinymistMainFile()
+  -- Ensure snacks is installed
+  local has_snacks, snacks = pcall(require, "snacks")
+  if not has_snacks then
+    vim.notify("Snacks.nvim is required for this function", vim.log.levels.ERROR)
+    return
+  end
+
+  -- Launch snacks picker filtered for typst files
+  snacks.picker.files({
+    title = "Select Typst Main File",
+    cmd = "fd",
+    args = { "--type", "f", "--extension", "typ" },
+    actions = {
+      confirm = function(picker, item)
+        picker:close()
+        if not item or not item.text then return end
+        local chosen_file = item.text
+        local clients = vim.lsp.get_clients({ name = "tinymist" })
+        if #clients == 0 then
+          vim.notify("Tinymist LSP is not active in this buffer", vim.log.levels.WARN)
+          return
+        end
+        for _, client in ipairs(clients) do
+          client.config.settings = vim.tbl_deep_extend("force", client.config.settings or {}, {
+            typstExtraArgs = { chosen_file }
+          })
+          client:notify("workspace/didChangeConfiguration", {
+            settings = client.config.settings
+          })
+        end
+
+        vim.notify("Tinymist main file set to: " .. chosen_file, vim.log.levels.INFO)
+      end
+    }
+  })
+end

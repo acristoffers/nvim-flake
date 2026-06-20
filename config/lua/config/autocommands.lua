@@ -278,6 +278,8 @@ local groups = {
           map("o", "a_", function() select("@subscript.outer") end, "Select subscript (outer)")
           map("x", "i_", function() select("@subscript.inner") end, "Select subscript (inner)")
           map("o", "i_", function() select("@subscript.inner") end, "Select subscript (inner)")
+
+          map("n", "<leader>mr", PickTinymistMainFile, "Change root file")
         end,
       },
     },
