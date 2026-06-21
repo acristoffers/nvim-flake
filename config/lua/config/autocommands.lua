@@ -93,6 +93,8 @@ local groups = {
             vim.keymap.set(mode, lhs, rhs, vim.tbl_extend("force", opts, { desc = desc }))
           end
 
+          vim.opt.textwidth = 80
+
           map("x", "am", function() select("@math.outer", "textobjects") end, "Select math (outer)")
           map("o", "am", function() select("@math.outer", "textobjects") end, "Select math (outer)")
           map("x", "im", function() select("@math.inner", "textobjects") end, "Select math (inner)")
@@ -241,6 +243,7 @@ local groups = {
             setlocal spell
           ]])
           SetTab(2)
+          vim.opt.textwidth = 80 -- Makes the text break roughly where it breaks on A4 at 12pt
           local ok, ts_select = pcall(require, "nvim-treesitter-textobjects.select")
           if not ok then
             return
