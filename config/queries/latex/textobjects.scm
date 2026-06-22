@@ -64,7 +64,7 @@
 (latex_include           (curly_group_path path: _ @command.inner)) @command.outer
 (biblatex_include        (curly_group_glob_pattern pattern: _ @command.inner)) @command.outer
 (title_declaration text: (curly_group _ @command.inner)) @command.outer
-(label_definition  name: (curly_group_text text: _ @command.inner)) @command.outer
+(label_definition  name: (curly_group_label label: _ @command.inner)) @command.outer
 
 (new_command_definition
   declaration: (curly_group_command_name command: _ @call.inner) @call.outer
