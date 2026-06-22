@@ -145,6 +145,31 @@ local groups = {
   },
   general = {
     {
+      event = { "BufRead" },
+      options = {
+        callback = function()
+          local function find_project_root(start_path)
+            local root_markers = {
+              '.git', '.hg', '.bzr', '.svn', 'Makefile', 'package.json', 'flake.nix',
+              'CMakeLists.txt'
+            }
+            -- Search upward for any of the markers
+            local match = vim.fs.find(root_markers, {
+              path = start_path,
+              upward = true,
+            })[1]
+            if match then
+              return vim.fs.dirname(match)
+            end
+            return start_path
+          end
+          local path = vim.fn.expand('%:p:h')
+          path = find_project_root(path)
+          vim.cmd("lcd " .. path)
+        end,
+      },
+    },
+    {
       event = { "BufWrite" },
       options = {
         callback = function()
