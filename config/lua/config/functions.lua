@@ -469,26 +469,49 @@ end
 --------------------------------------------------------------------------------
 
 function PickProject()
-  local items = require("project").get_recent_projects()
-  local opts = {
-    prompt = "Switch Project",
-    format_item = function(item)
-      return vim.fn.fnamemodify(item.name, ":t") .. " (" .. item.path .. ")"
-    end,
-  }
-  local on_choice = function(selected_item)
-    if selected_item == nil then
-      return
+  local cmd =
+      "fd --color never -a '.git|.hg|.bzr|.svn|Makefile|package.json|flake.nix|CMakeLists.txt' -E node_modules -E submodules -E test --format {//} -C " ..
+      vim.fn.expand("~")
+  local handle, errmsg = io.popen(cmd)
+  if handle then
+    local output = handle:read("*a")
+    handle:close()
+    local result = vim.split(output, "\n")
+    table.sort(result)
+    local items = {}
+    if (#result > 0) then
+      if result[1] == "" then
+        table.remove(result, 1)
+      end
+      table.insert(items, { name = vim.fn.fnamemodify(result[1], ":t"), path = result[1] })
+      local last = result[1]
+      for _, item in ipairs(result) do
+        if not vim.startswith(item, last) then
+          table.insert(items, { name = vim.fn.fnamemodify(item, ":t"), path = item })
+          last = item
+        end
+      end
     end
-    local path = selected_item.path
-    local result = require("project.core").set_pwd(path, "snacks")
-    if result then
+    local opts = {
+      prompt = "Switch Project",
+      format_item = function(item)
+        return item.name .. " (" .. item.path .. ")"
+      end,
+    }
+    local on_choice = function(selected_item)
+      if selected_item == nil then
+        return
+      end
+      local path = selected_item.path
+      vim.cmd("lcd " .. path)
+      vim.cmd [[ %bd ]]
       require("snacks.picker").files({ cwd = path })
-    else
-      vim.notify("Failed to changed PWD to " .. path)
     end
+    require("snacks.picker").select(items, opts, on_choice):show()
+  else
+    vim.notify("Failed to execute fd: " .. errmsg)
+    return
   end
-  require("snacks.picker").select(items, opts, on_choice):show()
 end
 
 function ChangeGitsignsBaseWithPicker()

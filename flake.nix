@@ -102,7 +102,7 @@
                 pkgs.vimPlugins.nvim-web-devicons
                 pkgs.vimPlugins.orgmode
                 pkgs.vimPlugins.plenary-nvim
-                pkgs.vimPlugins.project-nvim
+                # pkgs.vimPlugins.project-nvim
                 pkgs.vimPlugins.rainbow-delimiters-nvim
                 pkgs.vimPlugins.rustaceanvim
                 pkgs.vimPlugins.targets-vim
