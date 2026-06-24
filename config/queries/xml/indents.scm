@@ -1,16 +1,9 @@
-(element) @indent.begin
+; Opening tag: indent content on following lines
+(start_tag) @indent.begin
 
-[
-  (Attribute)
-  (AttlistDecl)
-  (contentspec)
-] @indent.align
+; Closing tag: dedent the tag line itself to match the opening tag
+(end_tag) @indent.end
 
-(ETag) @indent.branch
-
-(doctypedecl) @indent.ignore
-
-[
-  (Comment)
-  (ERROR)
-] @indent.auto
+; DOCTYPE internal subset: indent declarations inside [...]
+"[" @indent.begin
+"]" @indent.end

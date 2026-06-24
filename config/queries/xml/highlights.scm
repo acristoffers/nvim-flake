@@ -1,198 +1,78 @@
-; XML declaration
-(XMLDecl
-  "xml" @keyword.directive)
-
-(XMLDecl
-  [
-    "version"
-    "encoding"
-    "standalone"
-  ] @tag.attribute)
-
-(XMLDecl
-  (EncName) @string.special)
-
-(XMLDecl
-  (VersionNum) @number)
-
-(XMLDecl
-  [
-    "yes"
-    "no"
-  ] @boolean)
-
-; Processing instructions
-(PI) @keyword.directive
-
-; Element declaration
-(elementdecl
-  "ELEMENT" @keyword.directive.define
-  (Name) @tag)
-
-(contentspec
-  (_
-    (Name) @tag.attribute))
-
-"#PCDATA" @type.builtin
+(comment) @comment
 
 [
-  "EMPTY"
-  "ANY"
-] @keyword.modifier
-
-[
-  "*"
-  "?"
-  "+"
-] @character.special
-
-; Entity declaration
-(GEDecl
-  "ENTITY" @keyword.directive.define
-  (Name) @constant)
-
-(GEDecl
-  (EntityValue) @string)
-
-(NDataDecl
-  "NDATA" @keyword
-  (Name) @label)
-
-; Parsed entity declaration
-(PEDecl
-  "ENTITY" @keyword.directive.define
-  "%" @operator
-  (Name) @function.macro)
-
-(PEDecl
-  (EntityValue) @string)
-
-; Notation declaration
-(NotationDecl
-  "NOTATION" @keyword.directive
-  (Name) @label)
-
-; Attlist declaration
-(AttlistDecl
-  "ATTLIST" @keyword.directive.define
-  (Name) @tag)
-
-(AttDef
-  (Name) @tag.attribute)
-
-(AttDef
-  (Enumeration
-    (Nmtoken) @string))
-
-[
-  (StringType)
-  (TokenizedType)
-] @type.builtin
-
-(NotationType
-  "NOTATION" @type.builtin)
+  "DOCTYPE"
+  "ELEMENT"
+  "ATTLIST"
+  "ENTITY"
+  "NOTATION"
+] @keyword
 
 [
   "#REQUIRED"
   "#IMPLIED"
   "#FIXED"
-] @attribute
+  "#PCDATA"
+] @keyword.directive
 
-; Entities
-(EntityRef) @constant
-
-((EntityRef) @constant.builtin
-  (#any-of? @constant.builtin "&amp;" "&lt;" "&gt;" "&quot;" "&apos;"))
-
-(CharRef) @character
-
-(PEReference) @function.macro
-
-; External references
 [
-  "PUBLIC"
+  "EMPTY"
+  "ANY"
+  "CDATA"
+  "ID"
+  "IDREF"
+  "IDREFS"
+  "NMTOKEN"
+  "NMTOKENS"
+  "ENTITIES"
+] @constant.builtin
+
+[
   "SYSTEM"
+  "PUBLIC"
+  "NDATA"
 ] @keyword
 
-(PubidLiteral) @string.special
+"xml" @keyword.directive
 
-(SystemLiteral
-  (URI) @string.special.url)
+(doctype) @module
+(element_name) @module
+(attlist_name) @module
+(notation_name) @module
+(ndata_name) @module
 
-; Processing instructions
-(XmlModelPI
-  "xml-model" @keyword.directive)
+(pi_target) @function.macro
 
-(StyleSheetPI
-  "xml-stylesheet" @keyword.directive)
+(tag_name) @tag
 
-(PseudoAtt
-  (Name) @tag.attribute)
-
-(PseudoAtt
-  (PseudoAttValue) @string)
-
-; Doctype declaration
-(doctypedecl
-  "DOCTYPE" @keyword.directive.define)
-
-(doctypedecl
-  (Name) @type.definition)
-
-; Tags
-(STag
-  (Name) @tag)
-
-(ETag
-  (Name) @tag)
-
-(EmptyElemTag
-  (Name) @tag)
-
-; Attributes
-(Attribute
-  (Name) @tag.attribute)
-
-(Attribute
-  (AttValue) @string)
-
-; Delimiters & punctuation
 [
-  "<?"
-  "?>"
-  "<"
-  ">"
-  "</"
-  "/>"
-  "<!"
-  "]]>"
+  "encoding"
+  "version"
+  "standalone"
+] @attribute.builtin
+
+(attribute_name) @attribute
+
+(attribute_value) @string
+(system_literal) @string
+(pubid_literal) @string
+(entity_value) @string
+
+(entity_ref) @character.special
+(char_ref) @character.special
+(pe_reference) @character.special
+
+(cdata_sect) @markup.raw.block
+
+[
+  "<" "</" ">" "/>"
+  "<?" "?>"
 ] @tag.delimiter
 
 [
-  "("
-  ")"
-  "["
-  "]"
+  "<!" "<![" "]]>"
+  "[" "]"
 ] @punctuation.bracket
 
-[
-  "\""
-  "'"
-] @punctuation.delimiter
-
-[
-  ","
-  "|"
-  "="
-] @operator
-
-; Text
-(CharData) @none @spell
-
-(CDSect
-  (CDStart) @module
-  (CData) @markup.raw
-  "]]>" @module)
-
-; Misc
-(Comment) @comment @spell
+["="] @operator
+["&" ";" "%"] @punctuation.special
