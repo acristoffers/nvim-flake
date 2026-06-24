@@ -18,6 +18,7 @@ with pkgs;
   clang-tools
   claude-agent-acp
   claude-code
+  cppman
   cursor-cli
   delta
   dune_3
@@ -66,6 +67,7 @@ with pkgs;
   tree-sitter
   typescript
   typescript-language-server
+  util-linux
   vim-language-server
   vscode-langservers-extracted
   yaml-language-server

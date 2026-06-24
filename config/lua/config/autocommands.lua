@@ -45,6 +45,24 @@ local groups = {
     {
       event = "FileType",
       options = {
+        pattern = { "c", "cpp" },
+        callback = function()
+          local cppman_ok, cppman = pcall(require, 'cppman')
+          if not cppman_ok then
+            return
+          end
+          local opts = { buffer = true, silent = true }
+          local function map(mode, lhs, rhs, desc)
+            vim.keymap.set(mode, lhs, rhs, vim.tbl_extend("force", opts, { desc = desc }))
+          end
+          map("n", "<leader>mm", function() cppman.open_cppman_for(vim.fn.expand("<cword>")) end, "CPPman hover")
+          map("n", "<leader>ms", function() cppman.input() end, "CPPman search")
+        end,
+      },
+    },
+    {
+      event = "FileType",
+      options = {
         pattern = { "ledger" },
         callback = function()
           local opts = { buffer = true, silent = true }

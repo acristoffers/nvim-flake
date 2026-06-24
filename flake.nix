@@ -26,6 +26,9 @@
     git-worktree-git.url = "github:awerebea/git-worktree.nvim/handle_changes_in_telescope_api";
     git-worktree-git.flake = false;
 
+    cppman.url = "github:madskjeldgaard/cppman.nvim";
+    cppman.flake = false;
+
     gitlab-nvim.url = "github:acristoffers/gitlab.nvim?ref=feature/nix-and-configurable-server-path";
 
     snacks-git.url = "github:folke/snacks.nvim";
@@ -40,6 +43,7 @@
         gitlab-nvim = inputs.gitlab-nvim.packages.${system}.default;
         gitlab-nvim-server = inputs.gitlab-nvim.packages.${system}.gitlab-nvim-server;
         git-plugins = with pkgs.vimUtils; with inputs; {
+          cppman = buildVimPlugin { name = "cppman.nvim"; src = cppman; doCheck = false; };
           git-worktree = buildVimPlugin { name = "git-worktree.nvim"; src = git-worktree-git; doCheck = false; };
           snacks = buildVimPlugin { name = "snacks.nvim"; src = snacks-git; doCheck = false; };
         };
@@ -65,6 +69,7 @@
             '';
             packages.all = {
               start = [
+                git-plugins.cppman
                 git-plugins.git-worktree
                 git-plugins.snacks
                 gitlab-nvim
