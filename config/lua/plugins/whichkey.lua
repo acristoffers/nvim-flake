@@ -335,7 +335,7 @@ local options = {
     { "<leader>gs", ":lua require 'gitsigns'.stage_hunk()<cr>", desc = "Stage Hunk" },
     { "<leader>gu", ":lua require 'gitsigns'.undo_stage_hunk()<cr>", desc = "Undo Stage Hunk" },
     { "<leader>gac", ChangeGitsignsBaseWithPicker, desc = "Change base commit" },
-    { "<leader>gar", ":lua require 'gitsigns'.change_base(nil, true)<cr>", desc = "Change base commit" },
+    { "<leader>gar", ":lua require 'gitsigns'.change_base(nil, true)<cr>", desc = "Reset base commit" },
     { "<leader>gw", group = "Worktrees" },
     { "<leader>p", group = "Projects" },
     {
