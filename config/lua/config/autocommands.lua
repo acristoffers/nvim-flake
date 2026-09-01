@@ -245,6 +245,11 @@ local groups = {
             setlocal wrap
             setlocal spell
           ]])
+          vim.fn.timer_start(100, function()
+            vim.opt_local.foldmethod = "manual"
+            vim.cmd([[ help fdm ]])
+            vim.cmd([[ helpclose ]])
+          end, { once = true })
           SetTab(2)
           local ok, ts_select = pcall(require, "nvim-treesitter-textobjects.select")
           if not ok then
