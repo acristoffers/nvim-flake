@@ -29,7 +29,8 @@
     cppman.url = "github:madskjeldgaard/cppman.nvim";
     cppman.flake = false;
 
-    gitlab-nvim.url = "github:acristoffers/gitlab.nvim?ref=feature/nix-and-configurable-server-path";
+    # gitlab-nvim.url = "github:acristoffers/gitlab.nvim?ref=feature/nix-and-configurable-server-path";
+    gitlab-nvim.url = "github:harrisoncramer/gitlab.nvim";
 
     snacks-git.url = "github:folke/snacks.nvim";
     snacks-git.flake = false;
