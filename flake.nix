@@ -86,6 +86,7 @@
                 pkgs.vimPlugins.formatter-nvim
                 pkgs.vimPlugins.git-conflict-nvim
                 pkgs.vimPlugins.gitsigns-nvim
+                pkgs.vimPlugins.goto-preview
                 pkgs.vimPlugins.hop-nvim
                 pkgs.vimPlugins.lualine-lsp-progress
                 pkgs.vimPlugins.lualine-nvim

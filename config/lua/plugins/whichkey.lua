@@ -267,6 +267,49 @@ local options = {
       ":lua Snacks.picker.lsp_workspace_symbols()<cr>",
       desc = "Workspace Symbols",
     },
+    { "<leader>lp", group = "Preview" },
+    {
+      "<leader>lpd",
+      function()
+        require("goto-preview").goto_preview_definition()
+      end,
+      desc = "Definition",
+    },
+    {
+      "<leader>lpD",
+      function()
+        require("goto-preview").goto_preview_declaration()
+      end,
+      desc = "Declaration",
+    },
+    {
+      "<leader>lpi",
+      function()
+        require("goto-preview").goto_preview_implementation()
+      end,
+      desc = "Implementation",
+    },
+    {
+      "<leader>lpt",
+      function()
+        require("goto-preview").goto_preview_type_definition()
+      end,
+      desc = "Type Definition",
+    },
+    {
+      "<leader>lpr",
+      function()
+        require("goto-preview").goto_preview_references()
+      end,
+      desc = "References",
+    },
+    {
+      "<leader>lpc",
+      function()
+        require("goto-preview").close_all_win()
+      end,
+      desc = "Close All Preview Windows",
+    },
     { "<leader>t", group = "Toggle" },
     { "<leader>te", ":lua Snacks.explorer()<CR>", desc = "File Tree" },
     {
