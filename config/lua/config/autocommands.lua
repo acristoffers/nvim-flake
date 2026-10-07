@@ -246,6 +246,9 @@ local groups = {
             setlocal spell
           ]])
           vim.fn.timer_start(100, function()
+            if vim.api.nvim_win_get_config(0).relative ~= "" then
+              return
+            end
             vim.opt_local.foldmethod = "manual"
             vim.cmd([[ help fdm ]])
             vim.cmd([[ helpclose ]])
